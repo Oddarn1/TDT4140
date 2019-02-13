@@ -20,6 +20,8 @@ class AdminPage extends Component {
         this.isEmployee=[];
     }
 
+    /*As soon as the component renders, componentDidMount is ran. This function retrieves users from firebase and
+    * also sets a listener for changes in the database, e.g by updating the role of user A to admin.*/
     componentDidMount() {
         this.setState({ loading: true });
 
@@ -39,10 +41,15 @@ class AdminPage extends Component {
     }
 
 
+    /*Lifecycle method. Removes the listener when the admin-page is unrendered to keep the website running fast and stable*/
     componentWillUnmount(){
         this.props.firebase.users().off();
     }
 
+
+    /*Function for submit button.
+    * No parameters.
+    * Updates the roles of every user according to checkboxes. */
     onSubmit = () =>{
         for (let i=0;i<this.state.users.length;i++){
             const roles=[];
@@ -59,7 +66,9 @@ class AdminPage extends Component {
         }
     };
 
-
+    /*Function to create the userlist we wish to display to admin.
+    Param: the acquired userlist from reading userbase in firebase.
+    * Returns html-like object that is rendered in the render-function.*/
     UserList ({users}){
         return (
         <ul>
@@ -105,6 +114,7 @@ class AdminPage extends Component {
         );
     }
 
+    /*Renders the components given as return-value. */
     render() {
         const { users, loading } = this.state;
         const userList= this.UserList({users});
@@ -124,6 +134,7 @@ class AdminPage extends Component {
     }
 }
 
+/*Controls that authorized user is admin*/
 const condition = authUser =>
     authUser && authUser.roles.includes(ROLES.ADMIN);
 

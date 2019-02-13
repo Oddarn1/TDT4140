@@ -13,6 +13,11 @@ import AdminPage from '../Admin';
 import * as ROUTES from '../../constants/routes';
 import {withAuthentication} from '../Session';
 
+
+/*The main component. When rendered by the ReactDOM in src/index.js, this component controls the flow of the webapp
+* Router is an effective way of dealing with multi-page react-apps. This makes it possible to render page-loading
+* immediately. Landing page is not yet defined as a component, this will become the main page for both authorized and
+* unauthorized users. */
 const App = () => (
     <Router>
         <div>

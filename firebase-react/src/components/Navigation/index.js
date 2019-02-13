@@ -6,6 +6,7 @@ import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import {AuthUserContext} from '../Session';
 
+/*Navigation-component. Returns different links depending on authenticated user or not*/
 const Navigation = ()=>(
     <AuthUserContext.Consumer>
         {authUser =>
@@ -16,6 +17,7 @@ const Navigation = ()=>(
         </AuthUserContext.Consumer>
 );
 
+/*Adds sign-out button, account-page, homepage and so on. */
 const NavigationAuth = ({authUser}) => (
         <ul>
             <li>
@@ -38,6 +40,7 @@ const NavigationAuth = ({authUser}) => (
         </ul>
 );
 
+/*Hides link to irrelevant and unaccessible pages.*/
 const NavigationNonAuth = () => (
   <ul>
       <li>

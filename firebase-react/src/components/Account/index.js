@@ -4,6 +4,9 @@ import { PasswordForgetForm } from '../PasswordForget';
 import PasswordChangeForm from '../PasswordChange';
 import {AuthUserContext, withAuthorization } from '../Session';
 
+
+/*AccountPage is a component which is only available for signed-in users. This component lists email, roles (user,employee,admin)
+ * and also gives the possibility to change password */
 const AccountPage = () => (
     <AuthUserContext.Consumer>
         {authUser=> (

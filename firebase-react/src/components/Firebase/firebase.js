@@ -11,6 +11,7 @@ export const config = {
     messagingSenderId: "903452096243"
 };
 
+/*The main API for use of firebase. Includes built-in functions for firebase authentication. */
 class Firebase {
     constructor(){
         app.initializeApp(config);

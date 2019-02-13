@@ -23,6 +23,9 @@ class PasswordForgetFormBase extends Component {
         this.state = { ...INITIAL_STATE };
     }
 
+
+    /*Uses built-in functions in firebase to send email for password-change.
+    * The link that gets sent is also built in to firebase and is not programmed manually. */
     onSubmit = event => {
         const { email } = this.state;
 

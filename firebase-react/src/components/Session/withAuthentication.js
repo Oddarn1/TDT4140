@@ -3,6 +3,9 @@ import React from 'react';
 import AuthUserContext from './context';
 import {withFirebase} from "../Firebase";
 
+/*Function to pass authentication on to components to keep user signed in. Used for control of available pages.
+* Param: Component
+* Return: Component with authentication-functions. */
 const withAuthentication = Component => {
     class WithAuthentication extends React.Component {
         constructor(props) {
@@ -13,6 +16,7 @@ const withAuthentication = Component => {
             };
         }
 
+        /*Listens for authenticated user.*/
         componentDidMount() {
             this.listener = this.props.firebase.onAuthUserListener(
                 authUser => {
@@ -24,6 +28,7 @@ const withAuthentication = Component => {
             );
         }
 
+        /*Removes listener for users. */
         componentWillUnmount() {
             this.listener();
         }

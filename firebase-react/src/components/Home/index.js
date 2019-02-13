@@ -2,6 +2,7 @@ import React from 'react';
 
 import { withAuthorization } from '../Session';
 
+/*Homepage-component. Not any functionality added yet. Exported with authenticated user as prop to keep user signed in.*/
 const HomePage = () => (
     <div>
         <h1>Home Page</h1>
