@@ -13,11 +13,12 @@ class AdminPage extends Component {
             loading: false,
             users: [],
             error: null,
-            queriedUsers:[],
+            searchQuery: "",
         };
 
         this.isAdmin=[];
         this.isEmployee=[];
+        this.onChange=this.onChange.bind(this);
     }
 
     /*As soon as the component renders, componentDidMount is ran. This function retrieves users from firebase and
@@ -40,6 +41,25 @@ class AdminPage extends Component {
         });
     }
 
+    onChange=event=>{
+        this.setState({searchQuery:event.target.value});
+        this.setState({loading:true});
+        this.props.firebase.users().orderByChild('username').startAt(this.state.searchQuery)
+            .endAt(this.state.searchQuery+"\uf8ff").on('value', snapshot => {
+            const usersObject = snapshot.val();
+
+            if (usersObject===null) {return null}
+            const usersList = Object.keys(usersObject).map(key => ({
+                ...usersObject[key],
+                uid: key,
+            }));
+
+            this.setState({
+                users: usersList,
+                loading: false,
+            });
+        });
+    };
 
     /*Lifecycle method. Removes the listener when the admin-page is unrendered to keep the website running fast and stable*/
     componentWillUnmount(){
@@ -114,6 +134,8 @@ class AdminPage extends Component {
         );
     }
 
+
+
     /*Renders the components given as return-value. */
     render() {
         const { users, loading } = this.state;
@@ -125,6 +147,7 @@ class AdminPage extends Component {
                 <p>
                     The Admin page is accessible by every signed in admin user.
                 </p>
+                <input type="text" value={this.state.searchQuery} onChange={this.onChange} placeholder="Search users"/>
                 {loading && <div>Loading ...</div>}
                 <div ref="ListUsers">{userList}</div>
                 {this.state.error}
