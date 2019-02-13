@@ -41,6 +41,7 @@ class AdminPage extends Component {
         });
     }
 
+    /*While searching: update the user-list. Functions for managing roles are still stable.*/
     onChange=event=>{
         this.setState({searchQuery:event.target.value});
         this.setState({loading:true});
@@ -48,7 +49,12 @@ class AdminPage extends Component {
             .endAt(this.state.searchQuery+"\uf8ff").on('value', snapshot => {
             const usersObject = snapshot.val();
 
-            if (usersObject===null) {return null}
+            if (usersObject===null) {
+                this.setState({
+                    users:[],
+                    loading: false,
+                });
+                return}
             const usersList = Object.keys(usersObject).map(key => ({
                 ...usersObject[key],
                 uid: key,
