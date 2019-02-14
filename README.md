@@ -1,2 +1,0 @@
-Programvareutvikling gruppe 21.
-
