@@ -7,9 +7,6 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import {PasswordForgetLink} from "../PasswordForget";
 
-
-/*Component for handling signing in.
-* Includes links to signup and password-forget. */
 const SignInPage = () => (
     <div>
         <h1>SignIn</h1>
@@ -32,9 +29,6 @@ class SignInFormBase extends Component {
         this.state = { ...INITIAL_STATE };
     }
 
-    /*Uses built-in firebase-functions to authenticate user and control login-credentials.
-    * Firebase deals with passwords, no way of accessing users' passwords.
-    * After sign-in: redirect to home-page.*/
     onSubmit = event => {
         const { email, password } = this.state;
 

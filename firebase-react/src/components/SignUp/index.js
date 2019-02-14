@@ -6,7 +6,6 @@ import {compose} from 'recompose';
 import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
 
-/*The main component for SignUp*/
 const SignUpPage= () => (
     <div>
         <h1>SignUp</h1>
@@ -22,7 +21,6 @@ const INITIAL_STATE = {
     error: null,
 };
 
-/*The base of the signup form.*/
 class SignUpFormBase extends Component {
     constructor(props) {
         super(props);
@@ -30,7 +28,7 @@ class SignUpFormBase extends Component {
         this.state={...INITIAL_STATE};
     }
 
-    /*Uses built-in functions in firebase for signing up.*/
+
     onSubmit = event =>{
         const { username, email, passwordOne } = this.state;
         const roles =[];

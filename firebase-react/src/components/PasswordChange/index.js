@@ -8,8 +8,6 @@ const INITIAL_STATE = {
     error: null,
 };
 
-
-/*Password-change component. Used in account-page and linked to from signup-page.*/
 class PasswordChangeForm extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +15,6 @@ class PasswordChangeForm extends Component {
         this.state = { ...INITIAL_STATE };
     }
 
-    /*Controls passwords and uses firebase built-in-function for password-update.*/
     onSubmit = event => {
         const { passwordOne } = this.state;
 
@@ -33,7 +30,6 @@ class PasswordChangeForm extends Component {
         event.preventDefault();
     };
 
-    /*Keeps track of input in fields and gives visual feedback of password-entering.*/
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };

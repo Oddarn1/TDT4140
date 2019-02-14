@@ -6,12 +6,8 @@ import AuthUserContext from './context';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
-/*Function for keeping track of authorization (Admin, employee etc).
-* Param: condition (e.g currentUser.roles.includes("ADMIN").
-* Return: Component with user-conditions passed on. */
 const withAuthorization = condition => Component => {
     class WithAuthorization extends React.Component {
-        /*Creates listener for authorization.*/
         componentDidMount() {
             this.listener = this.props.firebase.onAuthUserListener(
                 authUser => {
@@ -23,7 +19,6 @@ const withAuthorization = condition => Component => {
             );
         }
 
-        /*Removes listener*/
         componentWillUnmount() {
             this.listener();
         }
