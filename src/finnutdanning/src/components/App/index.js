@@ -11,6 +11,7 @@ import NotFound from '../NotFound';
 
 import * as ROUTES from '../../constants/routes';
 
+/*The main component of the application. Deals with routes and which components to render at different paths.*/
 const App =()=>(
     <Router>
         <div>

@@ -8,14 +8,17 @@ class Landing extends Component {
         this.state={
           search: "",
         };
+        /*Functions that alter the state*/
         this.onChange=this.onChange.bind(this);
         this.submit=this.submit.bind(this);
     }
 
+    /*Gets event from searchbar, provides the state with a value to be displayed in the input field's value*/
     onChange(event){
         this.setState({search: event.target.value});
     }
 
+    /*Redirects the user to result-page on button-press*/
     submit(){
         this.props.history.push(ROUTES.RESULTS);
     }
