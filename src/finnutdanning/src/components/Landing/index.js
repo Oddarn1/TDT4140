@@ -26,7 +26,7 @@ class Landing extends Component {
     submit() {
         this.props.history.push({
             pathname: ROUTES.RESULTS,
-            state: {query: this.state.search}
+            state: {query: this.state.search.substring(0,this.state.search.length-2)}
         })
     }
 

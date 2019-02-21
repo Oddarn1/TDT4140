@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {withFirebase} from '../Firebase';
+import {compose} from 'recompose';
 
 const INITIAL_STATE = {
     email:"",
@@ -18,6 +19,24 @@ class Register extends Component {
     onChange(event){
         this.setState({[event.target.name]:event.target.value});
     }
+
+
+    /*Firebase: write to database with user info. Creates new user and a unique user id*/
+    submit=event=> {
+        const {email, fullName, role} = this.state;
+        role.push("Admin");
+        event.preventDefault();
+        this.props.firebase.users().push({
+            email,
+            fullName,
+            role
+        })
+            .then(
+                this.setState({...INITIAL_STATE})
+            )
+            .catch(error =>
+                this.setState({error: error}))
+    };
 
     render(){
         return(
@@ -42,6 +61,8 @@ class Register extends Component {
                 <label>Rolle</label>
                 <input type="checkbox"/>
 
+
+                <button className="submitRegister" onClick={this.submit}>Registrér</button>
 
 
             </div>

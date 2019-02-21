@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route,Switch} from 'react-router-dom';
+import {withFirebase} from '../Firebase';
 
 import Navigation from '../Navigation';
 import Admin from '../Admin';
@@ -29,4 +30,4 @@ const App =()=>(
     </Router>
 );
 
-export default App;
+export default withFirebase(App);
