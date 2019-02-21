@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     email:"",
     fullName:"",
     error:null,
-    role: ""
+    role: []
 };
 
 class Register extends Component {
@@ -29,6 +29,21 @@ class Register extends Component {
                        onChange={this.onChange}
                        name="email"
                        />
+
+                <label>
+                Fullt navn
+                <input value={this.state.fullName}
+                        placeholder="Fullt navn"
+                        onChange={this.onChange}
+                        name="fullName"
+                        />
+                        </label>
+
+                <label>Rolle</label>
+                <input type="checkbox"/>
+
+
+
             </div>
 
         )
