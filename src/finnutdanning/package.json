@@ -29,6 +29,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "case-sensitive-paths-webpack-plugin": "^2.2.0",
     "react-test-renderer": "^16.8.1"
   }
 }
