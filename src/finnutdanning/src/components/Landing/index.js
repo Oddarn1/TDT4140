@@ -14,7 +14,7 @@ class Landing extends Component {
         this.closeMenu=this.closeMenu.bind(this);
         this.onChange=this.onChange.bind(this);
         this.submit=this.submit.bind(this);
-        this.onClick=this.onClick.bind(this);
+        this.capture=this.capture.bind(this);
     }
 
     /*Gets event from searchbar, provides the state with a value to be displayed in the input field's value*/
@@ -42,6 +42,9 @@ class Landing extends Component {
     closeMenu(event){
         event.preventDefault();
 
+        if (this.dropDownMenu===null){
+            return;
+        }
         if(!this.dropDownMenu.contains(event.target)) {
 
             this.setState({showMenu: false},
@@ -51,21 +54,37 @@ class Landing extends Component {
         }
     }
 
-    onClick(query){
-        this.setState({search:query});
+    /*Gets the value from buttons that will be made into a list*/
+    capture(event){
+        let text = this.state.search;
+        let input = event.target.value;
+
+        text +=(this.containsString(text,input) ? "" : input + ", ");
+        this.setState({search:text});
+    }
+
+    /*Control method to check if searchstring already contains string*/
+    containsString(text,elem){
+        if (text.length === 0) {
+            return false;
+        }
+        let textArr=text.split(',');
+        return textArr.includes("\s+"+elem);
     }
 
     render(){
         return(
-    <div>
+    <div className="searchBar">
         <input type="text" placeholder="Interesser" onChange={this.onChange} value={this.state.search} onClick={this.showMenu}/>
         {this.state.showMenu ?
             <div className="dropDown" ref={(element)=>
             this.dropDownMenu=element}>
-                <Dropdown onClick={this.onClick}/>
+                <Dropdown capture={this.capture}/>
             </div>
             :null}
-        <button onClick={this.submit}> Resultater </button>
+            <div className="submitButton">
+                <button onClick={this.submit}> Resultater </button>
+            </div>
     </div>
             );
     }
