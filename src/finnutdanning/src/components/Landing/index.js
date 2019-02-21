@@ -68,9 +68,8 @@ class Landing extends Component {
         if (text.length === 0) {
             return false;
         }
-        let textArr=text.split(',');
-        return textArr.includes("\s+"+elem);
-    }
+        return text.includes(elem);
+        }
 
     render(){
         return(

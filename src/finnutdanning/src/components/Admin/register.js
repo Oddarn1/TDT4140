@@ -30,7 +30,6 @@ class Register extends Component {
                        name="email"
                        />
             </div>
-
         )
     }
 
