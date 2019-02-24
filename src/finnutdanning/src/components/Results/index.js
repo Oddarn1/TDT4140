@@ -8,6 +8,7 @@ class Results extends Component {
   }
 
   render(){
+    const query=this.props.location.state.query;
     return(
     <div>
         {/*Sprint 1 TODO:
@@ -17,6 +18,7 @@ class Results extends Component {
         * Save results to specific users, make most recent (max 10) searches available when searching.*/}
         <p> {this.props.location.state.search} </p>
         <GetResults interest={this.props.location.state.search}/>
+        <div>{query}</div>
         <div>[Placeholder for ordsky]</div>
     </div>
 
