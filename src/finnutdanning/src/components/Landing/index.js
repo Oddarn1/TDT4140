@@ -20,7 +20,7 @@ class Landing extends Component {
 
     /*Redirects the user to result-page on button-press*/
     submit(){
-        this.props.history.push(ROUTES.RESULTS);
+        this.props.history.push({pathname:ROUTES.RESULTS, state:{search:this.state.search}});
     }
 
     render(){
