@@ -5,7 +5,8 @@ const INITIAL_STATE = {
     email:"",
     fullName:"",
     error:null,
-    role: []
+    role: ''
+
 };
 
 class Register extends Component {
@@ -13,22 +14,31 @@ class Register extends Component {
         super(props);
         this.state={...INITIAL_STATE};
         this.onChange=this.onChange.bind(this);
+        this.onSubmit=this.onSubmit.bind(this);
     }
 
     onChange(event){
         this.setState({[event.target.name]:event.target.value});
     }
 
+    onSubmit = event => {
+        console.log(this.state);
+    }
+
+
     render(){
+        const { email, fullName, role} = this.state;
+        const isInvalid = email === '' || fullName === '' || role === '';
         return(
-            <div className="register">
+            <form className="register"  onSubmit={this.onSubmit}>
                 <h1>Registrer bruker</h1>
-                <label>E-post</label>
+                <label>E-post </label>
                 <input value={this.state.email}
                        placeholder="E-post"
                        onChange={this.onChange}
                        name="email"
                        />
+                       <br/>
 
                 <label>
                 Fullt navn
@@ -38,13 +48,46 @@ class Register extends Component {
                         name="fullName"
                         />
                         </label>
+                        <br/>
 
-                <label>Rolle</label>
-                <input type="checkbox"/>
+                <label>Rolle: </label>
 
+                <label>Bruker</label>
+                <input type="radio"
+                        name="role"
+                        value="user"
+                        checked={this.state.role === "user"}
+                        onChange={this.onChange}
+                        />
 
+                <label> Veileder</label>
+                <input type="radio"
+                    name="role"
+                    value="counselor"
+                    checked={this.state.role === "counselor"}
+                    onChange={this.onChange}
+                        />
 
-            </div>
+                <label> Ansatt</label>
+                <input type="radio"
+                    name="role"
+                    value="employee"
+                    checked={this.state.role === "employee"}
+                    onChange={this.onChange}
+                        />
+
+                <label> Admin</label>
+                <input type="radio"
+                    name="role"
+                    value="admin"
+                    checked={this.state.role === "admin"}
+                    onChange={this.onChange}
+                        />
+                        <br/>
+
+                <button disabled={isInvalid} type="submit">Registrer
+                </button>
+            </form>
 
         )
     }
