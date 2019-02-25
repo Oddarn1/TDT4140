@@ -1,18 +1,18 @@
 {
   "Sudoku": [
     "Matematikk",
-    "Datateknikk",
+    "Datateknikk"
   ],
   "Industri": [
     "Industrioppmålingsfag",
     "Industriell matproduksjon",
     "Industriell overflatebehandling",
     "Industriell skotøyproduksjon",
-    "Industrisømfag",
+    "Industrisømfag"
   ],
   "Rengjøring": [
     "Renholdsoperatørfag",
-    "Tekstilrensfag",
+    "Tekstilrensfag"
   ],
   "Materialer": [
     "Polymerkomposittfag",
@@ -25,14 +25,14 @@
     "Fag- og yrkesfaglærerutdanning",
     "Grunnskolelærerutdanning 1.-7.",
     "Grunnskolelærerutdanning 5.-10.",
-    "Barnehagelærerutdanning",
+    "Barnehagelærerutdanning"
   ],
   "Båt": [
     "Nautisk instrumentmakerfag",
     "Matrosfag",
     "Maritime fag",
     "Trebåtbyggerfag",
-    "Komposittbåtbyggerfag",
+    "Komposittbåtbyggerfag"
   ],
   "Mote": [
     "Mote og industridesign",
@@ -40,7 +40,7 @@
     "Frisørfag",
     "Maskør- og parykkmakerfag",
     "Kunstfag",
-    "Sminkørutdanning (make-up artist)",
+    "Sminkørutdanning (make-up artist)"
   ],
   "Samisk": [
     "Horn-, bein- og metallduodjifag",
@@ -48,25 +48,25 @@
     "Tekstilduodjifag",
     "Skinn- og pelsduodjifag",
     "Veve- og håndstrikkeduodjifag",
-    "Reindriftsfag",
+    "Reindriftsfag"
   ],
   "Lesing": [
     "Litteraturvitenskap",
     "Språkvitenskapelig utdanning",
     "Forfatterutdanning",
-    "Historie",
+    "Historie"
   ],
   "Klima": [
     "Kjemi og bioteknologi",
     "Akvakulturfag",
     "Skogfag",
-    "Gjenvinningsfag",
+    "Gjenvinningsfag"
   ],
   "Hage": [
     "Anleggsgartnerfag",
     "Gartnernæring",
     "Landbruk",
-    "Skogfag",
+    "Skogfag"
   ],
   "Natur": [
     "Akvakulturfag",
@@ -75,21 +75,21 @@
     "Gartnernæring",
     "Landbruk",
     "Skogfag",
-    "Landbruksfag og naturbruk",
+    "Landbruksfag og naturbruk"
   ],
   "Idrett": [
     "Idrettsanleggsfag",
-    "Idrettsfag",
+    "Idrettsfag"
   ],
   "Dyr": [
     "Hestefag",
-    "Reindriftsfag",
+    "Reindriftsfag"
   ],
   "Film/TV": [
     "Film- og TV-produksjon",
     "Maskør- og parykkmakerfag",
     "Animasjon, spill- og 3D-design",
-    "Sminkørutdanning (make-up artist)",
+    "Sminkørutdanning (make-up artist)"
   ],
   "Mat": [
     "Servitørfag",
@@ -97,23 +97,23 @@
     "Matvitenskap",
     "Institusjonskokkfag",
     "Kokkfag",
-    "Konditorfag",
+    "Konditorfag"
   ],
   "Bil": [
     "Yrkessjåførfag",
     "Bilfaget, lette kjøretøy",
     "Bilfaget, tunge kjøretøy",
     "Billakkererfag",
-    "Bilskadefag",
+    "Bilskadefag"
   ],
   "Dataspill": [
     "Animasjon, spill- og 3D-design",
     "Datateknikk",
-    "Elektro",
+    "Elektro"
   ],
   "Fotografi": [
     "Fotografi",
     "Grafisk design",
-    "Kunstfag",
+    "Kunstfag"
   ]
 }
