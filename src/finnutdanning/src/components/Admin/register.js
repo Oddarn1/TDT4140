@@ -18,6 +18,7 @@ class Register extends Component {
         this.submit=this.submit.bind(this);
     }
 
+
     onChange(event){
         this.setState({[event.target.name]:event.target.value});
     }
@@ -47,6 +48,7 @@ class Register extends Component {
         const { email, fullName, role} = this.state;
         const isInvalid = email === '' || fullName === '' || role === '';
         return(
+            <div>
             <form className="register"  onSubmit={this.onSubmit}>
                 <h1>Registrer bruker</h1>
                 <label>E-post </label>
@@ -106,6 +108,8 @@ class Register extends Component {
                 </button>
             </form>
 
+
+        </div>
         )
     }
 
