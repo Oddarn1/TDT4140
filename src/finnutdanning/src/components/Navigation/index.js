@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
+import "./index.css";
 
 /*Whenever TODO:
 Implement search bar in the navigation bar.

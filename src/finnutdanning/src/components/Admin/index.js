@@ -16,6 +16,10 @@ class Admin extends Component {
         this.props.firebase.users().on('value', snapshot => {
             const usersObject = snapshot.val();
 
+            if (usersObject===null){
+                return;
+            }
+
             const usersList = Object.keys(usersObject).map(key => ({
                 ...usersObject[key],
                 uid: key,
@@ -38,16 +42,16 @@ class Admin extends Component {
                 {users.map(user => (
                     <li key={user.uid}>
                         <span>
-                            <strong>ID:</strong> {user.uid}
+                            <strong>ID:</strong> &nbsp; {user.uid}
                         </span>
                         <span>
-                            <strong>E-Mail:</strong> {user.email}
+                            <strong>&nbsp;&nbsp;E-post:</strong>&nbsp; {user.email}
                         </span>
                         <span>
-                            <strong>Username:</strong> {user.fullName}
+                            <strong>&nbsp;&nbsp;Fullt navn:</strong>&nbsp; {user.fullName}
                         </span>
                         <span>
-                            <strong>Role:</strong> {user.role}
+                            <strong>&nbsp;&nbsp;Rolle:</strong> &nbsp;{user.role}
                         </span>
                     </li>
                 ))}

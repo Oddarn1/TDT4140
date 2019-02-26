@@ -9,6 +9,7 @@ import Messages from '../Messages';
 import About from '../About';
 import Results from '../Results';
 import NotFound from '../NotFound';
+import './index.css';
 
 import * as ROUTES from '../../constants/routes';
 
@@ -16,8 +17,9 @@ import * as ROUTES from '../../constants/routes';
 const App =()=>(
     <Router>
         <div>
-            <Navigation/>
+            <Navigation className="navBar"/>
 
+            <div className="content">
             <Switch>
             <Route exact path={ROUTES.LANDING} component={Landing}/>
             <Route path={ROUTES.ADMIN} component={Admin}/>
@@ -26,6 +28,7 @@ const App =()=>(
             <Route path={ROUTES.RESULTS} component={Results}/>
             <Route component={NotFound}/>
             </Switch>
+            </div>
         </div>
     </Router>
 );

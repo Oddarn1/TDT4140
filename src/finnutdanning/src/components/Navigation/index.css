@@ -1,0 +1,9 @@
+.header {
+    position: fixed;
+    height: 20px;
+}
+
+link {
+    float: right;
+    padding: 20px 16px;
+}
