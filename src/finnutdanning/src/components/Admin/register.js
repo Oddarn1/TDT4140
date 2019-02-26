@@ -4,7 +4,7 @@ import {withFirebase} from '../Firebase';
 const INITIAL_STATE = {
     email:"",
     fullName:"",
-    error:null,
+    error:"hei",
     role: ''
 
 };
@@ -16,11 +16,24 @@ class Register extends Component {
         this.onChange=this.onChange.bind(this);
         this.onSubmit=this.onSubmit.bind(this);
         this.submit=this.submit.bind(this);
+        this.isRegistered=this.isRegistered.bind(this);
     }
-
 
     onChange(event){
         this.setState({[event.target.name]:event.target.value});
+    }
+
+    isRegistered(email){
+        //TODO: Access emails of all users.
+        const users=this.props.registered;
+        for(var i=0;i<users.length;i++) {
+            console.log(users[i].email);
+            if (!users[i].email.toLowerCase().localeCompare(email.toLowerCase())) {
+                this.setState({error: "Eposten er allerede registrert."});
+                return true;
+            }
+        }
+        return false;
     }
 
     /*Firebase: write to database with user info. Creates new user and a unique user id*/
@@ -37,10 +50,17 @@ class Register extends Component {
             )
             .catch(error =>
                 this.setState({error: error}))
-    };
+        };
 
-    onSubmit = () => {
-        console.log("Registration complete");
+    onSubmit = (event) => {
+        event.preventDefault();
+        if(!this.isRegistered(this.state.email)) {
+            this.submit(event);
+            console.log("Registration complete");
+            this.setState({error: null});
+        }else{
+            console.log("Registration failed");
+        }
     };
 
 
@@ -103,9 +123,10 @@ class Register extends Component {
                     onChange={this.onChange}
                         />
                         <br/>
-
-                <button disabled={isInvalid} onClick={this.submit} type="submit">Registrer
+                <button disabled={isInvalid} type="submit">Registrer
                 </button>
+                {this.state.error} <br/>
+                Users: {this.props.users}
             </form>
 
 

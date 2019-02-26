@@ -36,6 +36,10 @@ class Admin extends Component {
         this.props.firebase.users().off();
     }
 
+    getUsers(){
+        return this.state.users;
+    }
+
     UserList ({users}) {
         return (
             <ul>
@@ -66,7 +70,7 @@ class Admin extends Component {
 
         return (
             <div>
-                <Register/>
+                {users.length===0?null:<Register registered={users}/>}
                 {loading && <div>Loading ...</div>}
                 <div ref="ListUsers">{userList}</div>
             {/*Sprint 1 TODO:
