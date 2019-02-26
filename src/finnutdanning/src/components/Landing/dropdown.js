@@ -14,16 +14,20 @@ class Dropdown extends Component{
         // Oppretter tomt array for å lagre interesser
         var interests = [];
 
+        // Fyller arrayet med alle mulige interesser
         Object.keys(jsonData).forEach(function(interest){
             interests.push(interest)
         });
 
-        const menu = interests.map(interest=>
-            <button value = {interest} onClick = {this.props.capture}>{interest}</button>);
+        // Lager HTML-liste med alle knappene som skal lages
+        var allButtons = interests.sort().map((interest) =>
+            <button value = {interest} onClick = {this.props.capture}>{interest}</button>
+        );
         
         return(
+            // Itererer gjennom alle interessene for å lage knapper
             <div>
-                {menu}
+                {allButtons}
             </div>
         )
     }
