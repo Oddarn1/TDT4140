@@ -25,7 +25,6 @@ class Register extends Component {
     }
 
     isRegistered(email){
-        //TODO: Access emails of all users.
         const users=this.props.registered;
         for(var i=0;i<users.length;i++) {
             console.log(users[i].email);
@@ -134,9 +133,6 @@ class Register extends Component {
         )
     }
 
-    /*TODO:
-    * Create register-form, confirm registration details (matching passwords, email contains @ and so on.
-    * Write to firebase with the call this.props.firebase.*Function goes here*. */
 }
 
 export default withFirebase(Register);

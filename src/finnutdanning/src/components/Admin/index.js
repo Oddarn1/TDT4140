@@ -74,11 +74,8 @@ class Admin extends Component {
                 {loading && <div>Loading ...</div>}
                 {!loading && <h1>Brukere: </h1>}
                 <div ref="ListUsers">{userList}</div>
-            {/*Sprint 1 TODO:
-        * Create a way to register and administrate employees (counselors and general employees).
-        * Making use of firebase to store employees and admins might be a good idea.
-        * Sprint 2: TODO:
-        * Ability to administrate all registered users in the application. Firebase also a good idea here.*/}
+            {/* Sprint 2: TODO:
+            * Ability to administrate all registered users in the application. Firebase also a good idea here.*/}
         </div>
         );
     }
