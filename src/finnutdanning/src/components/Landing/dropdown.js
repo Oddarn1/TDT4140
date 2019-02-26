@@ -18,17 +18,16 @@ class Dropdown extends Component{
         Object.keys(jsonData).forEach(function(interest){
             interests.push(interest)
         })
+
+        // Lager HTML-liste med alle knappene som skal lages
+        var allButtons = interests.sort().map((interest) =>
+            <button value = {interest} onClick = {this.props.capture}>{interest}</button>
+        )
         
         return(
             // Itererer gjennom alle interessene for å lage knapper
-            // "Placeholder" blir ikke registrert i søkefelt...
             <div>
-                {interests.map(function(interest){
-                    return <button value = {interest} onClick = {"placeholder".capture}>{interest}</button>
-                })}
-                <button value="Fotball" onClick={this.props.capture}>Fotball</button>
-                <button value="Sudoku" onClick={this.props.capture}> Sudoku </button>
-                <button value="Helse" onClick={this.props.capture}> Helse </button>
+                {allButtons}
             </div>
         )
     }
