@@ -1,24 +1,24 @@
 import React, {Component} from 'react'
 
 export class GetResults extends Component {
-  constructor(props) {
-    super(props);
-  }
+    constructor(props) {
+      super(props);
+    };
 
-  render() {
-    // Tar inn interessene som det søkes med
-    const search = this.props.interests;
+    render() {
+      // Tar inn interessene som det søkes med
+      const search = this.props.interests;
 
-    // Lager en array med strings fra søket
-    var interests = search.split(', ');
+      // Lager en array med strings fra søket
+      let interests = search==="" ? ["Ingen interesser angitt"]:search.split(', ');
 
     // Henter json-filen som har alle mulige interesser og koblingen til studieretninger
     var jsonData = require('../../data/interests');
 
     // Lager en liste som i utgangspunktet sier at interessen ikke har noen studieretninger
-    var listOfStudyProgramme = <li> Ingen studieretninger </li>;
+    let listOfStudyProgramme = <li> Ingen studieretninger </li>;
     // En liste med alle studieretninger som kommer fra interessene
-    var studiesList = []
+    var studiesList = [];
 
     // Itererer gjennom alle interessene
     interests.forEach(interest => {
@@ -32,19 +32,21 @@ export class GetResults extends Component {
             if (!studiesList.includes(study)) {
               // Om det er en ny studieretning settes den bakerst i listen
               studiesList.push(study);
-            };
+            }
         });
       }
     });
 
     // Lager en htlm-liste for alle studieretningene som matchet med søket
-    listOfStudyProgramme = studiesList.map((studie) =>
+    listOfStudyProgramme = studiesList.length===0 ? listOfStudyProgramme : studiesList.map((studie) =>
         <li> {studie} </li>
     );
 
     return(
       <div>
-        <ul>
+          {search}
+          <ul>
+
             { listOfStudyProgramme }
         </ul>
       </div>

@@ -16,9 +16,8 @@ class Results extends Component {
         * analytics on values and create wordcloud by popularity.
         * Sprint 3 TODO:
         * Save results to specific users, make most recent (max 10) searches available when searching.*/}
-        <p> {this.props.location.state.search} </p>
-        <GetResults interests={this.props.location.state.query}/>
-        <div>{query}</div>
+        <p> {query} </p>
+        <GetResults interests={query}/>
         <div>[Placeholder for ordsky]</div>
     </div>
 

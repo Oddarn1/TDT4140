@@ -12,20 +12,18 @@ class Dropdown extends Component{
         var jsonData = require('../../data/interests');
         
         // Oppretter tomt array for å lagre interesser
-        var interests = []
+        var interests = [];
 
         Object.keys(jsonData).forEach(function(interest){
             interests.push(interest)
-        })
+        });
+
+        const menu = interests.map(interest=>
+            <button value = {interest} onClick = {this.props.capture}>{interest}</button>);
         
         return(
             <div>
-                {interests.map(function(interest){
-                    return <button value = {interest} onClick = {"placeholder".capture}>{interest}</button>
-                })}
-                <button value="Fotball" onClick={this.props.capture}>Fotball</button>
-                <button value="Sudoku" onClick={this.props.capture}> Sudoku </button>
-                <button value="Helse" onClick={this.props.capture}> Helse </button>
+                {menu}
             </div>
         )
     }
