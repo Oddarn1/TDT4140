@@ -70,8 +70,9 @@ class Admin extends Component {
 
         return (
             <div>
-                {users.length===0?null:<Register registered={users}/>}
+                <Register registered={users}/>
                 {loading && <div>Loading ...</div>}
+                {!loading && <h1>Brukere: </h1>}
                 <div ref="ListUsers">{userList}</div>
             {/*Sprint 1 TODO:
         * Create a way to register and administrate employees (counselors and general employees).

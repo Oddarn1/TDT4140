@@ -1,10 +1,11 @@
 import React,{Component} from 'react';
 import {withFirebase} from '../Firebase';
+import * as ROLES from '../../constants/roles';
 
 const INITIAL_STATE = {
     email:"",
     fullName:"",
-    error:"hei",
+    error:null,
     role: ''
 
 };
@@ -94,39 +95,38 @@ class Register extends Component {
                 <label>Bruker</label>
                 <input type="radio"
                         name="role"
-                        value="user"
-                        checked={this.state.role === "user"}
+                        value={ROLES.USER}
+                        checked={this.state.role === ROLES.USER}
                         onChange={this.onChange}
                         />
 
                 <label> Veileder</label>
                 <input type="radio"
                     name="role"
-                    value="counselor"
-                    checked={this.state.role === "counselor"}
+                    value={ROLES.COUNSELOR}
+                    checked={this.state.role === ROLES.COUNSELOR}
                     onChange={this.onChange}
                         />
 
                 <label> Ansatt</label>
                 <input type="radio"
                     name="role"
-                    value="employee"
-                    checked={this.state.role === "employee"}
+                    value={ROLES.EMPLOYEE}
+                    checked={this.state.role === ROLES.EMPLOYEE}
                     onChange={this.onChange}
                         />
 
                 <label> Admin</label>
                 <input type="radio"
                     name="role"
-                    value="admin"
-                    checked={this.state.role === "admin"}
+                    value={ROLES.ADMIN}
+                    checked={this.state.role === ROLES.ADMIN}
                     onChange={this.onChange}
                         />
                         <br/>
                 <button disabled={isInvalid} type="submit">Registrer
                 </button>
                 {this.state.error} <br/>
-                Users: {this.props.users}
             </form>
 
 
