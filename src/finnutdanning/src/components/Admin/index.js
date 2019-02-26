@@ -21,4 +21,6 @@ class Admin extends Component {
     }
 }
 
+
 export default withFirebase(Admin);
+
