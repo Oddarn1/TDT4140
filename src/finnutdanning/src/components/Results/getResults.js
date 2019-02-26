@@ -39,7 +39,7 @@ export class GetResults extends Component {
             };
             // Oppdaterer liste over studier
             studiesList.forEach(element =>{
-              if (element.name == study){
+              if (element.studyProgramme == study){
                 element.relevance += weight;
                 element.reason.push(interest);
               }
@@ -55,7 +55,7 @@ export class GetResults extends Component {
 
     // Lager en html-liste for alle studieretningene som matchet med søket
     listOfStudyProgramme = studiesList.slice(0,5).map((studie) =>
-        <li> {studie.studyProgramme} </li>
+        <li> {studie.studyProgramme} {studie.relevance} </li>
     );
 
     return(
