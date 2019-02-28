@@ -51,12 +51,12 @@ export class GetResults extends Component {
     
     // Sorterer listen basert på relevans
     studiesList.sort(function(a, b){
-      return a.relevance - b.relevance;
+      return b.relevance - a.relevance;
     });
 
 
     // Lager en html-liste for alle studieretningene som matchet med søket
-    listOfStudyProgramme = studiesList.slice(0,5).map((studie) =>
+    listOfStudyProgramme = studiesList.length===0?<li> Ingen studieretninger </li>: studiesList.slice(0,5).map((studie) =>
         <li> {studie.studyProgramme} {studie.relevance} </li>
     );
 
