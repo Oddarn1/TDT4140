@@ -9,9 +9,6 @@ Sprint 2 TODO:
 User-protected routes, make sure registered users get access to messages, employees to employee-protected pages and so on.*/
 
 class Navigation extends Component{
-    constructor(props){
-        super(props);
-    }
 
     render(){
         return(

@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
 
 export class GetResults extends Component {
-    constructor(props) {
-      super(props);
-    };
 
     render() {
       // Tar inn interessene som det søkes med

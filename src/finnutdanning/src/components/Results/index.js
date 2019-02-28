@@ -3,9 +3,6 @@ import React, {Component} from 'react';
 import {GetResults} from "./getResults"
 
 class Results extends Component {
-  constructor(props){
-    super(props);
-  }
 
   render(){
     const query=this.props.location.state.query;
