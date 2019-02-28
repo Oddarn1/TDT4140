@@ -23,7 +23,7 @@ class Dropdown extends Component{
         
         return(
             // Itererer gjennom alle interessene for å lage knapper
-            <div>
+            <div className="buttons">
                 {allButtons}
             </div>
         )

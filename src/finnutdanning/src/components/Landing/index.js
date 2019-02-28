@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import Dropdown from './dropdown';
+import './index.css';
 
 class Landing extends Component {
     constructor(props){
@@ -15,11 +16,17 @@ class Landing extends Component {
         this.onChange=this.onChange.bind(this);
         this.submit=this.submit.bind(this);
         this.capture=this.capture.bind(this);
+        this.reset=this.reset.bind(this);
     }
 
     /*Gets event from searchbar, provides the state with a value to be displayed in the input field's value*/
     onChange(event){
         this.setState({search: event.target.value});
+    }
+
+    reset(event){
+        event.preventDefault();
+        this.setState({search:""})
     }
 
     /*Redirects the user to result-page on button-press*/
@@ -81,8 +88,9 @@ class Landing extends Component {
                 <Dropdown capture={this.capture}/>
             </div>
             :null}
-            <div className="submitButton">
+            <div className="submitButtons">
                 <button onClick={this.submit}> Resultater </button>
+                <button onClick={this.reset}> Nullstill </button>
             </div>
     </div>
             );
