@@ -3,7 +3,6 @@ import Register from './register';
 import {withFirebase} from '../Firebase';
 import * as ROLES from "../../constants/roles";
 
-/*General function for stateless component*/
 class Admin extends Component {
     constructor(props) {
         super(props);
@@ -15,6 +14,8 @@ class Admin extends Component {
         this.onSubmit=this.onSubmit.bind(this);
     }
 
+
+    //Ved render lastes databasen inn i users. Vises på siden.
     componentDidMount(){
         this.setState({ loading: true });
 
@@ -41,6 +42,9 @@ class Admin extends Component {
         this.props.firebase.users().off();
     }
 
+
+    //Går gjennom brukere og sammenlikner avkrysning i checkboxes fra userList-element. Setter ny rolle ut fra hva som er krysset av
+    //Overholde hierarki dersom flere er krysset av samtidig. Admin>Ansatt>Rådgiver>Bruker.
     onSubmit(){
         const {users}=this.state;
         for(var i=0;i<users.length;i++){
@@ -63,6 +67,7 @@ class Admin extends Component {
         }
     }
 
+    //Lister brukere i admin
     UserList ({users}) {
         return (
             <ul>
