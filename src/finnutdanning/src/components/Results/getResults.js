@@ -54,7 +54,7 @@ export class GetResults extends Component {
     });
 
     // Lager en html-liste for alle studieretningene som matchet med søket
-    listOfStudyProgramme = studiesList.slice(0,5).map((studie) =>
+    listOfStudyProgramme = studiesList.length===0?<li> Ingen studieretninger </li>: studiesList.slice(0,5).map((studie) =>
         <li> {studie.studyProgramme} {studie.relevance} </li>
     );
 
