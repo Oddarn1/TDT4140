@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
 import Register from './register';
 import {withFirebase} from '../Firebase';
+import * as ROLES from "../../constants/roles";
 
 /*General function for stateless component*/
 class Admin extends Component {
     constructor(props) {
         super(props);
         this.state={users:[],
-            loading: false}
+            loading: false,
+            error:null};
+        this.userStates=[[],[],[],[]];
+        this.stateList=[ROLES.USER,ROLES.COUNSELOR,ROLES.EMPLOYEE,ROLES.ADMIN];
+        this.onSubmit=this.onSubmit.bind(this);
     }
 
     componentDidMount(){
@@ -36,14 +41,32 @@ class Admin extends Component {
         this.props.firebase.users().off();
     }
 
-    getUsers(){
-        return this.state.users;
+    onSubmit(){
+        const {users}=this.state;
+        for(var i=0;i<users.length;i++){
+            let role=null;
+            for (var n=0;n<4;n++){
+                if (this.userStates[n][i].checked){
+                    role=this.stateList[n];
+                }
+            }
+            if (role===null){
+                this.setState({error:"User "+users[i].uid+" must have a role!"})
+                return;
+            }
+            this.props.firebase.users().ref.child(users[i].uid).update({
+                role
+            })
+                .then(this.setState({error: null}))
+                .catch(error=>
+                {this.setState(error)})
+        }
     }
 
     UserList ({users}) {
         return (
             <ul>
-                {users.map(user => (
+                {users.map((user,index) => (
                     <li key={user.uid}>
                         <span>
                             <strong>ID:</strong> &nbsp; {user.uid}
@@ -56,6 +79,41 @@ class Admin extends Component {
                         </span>
                         <span>
                             <strong>&nbsp;&nbsp;Rolle:</strong> &nbsp;{user.role}
+                        </span>
+                        <span>
+                        <strong>&nbsp;&nbsp; Endre rolle: </strong>
+
+                        <label>Bruker&nbsp;</label>
+                        <input type="checkbox"
+                               name="role"
+                               value={ROLES.USER}
+                               defaultChecked={this.state.users[index].role === ROLES.USER}
+                               ref={(ref) => this.userStates[0][index] = ref}
+                        />
+
+                        <label> Veileder&nbsp;</label>
+                        <input type="checkbox"
+                               name="role"
+                               value={ROLES.COUNSELOR}
+                               defaultChecked={this.state.users[index].role === ROLES.COUNSELOR}
+                               ref={(ref) => this.userStates[1][index] = ref}
+                        />
+
+                        <label> Ansatt&nbsp;</label>
+                        <input type="checkbox"
+                               name="role"
+                               value={ROLES.EMPLOYEE}
+                               defaultChecked={this.state.users[index].role === ROLES.EMPLOYEE}
+                               ref={(ref) => this.userStates[2][index] = ref}
+                        />
+
+                        <label> Admin&nbsp;</label>
+                        <input type="checkbox"
+                               name="role"
+                               value={ROLES.ADMIN}
+                               defaultChecked={this.state.users[index].role === ROLES.ADMIN}
+                               ref={(ref) => this.userStates[3][index] = ref}
+                        />
                         </span>
                     </li>
                 ))}
@@ -74,6 +132,8 @@ class Admin extends Component {
                 {loading && <div>Loading ...</div>}
                 {!loading && <h1>Brukere: </h1>}
                 <div ref="ListUsers">{userList}</div>
+                {this.state.error}
+                <button onClick={this.onSubmit}> Lagre </button>
             {/* Sprint 2: TODO:
             * Ability to administrate all registered users in the application. Firebase also a good idea here.*/}
         </div>
