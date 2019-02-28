@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Register from './register';
 import {withFirebase} from '../Firebase';
 import * as ROLES from "../../constants/roles";
+import {compose} from 'recompose';
+import withAuthorization from "../Session/withAuthorization";
 
 /*General function for stateless component*/
 class Admin extends Component {
@@ -142,5 +144,9 @@ class Admin extends Component {
 }
 
 
-export default withFirebase(Admin);
+const condition = authUser =>
+    authUser && (authUser.role===ROLES.USER||authUser.role===ROLES.EMPLOYEE||authUser.role===ROLES.COUNSELOR||authUser.role===ROLES.ADMIN);
 
+export default compose(
+    withFirebase,
+    withAuthorization(condition),)(Admin);

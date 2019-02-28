@@ -9,9 +9,15 @@ import Messages from '../Messages';
 import About from '../About';
 import Results from '../Results';
 import NotFound from '../NotFound';
+import PasswordForget from '../PasswordForget';
+import SignIn from '../SignIn';
+import SignUp from '../SignUp';
+import Account from '../Account';
 import './index.css';
 
 import * as ROUTES from '../../constants/routes';
+import withAuthentication from "../Session/withAuthentication";
+import {compose} from 'recompose';
 
 /*The main component of the application. Deals with routes and which components to render at different paths.*/
 const App =()=>(
@@ -21,16 +27,22 @@ const App =()=>(
 
             <div className="content">
             <Switch>
-            <Route exact path={ROUTES.LANDING} component={Landing}/>
-            <Route path={ROUTES.ADMIN} component={Admin}/>
-            <Route path={ROUTES.ABOUT} component={About}/>
-            <Route path={ROUTES.MESSAGES} component={Messages}/>
-            <Route path={ROUTES.RESULTS} component={Results}/>
-            <Route component={NotFound}/>
+                <Route exact path={ROUTES.LANDING} component={Landing}/>
+                <Route path={ROUTES.ADMIN} component={Admin}/>
+                <Route path={ROUTES.ABOUT} component={About}/>
+                <Route path={ROUTES.MESSAGES} component={Messages}/>
+                <Route path={ROUTES.RESULTS} component={Results}/>
+                <Route path={ROUTES.SIGNUP} component={SignUp}/>
+                <Route path={ROUTES.SIGNIN} component={SignIn}/>
+                <Route path={ROUTES.PASSWORDFORGET} component={PasswordForget}/>
+                <Route path={ROUTES.ACCOUNT} component={Account}/>
+                <Route component={NotFound}/>
             </Switch>
             </div>
         </div>
     </Router>
 );
 
-export default withFirebase(App);
+export default compose(
+    withAuthentication,
+    withFirebase,)(App);

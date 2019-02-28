@@ -23,6 +23,9 @@ class Navigation extends Component{
                   <li>
                       <Link to={ROUTES.ABOUT}> Om oss </Link>
                   </li>
+                  <li>
+                      <Link to={ROUTES.SIGNIN}> Logg inn </Link>
+                  </li>
               </ul>
           </div>
         );
