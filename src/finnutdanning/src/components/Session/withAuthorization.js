@@ -12,10 +12,10 @@ const withAuthorization = condition => Component => {
             this.listener = this.props.firebase.onAuthUserListener(
                 authUser => {
                     if (!condition(authUser)) {
-                        this.props.history.push(ROUTES.SIGNIN);
+                        this.props.history.push('/redirect');
                     }
                 },
-                () => this.props.history.push(ROUTES.SIGNIN),
+                () => this.props.history.push(ROUTES.LANDING),
             );
         }
 

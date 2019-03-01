@@ -1,6 +1,14 @@
 import React,{Component} from 'react';
 import {withFirebase} from '../Firebase';
 import * as ROLES from '../../constants/roles';
+import firebase from 'firebase';
+
+const config = {
+    apiKey: "AIzaSyB75ISkhork5Z_-6Gp-oVq4iHA7zC2zuZ4",
+    authDomain: "finnutdanning.firebaseapp.com",
+    databaseURL: "https://finnutdanning.firebaseio.com",};
+
+const secondaryApp = firebase.initializeApp(config, "Secondary");
 
 const INITIAL_STATE = {
     email:"",
@@ -36,20 +44,35 @@ class Register extends Component {
         return false;
     }
 
+    generatePass(){
+        let letters="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#%&/?()"
+        let pass="";
+        for (let i=0; i<32;i++){
+            pass+=letters.charAt(Math.floor(Math.random()*letters.length));
+        }
+        return pass;
+    }
+
     /*Firebase: write to database with user info. Creates new user and a unique user id*/
     submit=event=> {
         const {email, fullName, role} = this.state;
-        event.preventDefault();
-        this.props.firebase.users().push({
-            email,
-            fullName,
-            role
-        })
-            .then(
-                this.setState({...INITIAL_STATE})
-            )
+        const pass=this.generatePass();
+        secondaryApp.auth().createUserWithEmailAndPassword(email,pass)
+            .then(()=> {
+                this.props.firebase.users().push({
+                    email,
+                    fullName,
+                    role});
+                this.props.firebase.doPasswordReset(email);
+            })
+            .then(()=> {
+                secondaryApp.auth().signOut();
+            })
             .catch(error =>
-                this.setState({error: error}))
+                this.setState({error: error}));
+
+        event.preventDefault();
+        this.setState({...INITIAL_STATE});
         };
 
     onSubmit = (event) => {

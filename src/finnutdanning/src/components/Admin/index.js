@@ -5,7 +5,6 @@ import * as ROLES from "../../constants/roles";
 import {compose} from 'recompose';
 import withAuthorization from "../Session/withAuthorization";
 
-/*General function for stateless component*/
 class Admin extends Component {
     constructor(props) {
         super(props);
@@ -136,8 +135,6 @@ class Admin extends Component {
                 <div ref="ListUsers">{userList}</div>
                 {this.state.error}
                 <button onClick={this.onSubmit}> Lagre </button>
-            {/* Sprint 2: TODO:
-            * Ability to administrate all registered users in the application. Firebase also a good idea here.*/}
         </div>
         );
     }
@@ -145,7 +142,7 @@ class Admin extends Component {
 
 
 const condition = authUser =>
-    authUser && (authUser.role===ROLES.USER||authUser.role===ROLES.EMPLOYEE||authUser.role===ROLES.COUNSELOR||authUser.role===ROLES.ADMIN);
+    authUser && (authUser.role===ROLES.ADMIN);
 
 export default compose(
     withFirebase,

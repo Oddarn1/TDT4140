@@ -1,4 +1,5 @@
 import React from 'react';
+import withAuthorization from "../Session/withAuthorization";
 
 const Messages=()=>(
   <div>
@@ -10,4 +11,6 @@ const Messages=()=>(
   </div>
 );
 
-export default Messages;
+const condition =authUser => ! !authUser;
+
+export default withAuthorization(condition)(Messages);

@@ -11,6 +11,8 @@ export const config = {
     messagingSenderId: "903452096243"
 };
 
+
+
 class Firebase {
     constructor(){
         app.initializeApp(config);
@@ -19,6 +21,7 @@ class Firebase {
     }
 
     //Auth API
+
 
     doCreateUserWithEmailAndPassword = (email, password) =>
         this.auth.createUserWithEmailAndPassword(email, password);
