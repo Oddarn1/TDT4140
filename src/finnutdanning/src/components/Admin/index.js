@@ -10,9 +10,11 @@ class Admin extends Component {
         super(props);
         this.state={users:[],
             loading: false,
-            error:null};
+            error:null,};
         this.userStates=[[],[],[],[]];
         this.stateList=[ROLES.USER,ROLES.COUNSELOR,ROLES.EMPLOYEE,ROLES.ADMIN];
+        this.selectedRole=ROLES.ADMIN;
+        this.search="";
         this.onSubmit=this.onSubmit.bind(this);
     }
 
@@ -41,6 +43,33 @@ class Admin extends Component {
     componentWillUnmount(){
         this.props.firebase.users().off();
     }
+
+    nameSearch(event){
+        this.search=event.target.value;
+        this.props.firebase.db.ref("users").orderByChild("fullName").startAt(this.search)
+            .endAt(this.search+"\uf8ff").on('value', snapshot => {
+            const usersObject = snapshot.val();
+            let usersList;
+            if (usersObject===null){
+                usersList=[];
+                this.setState({users:usersList,
+                    loading: false,});
+                return;
+            }
+
+            usersList = Object.keys(usersObject).map(key => ({
+                ...usersObject[key],
+                uid: key,
+            }));
+
+            this.setState({
+                users: usersList,
+                loading: false,
+            });
+        });
+        event.preventDefault();
+    }
+
 
     onSubmit(){
         const {users}=this.state;
@@ -122,6 +151,28 @@ class Admin extends Component {
         );
     }
 
+    roleSearch(event){
+        this.selectedRole=event.target.value;
+        this.props.firebase.db.ref("users").orderByChild("role").equalTo(this.selectedRole).on('value', snapshot => {
+            const usersObject = snapshot.val();
+
+            if (usersObject===null){
+                return;
+            }
+
+            const usersList = Object.keys(usersObject).map(key => ({
+                ...usersObject[key],
+                uid: key,
+            }));
+
+            this.setState({
+                users: usersList,
+                loading: false,
+            });
+        });
+        event.preventDefault();
+    }
+
     render() {
         const {users,loading}=this.state;
         const userList=this.UserList({users});
@@ -132,6 +183,14 @@ class Admin extends Component {
                 <Register registered={users}/>
                 {loading && <div>Loading ...</div>}
                 {!loading && <h1>Brukere: </h1>}
+                <input name="search" type="text" onChange={this.nameSearch} placeholder="Søk i brukere på navn"/>
+                <select name="selectedRole" defaultChecked={this.selectedRole} onChange={this.roleSearch}>
+                    <option value={ROLES.ADMIN}>Admin</option>
+                    <option value={ROLES.EMPLOYEE}>Ansatt</option>
+                    <option value={ROLES.COUNSELOR}>Veileder</option>
+                    <option value={ROLES.USER}>Bruker</option>
+                </select>
+                {this.selectedRole}
                 <div ref="ListUsers">{userList}</div>
                 {this.state.error}
                 <button onClick={this.onSubmit}> Lagre </button>
