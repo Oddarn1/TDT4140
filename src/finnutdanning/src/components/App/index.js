@@ -25,7 +25,7 @@ const App =()=>(
             <Route path={ROUTES.ADMIN} component={Admin}/>
             <Route path={ROUTES.ABOUT} component={About}/>
             <Route path={ROUTES.MESSAGES} component={Messages}/>
-            <Route path={ROUTES.RESULTS} component={Results}/>
+            <Route path={ROUTES.RESULTS} component={Results} props={{query:""}}/>
             <Route component={NotFound}/>
             </Switch>
             </div>

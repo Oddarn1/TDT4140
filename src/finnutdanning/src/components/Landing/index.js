@@ -16,17 +16,11 @@ class Landing extends Component {
         this.onChange=this.onChange.bind(this);
         this.submit=this.submit.bind(this);
         this.capture=this.capture.bind(this);
-        this.reset=this.reset.bind(this);
     }
 
     /*Gets event from searchbar, provides the state with a value to be displayed in the input field's value*/
     onChange(event){
         this.setState({search: event.target.value});
-    }
-
-    reset(event){
-        event.preventDefault();
-        this.setState({search:""})
     }
 
     /*Redirects the user to result-page on button-press*/
@@ -88,9 +82,8 @@ class Landing extends Component {
                 <Dropdown capture={this.capture}/>
             </div>
             :null}
-            <div className="submitButtons">
-                <button onClick={this.submit}> Resultater </button>
-                <button onClick={this.reset}> Nullstill </button>
+            <div className="submitButton">
+                <button onClick={this.submit}> Finn Utdanning </button>
             </div>
     </div>
             );
