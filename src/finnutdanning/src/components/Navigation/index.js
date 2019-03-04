@@ -14,7 +14,7 @@ User-protected routes, make sure registered users get access to messages, employ
 const NavigationAuth = ({authUser}) => (
     <ul>
         <li>
-            <Link to={ROUTES.LANDING}> Finn Utdanning </Link>
+            <Link to={ROUTES.LANDING}> Hjem </Link>
         </li>
         <li>
             <Link to={ROUTES.MESSAGES}> Meldinger </Link>
