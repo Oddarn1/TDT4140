@@ -1,0 +1,8 @@
+.searchBar {
+    text-align: center;
+    width: 100%;
+}
+
+.searchbar input {
+    display: inline-block;
+}

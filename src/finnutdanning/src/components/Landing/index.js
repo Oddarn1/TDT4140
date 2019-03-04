@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import Dropdown from './dropdown';
+import './index.css';
 
 class Landing extends Component {
     constructor(props){
@@ -82,7 +83,7 @@ class Landing extends Component {
             </div>
             :null}
             <div className="submitButton">
-                <button onClick={this.submit}> Resultater </button>
+                <button onClick={this.submit}> Finn Utdanning </button>
             </div>
     </div>
             );
