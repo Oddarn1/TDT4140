@@ -8,7 +8,7 @@ import * as ROUTES from '../../constants/routes';
 
 const SignUpPage= () => (
     <div>
-        <h1>SignUp</h1>
+        <h1>Registrer deg</h1>
         <SignUpForm/>
     </div>
 );
@@ -115,7 +115,7 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => (
     <p>
-        Don't have an account? <Link to={ROUTES.SIGNUP}>Sign Up</Link>
+        Har du ikke bruker? <Link to={ROUTES.SIGNUP}>Registrer deg</Link>
     </p>
 );
 

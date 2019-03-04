@@ -9,7 +9,7 @@ import {PasswordForgetLink} from "../PasswordForget";
 
 const SignInPage = () => (
     <div>
-        <h1>SignIn</h1>
+        <h1>Logg inn</h1>
         <SignInForm />
         <PasswordForgetLink/>
         <SignUpLink />
@@ -61,17 +61,17 @@ class SignInFormBase extends Component {
                     value={email}
                     onChange={this.onChange}
                     type="text"
-                    placeholder="Email Address"
+                    placeholder="Epost-adresse"
                 />
                 <input
                     name="password"
                     value={password}
                     onChange={this.onChange}
                     type="password"
-                    placeholder="Password"
+                    placeholder="Passord"
                 />
                 <button disabled={isInvalid} type="submit">
-                    Sign In
+                    Logg inn
                 </button>
 
                 {error && <p>{error.message}</p>}

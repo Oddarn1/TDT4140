@@ -58,14 +58,17 @@ class Register extends Component {
         const {email, fullName, role} = this.state;
         const pass=this.generatePass();
         secondaryApp.auth().createUserWithEmailAndPassword(email,pass)
-            .then(()=> {
-                this.props.firebase.users().push({
-                    email,
-                    fullName,
-                    role});
-                this.props.firebase.doPasswordReset(email);
+            .then(authUser => {
+                    return secondaryApp.db
+                        .user(authUser.user.uid)
+                        .set({
+                            fullName,
+                            email,
+                            role,
+                        });
             })
             .then(()=> {
+                this.props.firebase.doPasswordReset(email);
                 secondaryApp.auth().signOut();
             })
             .catch(error =>
@@ -119,7 +122,7 @@ class Register extends Component {
                         name="role"
                         value={ROLES.USER}
                         checked={this.state.role === ROLES.USER}
-                        onChange={this.onChange}
+                        onClick={this.onChange}
                         />
 
                 <label> Veileder</label>
@@ -127,7 +130,7 @@ class Register extends Component {
                     name="role"
                     value={ROLES.COUNSELOR}
                     checked={this.state.role === ROLES.COUNSELOR}
-                    onChange={this.onChange}
+                    onClick={this.onChange}
                         />
 
                 <label> Ansatt</label>
@@ -135,7 +138,7 @@ class Register extends Component {
                     name="role"
                     value={ROLES.EMPLOYEE}
                     checked={this.state.role === ROLES.EMPLOYEE}
-                    onChange={this.onChange}
+                    onClick={this.onChange}
                         />
 
                 <label> Admin</label>
@@ -143,7 +146,7 @@ class Register extends Component {
                     name="role"
                     value={ROLES.ADMIN}
                     checked={this.state.role === ROLES.ADMIN}
-                    onChange={this.onChange}
+                    onClick={this.onChange}
                         />
                         <br/>
                 <button disabled={isInvalid} type="submit">Registrer
