@@ -10,6 +10,7 @@ const SignUpPage= () => (
     <div>
         <h1>Registrer deg</h1>
         <SignUpForm/>
+        <p>Har du allerede bruker? <Link to={ROUTES.SIGNIN}> Logg inn</Link></p>
     </div>
 );
 
