@@ -39,7 +39,7 @@ class SignInFormBase extends Component {
                 this.props.history.push(ROUTES.LANDING);
             })
             .catch(error => {
-                this.setState({ error });
+                this.setState({error: "Ugyldig epost eller passord."});
             });
 
         event.preventDefault();
@@ -74,7 +74,7 @@ class SignInFormBase extends Component {
                     Logg inn
                 </button>
 
-                {error && <p>{error.message}</p>}
+                {error && <p>{error}</p>}
             </form>
         );
     }

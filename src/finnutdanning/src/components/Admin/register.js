@@ -59,8 +59,7 @@ class Register extends Component {
         const pass=this.generatePass();
         secondaryApp.auth().createUserWithEmailAndPassword(email,pass)
             .then(authUser => {
-                    return secondaryApp.db
-                        .user(authUser.user.uid)
+                    return secondaryApp.database().ref('users/'+authUser.user.uid)
                         .set({
                             fullName,
                             email,
@@ -72,7 +71,9 @@ class Register extends Component {
                 secondaryApp.auth().signOut();
             })
             .catch(error =>
-                this.setState({error: error}));
+            {console.log(error);
+                this.setState({error:"Noe gikk galt!"});}
+            );
 
         event.preventDefault();
         this.setState({...INITIAL_STATE});
