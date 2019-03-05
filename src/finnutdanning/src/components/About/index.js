@@ -8,4 +8,6 @@ const About =()=>(
         Vårt mål er at det skal være enkelt å få en fulltreffer på første studievalg. FINN UTDANNING har kommet med en genial idé om som skal hjelpe på de slitsomme kveldene der studenter må ta beslutninger. Vi tror at studieretning er avhengig av fritidsinteresser i tillegg til de faglige interessene og vil bygge forslagene basert på dette.
     </div>
 );
+
+
 export default About;

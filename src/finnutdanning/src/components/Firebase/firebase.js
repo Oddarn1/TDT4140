@@ -69,6 +69,10 @@ class Firebase {
     user=uid=>this.db.ref('users/'+uid);
 
     users = () => this.db.ref('users');
+
+    message=msgid=>this.db.ref('messages/'+msgid);
+
+    messages= () => this.db.ref('messages');
 }
 
 export default Firebase;

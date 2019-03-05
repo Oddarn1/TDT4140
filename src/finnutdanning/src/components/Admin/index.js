@@ -23,6 +23,7 @@ class Admin extends Component {
     componentDidMount(){
         this.setState({ loading: true });
 
+        //Henter ut alle brukere i firebase under 'users', users()-funksjonen er definert i firebase.js
         this.props.firebase.users().on('value', snapshot => {
             const usersObject = snapshot.val();
 
@@ -213,6 +214,8 @@ class Admin extends Component {
 const condition = authUser =>
     authUser && (authUser.role===ROLES.ADMIN);
 
+
+//Eksporteres på denne måten for å kunne gjøre kallet this.props.firebase...
 export default compose(
     withFirebase,
     withAuthorization(condition),)(Admin);
