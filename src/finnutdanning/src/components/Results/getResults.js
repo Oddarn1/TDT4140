@@ -29,7 +29,7 @@ export class GetResults extends Component {
         studies.forEach(study => {
             // Sjekker om studieretningen allerede er i listen
 
-            if (!studiesList.some(e => e.name === study)) {
+            if (!studiesList.some(e => e.studyProgramme === study)) {
               // Lager et nytt objekt for denne studieretningen
               const newStudy = {studyProgramme: study, relevance: 0, reason: []}
               // Dette objektet legges til listen
