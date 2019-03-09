@@ -7,15 +7,24 @@ import withAuthorization from "../Session/withAuthorization";
 class NewMessage extends Component{
      constructor(props){
         super(props);
-        this.state={};
+        this.state={
+            to: "",
+            subject: "",
+            content: ""
+        };
+        this.onChange=this.onChange.bind(this);
 }
 
+       onChange(event){
+       this.setState({[event.target.name]:event.target.value});
+       }
+       
 
 
 
 
     render() {
-     
+
 
       return (
 
