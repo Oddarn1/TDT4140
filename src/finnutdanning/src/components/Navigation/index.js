@@ -4,7 +4,6 @@ import * as ROUTES from '../../constants/routes';
 import "./index.css";
 import {AuthUserContext} from '../Session';
 import * as ROLES from '../../constants/roles';
-import {withFirebase} from '../Firebase';
 import SignOut from "../SignOut";
 
 /*Whenever TODO:

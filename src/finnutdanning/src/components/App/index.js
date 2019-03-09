@@ -14,10 +14,12 @@ import SignIn from '../SignIn';
 import SignUp from '../SignUp';
 import Account from '../Account';
 import './index.css';
+import NewMessage from '../NewMessage';
 
 import * as ROUTES from '../../constants/routes';
 import withAuthentication from "../Session/withAuthentication";
 import {compose} from 'recompose';
+import withAuthorization from "../Session/withAuthorization";
 
 /*The main component of the application. Deals with routes and which components to render at different paths.*/
 const App =()=>(
@@ -36,7 +38,9 @@ const App =()=>(
                 <Route path={ROUTES.SIGNIN} component={SignIn}/>
                 <Route path={ROUTES.PASSWORDFORGET} component={PasswordForget}/>
                 <Route path={ROUTES.ACCOUNT} component={Account}/>
+                <Route path={ROUTES.NEWMESSAGE} component={NewMessage}/>
                 <Route component={NotFound}/>
+
             </Switch>
             </div>
         </div>

@@ -73,6 +73,11 @@ class Firebase {
     message=msgid=>this.db.ref('messages/'+msgid);
 
     messages= () => this.db.ref('messages');
+
+    conversation = convid => this.db.ref('conversations/' + convid);
+    
+    conversations = () => this.db.ref('conversations');
+
 }
 
 export default Firebase;
