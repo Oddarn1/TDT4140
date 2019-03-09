@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import withAuthorization from "../Session/withAuthorization";
+import {withAuthorization} from "../Session";
 
 
 class Messages extends Component {
     constructor(props){
         super(props);
         this.state={
-            messages:[],
+            messages:[], //Vil inneholde siste melding i hver samtale for å displaye dette
             loading: false,
             conversations: []
         };
@@ -16,25 +16,7 @@ class Messages extends Component {
     //Laster inn ALLE meldinger i databasen. Snapshot er verdien som hentes inn, hentes ut som en objekt-liste ved .val().
     //Settes til messages i state.
     componentDidMount(){
-        this.setState({loading: true});
-        //.messages() er definert i firebase.js. Det samme er også .message(msgid) som kan hente ut spesifikke id-er på
-        // samme vis.
-        this.props.firebase.messages().orderByChild("senderid").on('value',snapshot => {
-            const messageObject=snapshot.val();
-
-            if (messageObject===null) {
-                return;
-            }
-            const messageList = Object.keys(messageObject).map(key => ({
-                ...messageObject[key],
-                msgid: key,
-            }));
-
-            this.setState({
-            messages: messageList,
-            loading: false})
-            }
-        )
+        this.getConversationsFromUid(this.props.firebase.auth.currentUser.uid);
     }
 
     //Skrur av listener som opprettes i ComponentDidMount.
@@ -47,7 +29,7 @@ class Messages extends Component {
         this.setState({
             loading: true
         });
-        this.props.firebase.ref("conversation").child("participant1").equalto(uid).once("value", snapshot => {
+        this.props.firebase.conversations().orderByChild("participant1").equalTo(uid).on("value", snapshot => {
             const convObject = snapshot.val();
             if (convObject===null) {
                 return;
@@ -64,16 +46,6 @@ class Messages extends Component {
         })
     }
 
-    //Mapper meldingsobjekter til en liste, kan reformateres senere. attributter kan hentes på message.*attributt*.
-    MessageList({messages}) {
-        return (
-            <ul>
-                {messages.map(message => (
-                    <li key={message.msgid}><span>{message.content}</span></li>
-                    ))}
-            </ul>
-        )
-    }
 
     //Mapper samtaleobjekter til en liste med knapper
     ConversationList({conversations}) {
@@ -89,14 +61,12 @@ class Messages extends Component {
 
 
     render(){
-        const {loading,messages,conversations}=this.state;
-        const messageList=this.MessageList({messages});
+        const {loading,conversations}=this.state;
         const conversationList = this.ConversationList({conversations});
         return(
             <div>
                 {/*Setter siden til loading mens meldingene lastes inn*/}
                 {loading && <p>Loading</p>}
-                {messageList}
                 {conversationList}
                 {/*Sprint 2 TODO:
       * Create a messaging service, connection to a firebase with stored messages. General messages to counselor

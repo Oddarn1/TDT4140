@@ -18,6 +18,7 @@ import './index.css';
 import * as ROUTES from '../../constants/routes';
 import withAuthentication from "../Session/withAuthentication";
 import {compose} from 'recompose';
+import withAuthorization from "../Session/withAuthorization";
 
 /*The main component of the application. Deals with routes and which components to render at different paths.*/
 const App =()=>(
