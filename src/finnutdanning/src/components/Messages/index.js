@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {withAuthorization} from "../Session";
+import {Link} from 'react-router-dom';
+import * as ROUTES from '../../constants/routes';
 
 class Messages extends Component {
     constructor(props){
@@ -83,6 +85,10 @@ class Messages extends Component {
       * can be accessed by all counselors, messages from counselors and admin to users can only be accessed by
       * that user.*/}
                 [Placeholder for meldingsboks]
+                <br/>
+                <Link to={ROUTES.NEWMESSAGE}>
+                    <button>Ny melding</button>
+                </Link>
             </div>
         )
     }
