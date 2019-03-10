@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {withAuthorization} from "../Session";
-
+import {Link} from 'react-router-dom';
+import * as ROUTES from '../../constants/routes';
 
 class Messages extends Component {
     constructor(props){
@@ -17,6 +18,11 @@ class Messages extends Component {
     //Settes til messages i state.
     componentDidMount(){
         this.getConversationsFromUid(this.props.firebase.auth.currentUser.uid);
+        let messages=[];
+        for(let i = 0; i < this.state.conversations.length; i++){
+            messages.push(this.state.conversations[i].msgids[this.state.conversations[i].msgids.length - 1]);
+        }
+        this.setState({messages});
     }
 
     //Skrur av listener som opprettes i ComponentDidMount.
@@ -48,12 +54,17 @@ class Messages extends Component {
 
 
     //Mapper samtaleobjekter til en liste med knapper
-    ConversationList({conversations}) {
+    ConversationList({conversations, messages}) {
+        var conversationList = []
+        for(let i = 0; i < conversations.length; i++)
+            conversationList.push(
+                <button>{messages[i].content}</button>
+            )
         return (
             <ul>
-                {conversations.map(conversation => (
-                    <li key = {conversation.convid}><span>{conversation.participant1}</span></li>
-                ))}
+            {conversationList.map((conversation) =>
+            <li>{conversation}</li>
+            )}
             </ul>
         )
     }
@@ -61,18 +72,23 @@ class Messages extends Component {
 
 
     render(){
-        const {loading,conversations}=this.state;
-        const conversationList = this.ConversationList({conversations});
+        const {loading,conversations, messages}=this.state;
+        const conversationList = this.ConversationList({conversations, messages});
         return(
             <div>
                 {/*Setter siden til loading mens meldingene lastes inn*/}
                 {loading && <p>Loading</p>}
                 {conversationList}
+                {messages[0].content}
                 {/*Sprint 2 TODO:
       * Create a messaging service, connection to a firebase with stored messages. General messages to counselor
       * can be accessed by all counselors, messages from counselors and admin to users can only be accessed by
       * that user.*/}
                 [Placeholder for meldingsboks]
+                <br/>
+                <Link to={ROUTES.NEWMESSAGE}>
+                    <button>Ny melding</button>
+                </Link>
             </div>
         )
     }
