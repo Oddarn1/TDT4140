@@ -57,7 +57,7 @@ class MessageForm extends Component{
         <form onSubmit={this.onSubmit}>
         <label>Til </label>
                 <input value={this.state.to}
-                   placeholder="Mottaker"
+                   placeholder={role===ROLES.USER?"Veileder":"Mottaker"}
                    onChange={this.onChange}
                    name="to"
                    disabled={role===ROLES.USER}
