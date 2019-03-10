@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import * as ROLES from '../../constants/roles';
 
 export const config = {
     apiKey: "AIzaSyB75ISkhork5Z_-6Gp-oVq4iHA7zC2zuZ4",
@@ -46,9 +47,9 @@ class Firebase {
                     .then(snapshot => {
                         const dbUser = snapshot.val();
 
-                        // default empty roles
+                        // default user-roles
                         if (!dbUser.role) {
-                            dbUser.role = "";
+                            dbUser.role = ROLES.USER;
                         }
 
                         // merge auth and db user

@@ -1,18 +1,14 @@
 import React, {Component} from 'react';
-import withAuthorization from "../Session/withAuthorization";
-import {AuthUserContext} from '../Session';
 import * as ROLES from '../../constants/roles';
-import withAuthentication from "../Session/withAuthentication";
-import {withFirebase} from '../Firebase';
-import firebase from 'firebase';
-
+import {AuthUserContext} from '../Session';
+import withAuthorization from "../Session/withAuthorization";
 
 const INITIAL_STATE = {
        to: "",
        content: ""
-}
+};
 
-class NewMessage extends Component{
+class MessageForm extends Component{
      constructor(props){
         super(props);
         this.state={...INITIAL_STATE};
@@ -51,25 +47,22 @@ class NewMessage extends Component{
 
        const {to, content} = this.state;
        const isInvalid = content === '';
-
+       const role=this.props.authUser.role;
 
       return (
 
 
         <div>
+            {console.log(role)}
         <form onSubmit={this.onSubmit}>
         <label>Til </label>
-
-       {this.props.firebase.auth.currentUser === ROLES.ADMIN &&
                 <input value={this.state.to}
-                       placeholder="Mottakere"
-                       onChange={this.onChange}
-                       name="to"
-                       />
-                }
-
-                       <br/>
-
+                   placeholder="Mottaker"
+                   onChange={this.onChange}
+                   name="to"
+                   disabled={role===ROLES.USER}
+            />
+            <br/>
 
                 <textarea value={this.state.content}
                        placeholder="Skriv din melding her"
@@ -77,25 +70,26 @@ class NewMessage extends Component{
                        name="content"
                        />
                        <br/>
-
-
-
-
                        <button disabled={isInvalid} type="submit">Send </button>
-
-
-
         </form>
         </div>
 
+
 )
-
-
-
+}
 }
 
-}
 
-const condition =authUser => ! !authUser;
+//Wrapper klassen i en consumer som gir tilgang til authUser
+const NewMessage=()=>(
+    <AuthUserContext.Consumer>
+        {authUser =>
+            <MessageForm authUser={authUser}/>}
+    </AuthUserContext.Consumer>
+);
+
+//Setter en condition som forhindrer siden i å laste før authUser er registrert.
+//Dette var bakgrunnen i at man ikke fikk desablet inputfelt, ettersom den først leste siden uten at bruker var logget inn
+const condition=authUser => ! !authUser;
 
 export default withAuthorization(condition)(NewMessage);

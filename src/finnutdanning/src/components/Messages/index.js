@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {withAuthorization} from "../Session";
-import Inbox from './messageInbox'
+import Inbox from './messageInbox';
+import * as ROUTES from '../../constants/routes';
+import {Link} from 'react-router-dom';
 
 class Messages extends Component {
     constructor(props){
@@ -100,6 +102,9 @@ class Messages extends Component {
       * can be accessed by all counselors, messages from counselors and admin to users can only be accessed by
       * that user.*/}
                 [Placeholder for meldingsboks]
+                <Link to={ROUTES.NEWMESSAGE}>
+                    <button>Ny melding</button>
+                </Link>
             </div>
         )
     }
