@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {withAuthorization} from "../Session";
+import Inbox from './messageInbox'
 
 class Messages extends Component {
     constructor(props){
@@ -7,20 +8,27 @@ class Messages extends Component {
         this.state={
             messages:[], //Vil inneholde siste melding i hver samtale for å displaye dette
             loading: false,
-            conversations: []
+            conversations: [],
+            activeMessages: null
         };
         this.getConversationsFromUid = this.getConversationsFromUid.bind(this);
+        this.getMessageFromID=this.getMessageFromID.bind(this);
+        this.openConversation=this.openConversation.bind(this);
     }
 
     //Laster inn ALLE meldinger i databasen. Snapshot er verdien som hentes inn, hentes ut som en objekt-liste ved .val().
     //Settes til messages i state.
     componentDidMount(){
         this.getConversationsFromUid(this.props.firebase.auth.currentUser.uid);
-        let messages=[];
-        for(let i = 0; i < this.state.conversations.length; i++){
-            messages.push(this.state.conversations[i].msgids[this.state.conversations[i].msgids.length - 1]);
-        }
-        this.setState({messages});
+    }
+
+    getMessageFromID(msgid){
+        this.props.firebase.message(msgid).on('value',snapshot=>{
+            console.log(snapshot.val().content);
+            let messages=this.state.messages;
+            messages.push(snapshot.val());
+            this.setState({messages})
+        })
     }
 
     //Skrur av listener som opprettes i ComponentDidMount.
@@ -33,7 +41,7 @@ class Messages extends Component {
         this.setState({
             loading: true
         });
-        this.props.firebase.conversations().orderByChild("participant1").equalTo(uid).on("value", snapshot => {
+        this.props.firebase.conversations().on("value", snapshot => {
             const convObject = snapshot.val();
             if (convObject===null) {
                 return;
@@ -46,22 +54,27 @@ class Messages extends Component {
             this.setState({
                 conversations: convList,
                 loading: false
-            })
-        })
+            });
+            for (let i =0;i<this.state.conversations.length;i++) {
+                let tempId = this.state.conversations[i].msgids[this.state.conversations[i].msgids.length - 1];
+                this.getMessageFromID(tempId);
+            }
+        });
+    }
+
+    openConversation(event){
+        event.preventDefault();
+        let convmessages=this.state.conversations[event.target.value];
+        this.setState({activeMessages:convmessages})
     }
 
 
     //Mapper samtaleobjekter til en liste med knapper
-    ConversationList({conversations, messages}) {
-        var conversationList = []
-        for(let i = 0; i < conversations.length; i++)
-            conversationList.push(
-                <button>{messages[i].content}</button>
-            )
+    ConversationList({messages}) {
         return (
             <ul>
-            {conversationList.map((conversation) =>
-            <li>{conversation}</li>
+            {messages.map((message,index) =>
+                <li key={message.msgid}> <button value={index} onClick={this.openConversation}>{message.content.substr(0,50)}</button> </li>
             )}
             </ul>
         )
@@ -71,13 +84,17 @@ class Messages extends Component {
 
     render(){
         const {loading,conversations, messages}=this.state;
-        const conversationList = this.ConversationList({conversations, messages});
+        const conversationList = this.ConversationList({messages});
         return(
             <div>
                 {/*Setter siden til loading mens meldingene lastes inn*/}
                 {loading && <p>Loading</p>}
                 {conversationList}
-                {messages[0].content}
+                {
+                    this.state.activeMessages?
+                        <Inbox conversation={this.state.activeMessages}/>
+                        :null
+                }
                 {/*Sprint 2 TODO:
       * Create a messaging service, connection to a firebase with stored messages. General messages to counselor
       * can be accessed by all counselors, messages from counselors and admin to users can only be accessed by
