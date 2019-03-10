@@ -1,6 +1,14 @@
 import React,{Component} from 'react';
 import {withFirebase} from '../Firebase';
 import * as ROLES from '../../constants/roles';
+import firebase from 'firebase';
+
+const config = {
+    apiKey: "AIzaSyB75ISkhork5Z_-6Gp-oVq4iHA7zC2zuZ4",
+    authDomain: "finnutdanning.firebaseapp.com",
+    databaseURL: "https://finnutdanning.firebaseio.com",};
+
+const secondaryApp = firebase.initializeApp(config, "Secondary");
 
 const INITIAL_STATE = {
     email:"",
@@ -36,20 +44,39 @@ class Register extends Component {
         return false;
     }
 
+    generatePass(){
+        let letters="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#%&/?()"
+        let pass="";
+        for (let i=0; i<32;i++){
+            pass+=letters.charAt(Math.floor(Math.random()*letters.length));
+        }
+        return pass;
+    }
+
     /*Firebase: write to database with user info. Creates new user and a unique user id*/
     submit=event=> {
         const {email, fullName, role} = this.state;
-        event.preventDefault();
-        this.props.firebase.users().push({
-            email,
-            fullName,
-            role
-        })
-            .then(
-                this.setState({...INITIAL_STATE})
-            )
+        const pass=this.generatePass();
+        secondaryApp.auth().createUserWithEmailAndPassword(email,pass)
+            .then(authUser => {
+                    return secondaryApp.database().ref('users/'+authUser.user.uid)
+                        .set({
+                            fullName,
+                            email,
+                            role,
+                        });
+            })
+            .then(()=> {
+                this.props.firebase.doPasswordReset(email);
+                secondaryApp.auth().signOut();
+            })
             .catch(error =>
-                this.setState({error: error}))
+            {console.log(error);
+                this.setState({error:"Noe gikk galt!"});}
+            );
+
+        event.preventDefault();
+        this.setState({...INITIAL_STATE});
         };
 
     onSubmit = (event) => {
@@ -96,7 +123,7 @@ class Register extends Component {
                         name="role"
                         value={ROLES.USER}
                         checked={this.state.role === ROLES.USER}
-                        onChange={this.onChange}
+                        onClick={this.onChange}
                         />
 
                 <label> Veileder</label>
@@ -104,7 +131,7 @@ class Register extends Component {
                     name="role"
                     value={ROLES.COUNSELOR}
                     checked={this.state.role === ROLES.COUNSELOR}
-                    onChange={this.onChange}
+                    onClick={this.onChange}
                         />
 
                 <label> Ansatt</label>
@@ -112,7 +139,7 @@ class Register extends Component {
                     name="role"
                     value={ROLES.EMPLOYEE}
                     checked={this.state.role === ROLES.EMPLOYEE}
-                    onChange={this.onChange}
+                    onClick={this.onChange}
                         />
 
                 <label> Admin</label>
@@ -120,7 +147,7 @@ class Register extends Component {
                     name="role"
                     value={ROLES.ADMIN}
                     checked={this.state.role === ROLES.ADMIN}
-                    onChange={this.onChange}
+                    onClick={this.onChange}
                         />
                         <br/>
                 <button disabled={isInvalid} type="submit">Registrer

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter,Link} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import Dropdown from './dropdown';
 import './index.css';
@@ -85,6 +85,7 @@ class Landing extends Component {
             <div className="submitButton">
                 <button onClick={this.submit}> Finn Utdanning </button>
             </div>
+        <p> For å få tilgang til flere funksjoner på nettsiden må du være <Link to={ROUTES.SIGNIN}> logget inn</Link>.</p>
     </div>
             );
     }
