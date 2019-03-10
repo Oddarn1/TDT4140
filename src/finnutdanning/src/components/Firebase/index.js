@@ -1,4 +1,4 @@
-import Firebase from './firebase';
+import Firebase, {FirebaseAdmin} from './firebase';
 import FirebaseContext,{withFirebase} from './context';
 
 
