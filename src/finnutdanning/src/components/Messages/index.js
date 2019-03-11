@@ -66,6 +66,7 @@ class Messages extends Component {
 
     openConversation(event){
         event.preventDefault();
+        event.target.key=!event.target.key;
         let convmessages=this.state.conversations[event.target.value];
         this.setState({activeMessages:convmessages})
     }
@@ -85,23 +86,23 @@ class Messages extends Component {
 
 
     render(){
-        const {loading,conversations, messages}=this.state;
+        const {loading, messages}=this.state;
         const conversationList = this.ConversationList({messages});
         return(
             <div>
+                <h1>Mine Meldinger</h1>
                 {/*Setter siden til loading mens meldingene lastes inn*/}
                 {loading && <p>Loading</p>}
                 {conversationList}
                 {
                     this.state.activeMessages?
-                        <Inbox conversation={this.state.activeMessages}/>
+                        <Inbox key={true} conversation={this.state.activeMessages}/>
                         :null
                 }
                 {/*Sprint 2 TODO:
       * Create a messaging service, connection to a firebase with stored messages. General messages to counselor
       * can be accessed by all counselors, messages from counselors and admin to users can only be accessed by
       * that user.*/}
-                [Placeholder for meldingsboks]
                 <Link to={ROUTES.NEWMESSAGE}>
                     <button>Ny melding</button>
                 </Link>

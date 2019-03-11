@@ -128,7 +128,6 @@ class Admin extends Component {
     UserList ({users}) {
         return (
             <ul>
-                {console.log(users)}
                 {users.map((user,index) => (
                     <li key={user.uid}>
                         <span>
