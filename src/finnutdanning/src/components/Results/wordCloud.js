@@ -13,6 +13,7 @@ class InterestCloud extends React.Component {
     };
   };
 
+  // Vi henter alle interessene fra firebase her.
   componentDidMount(){
 
     this.setState({ loading: true });
@@ -32,6 +33,7 @@ class InterestCloud extends React.Component {
   render() {
 
     const {interests, loading}=this.state;
+
 
     var interestList = [];
 
