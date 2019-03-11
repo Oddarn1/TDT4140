@@ -77,6 +77,17 @@ class Blackboard extends Component {
       this.props.firebase.recpid(key).set(this.state.user);
       document.getElementById("textarea").value = "";
       event.target.value = 0;
+
+      var conversationsRef = this.props.firebase.conversations();
+      var newConversationRef = conversationsRef.push();
+      newConversationRef.set({
+        msgids: {
+          0 : key
+        },
+        participant1: document.getElementById(key).getAttribute('data-value2'),
+        participant2: this.state.user
+      });
+
       return;
     }
     console.log("Hva prøver du på egentlig?")
@@ -114,7 +125,7 @@ class Blackboard extends Component {
         // Slutten av loopen
         var messageButtons = messageList.map((message) =>
             //Lengden på denne må være like lang som lengden på en header.
-            <button id = {message.key} type = "button" data-value = {message.key} value = {message.content} onClick = {this.showMessage} className="messageButton">
+            <button id = {message.key} type = "button" data-value = {message.key} data-value2 = {message.senderid} value = {message.content} onClick = {this.showMessage} className="messageButton">
 
             {message.content.substr(0, 30)}
 
@@ -135,7 +146,7 @@ class Blackboard extends Component {
           <textarea rows="4" cols="50" disabled name = "Melding:" id = "textarea" value = "">
 
           </textarea>
-          <button type = "button" id = "assignBtn" value = {0} onClick = {this.assignMe}> MIN</button>
+          <button type = "button" id = "assignBtn" value = {0} data-value = "" onClick = {this.assignMe}> MIN</button>
         </div>
       </div>
     );
