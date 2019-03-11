@@ -74,14 +74,19 @@ class Firebase {
 
     messages= () => this.db.ref('messages');
 
-    recpid = msgid => this.db.ref('messages/'+msgid+'/recpid')
+    recpid = msgid => this.db.ref('messages/'+msgid+'/recpid');
 
     // ** Interest API ***
     interest = iname => this.db.ref('interests/'+iname);
 
     interests = () => this.db.ref('interests');
 
-    hits = iname => this.db.ref('interests/'+iname+'/hits')
+    hits = iname => this.db.ref('interests/'+iname+'/hits');
+
+    conversation = convid => this.db.ref('conversations/' + convid);
+
+    conversations = () => this.db.ref('conversations');
+
 
 }
 

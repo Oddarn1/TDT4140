@@ -66,7 +66,6 @@ class Messages extends Component {
 
     openConversation(event){
         event.preventDefault();
-        event.target.key=!event.target.key;
         let convmessages=this.state.conversations[event.target.value];
         this.setState({activeMessages:convmessages})
     }
@@ -96,7 +95,7 @@ class Messages extends Component {
                 {conversationList}
                 {
                     this.state.activeMessages?
-                        <Inbox key={true} conversation={this.state.activeMessages}/>
+                        <Inbox conversation={this.state.activeMessages}/>
                         :null
                 }
                 {/*Sprint 2 TODO:

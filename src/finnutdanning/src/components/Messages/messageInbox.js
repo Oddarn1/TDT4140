@@ -98,7 +98,6 @@ class Inbox extends Component{
         const ConvList=this.ConvList();
         return(
             <div className="inbox">
-
                 {!this.state.loading && <div>{ConvList}</div>}
             </div>
         )

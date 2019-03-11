@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import GetResults from "./getResults";
 import InterestCloud from "./wordCloud";
-import {withFirebase} from '../Firebase'
 
 class Results extends Component {
 
