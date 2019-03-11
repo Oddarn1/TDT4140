@@ -66,7 +66,7 @@ class Blackboard extends Component {
   // Denne funksjonen oppdaterer meldingen sin recpid i databasen til
   // den veilederen som er innlogget og har trykket "Min".
   assignMe(event) {
-
+  try{
     if (event.target.value !== 0) {
       // Denne linjen skjuler meldingen som har blitt valgt av veileder.
       document.getElementById(event.target.value).style.display = "none";
@@ -87,15 +87,13 @@ class Blackboard extends Component {
         participant1: document.getElementById(key).getAttribute('data-value2'),
         participant2: this.state.user
       });
-
-      return;
-    }
-    console.log("Hva prøver du på egentlig?")
+    }}catch(error){
+    console.log("Hva prøver du på egentlig?")}
   }
 
   render() {
 
-    const {messages, loading, user, role}=this.state;
+    const {messages, loading, role}=this.state;
 
     var messageList = [];
     if (messages != null) {
@@ -135,12 +133,12 @@ class Blackboard extends Component {
 
     return(
       <div className="blackBoard">
-        {loading && <div>Loading ...</div>}
-        {!loading && <h1>Meldingstavle: </h1>}
+        <h1>Meldingstavle: </h1>
 
-        <div className="buttonDiv">
+          {!loading &&<div className="buttonDiv">
           {messageButtons}
-        </div>
+        </div>}
+          {loading && <div>Loading ...</div>}
         <div className="textAreaDiv">
 
           <textarea rows="4" cols="50" disabled name = "Melding:" id = "textarea" value = "">

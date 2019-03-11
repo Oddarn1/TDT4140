@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import * as ROLES from '../../constants/roles';
-import {AuthUserContext} from '../Session';
 import withAuthorization from "../Session/withAuthorization";
+import {withFirebase} from "../Firebase";
+import {compose} from 'recompose';
 
 const INITIAL_STATE = {
        to: "",
        content: ""
 };
 
-class MessageForm extends Component{
+class NewMessage extends Component{
      constructor(props){
         super(props);
         this.state={...INITIAL_STATE};
@@ -21,17 +22,15 @@ class MessageForm extends Component{
        }
 
        onSubmit = event => {
+         event.preventDefault();
        const {content, to} = this.state;
-       const senderid = this.props.firebase.auth.currentUser.uid;
-       const recpid = ROLES.COUNSELOR;
+       const senderid = this.props.authUser.uid;
+       const recpid = to;
        const first = true;
-       this.props.firebase
-       .messages().push({senderid, recpid, content})
+       this.props.firebase.messages().push({senderid, recpid, content, first})
        .then(() => {
-              event.preventDefault();
               this.setState({...INITIAL_STATE});
-
-       });
+       }).catch(error=>console.log(error));
 
 };
 
@@ -40,8 +39,6 @@ class MessageForm extends Component{
 // "sende" melding this.props.firebase.messages().push({senderid: ^,content})
 // .then(this.setState({standard}))
 // .catch(error)
-
-
 
     render() {
 
@@ -53,7 +50,7 @@ class MessageForm extends Component{
         <div>
         <form onSubmit={this.onSubmit}>
         <label>Til </label>
-                <input value={this.state.to}
+                <input value={to}
                    placeholder={role===ROLES.USER?"Veileder":"Mottaker"}
                    onChange={this.onChange}
                    name="to"
@@ -61,7 +58,7 @@ class MessageForm extends Component{
             />
             <br/>
 
-                <textarea value={this.state.content}
+                <textarea value={content}
                        placeholder="Skriv din melding her"
                        onChange={this.onChange}
                        name="content"
@@ -78,15 +75,9 @@ class MessageForm extends Component{
 
 
 //Wrapper klassen i en consumer som gir tilgang til authUser
-const NewMessage=()=>(
-    <AuthUserContext.Consumer>
-        {authUser =>
-            <MessageForm authUser={authUser}/>}
-    </AuthUserContext.Consumer>
-);
 
 //Setter en condition som forhindrer siden i å laste før authUser er registrert.
 //Dette var bakgrunnen i at man ikke fikk desablet inputfelt, ettersom den først leste siden uten at bruker var logget inn
 const condition=authUser => ! !authUser;
 
-export default withAuthorization(condition)(NewMessage);
+export default compose(withFirebase,withAuthorization(condition))(NewMessage);

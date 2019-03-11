@@ -5,6 +5,14 @@ import * as ROUTES from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import * as ROLES from '../../constants/roles';
 
+const INITIAL_STATE={
+    messages:[],
+    loading: false,
+    conversations: [],
+    activeMessages: null,
+    renderCount:0,
+};
+
 class Messages extends Component {
     constructor(props){
         super(props);
@@ -37,17 +45,19 @@ class Messages extends Component {
 
     //Skrur av listener som opprettes i ComponentDidMount.
     componentWillUnmount(){
+        this.setState({...INITIAL_STATE});
         this.props.firebase.messages().off();
     }
     
     //Henter inn en liste med samtaler hvor en gitt bruker er en deltaker
     getConversationsFromUid(uid){
+        //Tar utgangspunkt i at bruker alltid er participant1 i første omgang
         const query=this.props.authUser.role===ROLES.USER?'participant1':'participant2';
         this.setState({
             loading: true
         });
         this.props.firebase.conversations().orderByChild(query).equalTo(uid)
-            .on("value", snapshot => {
+            .once("value", snapshot => {
             const convObject = snapshot.val();
             if (convObject===null) {
                 return;
@@ -59,19 +69,20 @@ class Messages extends Component {
 
             this.setState({
                 conversations: convList,
-                loading: false
+                loading: false,
             });
+
             for (let i =0;i<this.state.conversations.length;i++) {
                 let tempId = this.state.conversations[i].msgids[this.state.conversations[i].msgids.length - 1];
                 this.getMessageFromID(tempId);
             }
-        });
+        }).then(this.forceUpdate())
+            .catch(error=>console.log(error))
     }
 
     //Endrer renderCount for å tvinge remount av Inbox
     openConversation(event){
         event.preventDefault();
-        console.log(this.state.conversations[event.target.value]);
         let convmessages=this.state.conversations[event.target.value];
         this.setState({activeMessages:convmessages,
         renderCount: this.state.renderCount +1})
@@ -104,11 +115,7 @@ class Messages extends Component {
                         <Inbox key={this.state.renderCount} conversation={this.state.activeMessages}/>
                         :null
                 }
-                {/*Sprint 2 TODO:
-      * Create a messaging service, connection to a firebase with stored messages. General messages to counselor
-      * can be accessed by all counselors, messages from counselors and admin to users can only be accessed by
-      * that user.*/}
-      <br/>
+                <br/>
                 <Link to={ROUTES.NEWMESSAGE}>
                     <button>Ny melding</button>
                 </Link>
