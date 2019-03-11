@@ -14,6 +14,8 @@ import SignIn from '../SignIn';
 import SignUp from '../SignUp';
 import Account from '../Account';
 import './index.css';
+import NewMessage from '../NewMessage';
+import Blackboard from '../Blackboard';
 
 import * as ROUTES from '../../constants/routes';
 import withAuthentication from "../Session/withAuthentication";
@@ -36,7 +38,10 @@ const App =()=>(
                 <Route path={ROUTES.SIGNIN} component={SignIn}/>
                 <Route path={ROUTES.PASSWORDFORGET} component={PasswordForget}/>
                 <Route path={ROUTES.ACCOUNT} component={Account}/>
+                <Route path={ROUTES.NEWMESSAGE} component={NewMessage}/>
+                <Route path={ROUTES.BLACKBOARD} component={Blackboard}/>
                 <Route component={NotFound}/>
+
             </Switch>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import "./index.css";
@@ -25,6 +25,16 @@ const NavigationAuth = ({authUser}) => (
                 <Link to={ROUTES.ADMIN}>
                     <button> Admin </button>
                 </Link>
+                }
+                {authUser.role === ROLES.COUNSELOR &&
+                  <Link to={ROUTES.BLACKBOARD}>
+                      <button> Veiledertavle </button>
+                  </Link>
+                }
+                {authUser.role === ROLES.ADMIN &&
+                  <Link to={ROUTES.BLACKBOARD}>
+                      <button> Vedlikeholdstavle </button>
+                  </Link>
                 }
                 <SignOut/>
                 <p>Logget inn som: {authUser.email}</p>
