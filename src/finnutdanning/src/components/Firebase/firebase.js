@@ -65,20 +65,24 @@ class Firebase {
             }
         });
 
-    //DB API
+    // ** User API **
     user=uid=>this.db.ref('users/'+uid);
 
     users = () => this.db.ref('users');
 
     role = uid => this.db.ref('users/'+uid+'/role');
 
+    // ** Message API **
     message=msgid=>this.db.ref('messages/'+msgid);
 
     messages= () => this.db.ref('messages');
 
     recpid = msgid => this.db.ref('messages/'+msgid+'/recpid')
 
-    // ** Interest API ***
+    // ** Conversation API **
+    conversations = () => this.db.ref('conversations');
+
+    // ** Interest API **
     interest = iname => this.db.ref('interests/'+iname);
 
     interests = () => this.db.ref('interests');
