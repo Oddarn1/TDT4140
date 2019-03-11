@@ -76,7 +76,7 @@ class Messages extends Component {
         return (
             <ul>
             {messages.map((message,index) =>
-                <li key={message.msgid}> <button value={index} onClick={this.openConversation}>{message.content.substr(0,50)}</button> </li>
+                <li key={message.msgid}> <button value={index} onClick={this.openConversation}>{message.content.substr(0,50)}{message.content.length > 50 && "..."}</button> </li>
             )}
             </ul>
         )
