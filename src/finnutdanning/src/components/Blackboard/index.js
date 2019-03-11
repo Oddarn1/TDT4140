@@ -16,8 +16,8 @@ class Blackboard extends Component {
     this.state = {
       messages : Object,
       loading : false,
-      text: "",
-      counselor: String
+      user: String,
+      role: String
     };
   };
 
@@ -25,16 +25,24 @@ class Blackboard extends Component {
     this.setState({ loading: true });
     this.props.firebase.messages().once('value', snapshot => {
         const messageObjects = snapshot.val();
+        const userID = this.props.firebase.auth.currentUser.uid;
+        this.props.firebase.role(userID).once('value', snapshot2 => {
+          const curRole = snapshot2.val();
+          this.setState({
+            role: curRole
+          });
+        });
         this.setState({
             messages: messageObjects,
             loading: false,
-            counselor: this.props.firebase.auth.currentUser.uid
+            user: this.props.firebase.auth.currentUser.uid
         });
     });
   };
 
   componentWillUnmount() {
     this.props.firebase.messages().off();
+    this.props.firebase.role().off();
   }
 
   // Denne funksjonen starter når en av meldingsknappene trykkes.
@@ -67,7 +75,7 @@ class Blackboard extends Component {
       const key = event.target.value;
 
       // Her skjer den faktiske oppdateringen på databasen.
-      this.props.firebase.recpid(key).set(this.state.counselor);
+      this.props.firebase.recpid(key).set(this.state.user);
       document.getElementById("textarea").value = "";
       event.target.value = 0;
       return;
@@ -77,37 +85,43 @@ class Blackboard extends Component {
 
   render() {
 
-    const {messages, loading}=this.state;
+    const {messages, loading, user, role}=this.state;
 
     var messageList = [];
     if (messages != null) {
-      var counter = 1;
       Object.keys(messages).forEach(function (message) {
         // Her sjekker vi alle meldingen og om hvilken av de som ikke har en
         // recpid.
-        if ((messages[message]["recpid"] === "")) {
-        // Her lages en liste med alle meldingene som er relevante for tavlen.
-          messageList.push({
-            key : message,
-            content: messages[message]["content"],
-            senderid: messages[message]["senderid"],
-            index: counter
-          });
-          counter += 1;
-        };
+        if (role === "Veileder") {
+          if ((messages[message]["recpid"] === "Veileder")) {
+          // Her lages en liste med alle meldingene som er relevante for tavlen.
+            messageList.push({
+              key : message,
+              content: messages[message]["content"],
+              senderid: messages[message]["senderid"]
+            });
+          };
+        } else if (role === "Admin") {
+            if ((messages[message]["recpid"] === "Admin")) {
+            // Her lages en liste med alle meldingene som er relevante for tavlen.
+              messageList.push({
+                key : message,
+                content: messages[message]["content"],
+                senderid: messages[message]["senderid"]
+              });
+            };
+          };
       });
-      // Slutten av loopen
-      var messageButtons = messageList.map((message) =>
-          //Lengden på denne må være like lang som lengden på en header.
-          <button id = {message.key} type = "button" data-value = {message.key} value = {message.content} onClick = {this.showMessage} className="messageButton">
+        // Slutten av loopen
+        var messageButtons = messageList.map((message) =>
+            //Lengden på denne må være like lang som lengden på en header.
+            <button id = {message.key} type = "button" data-value = {message.key} value = {message.content} onClick = {this.showMessage} className="messageButton">
 
-          {message.content.substr(0, 30)}
+            {message.content.substr(0, 30)}
 
-          </button>
-      );
-
-
-    };
+            </button>
+        );
+      };
 
     return(
       <div className="blackBoard">
@@ -120,7 +134,7 @@ class Blackboard extends Component {
         <div className="textAreaDiv">
 
           <textarea rows="4" cols="50" disabled name = "Melding:" id = "textarea" value = "">
-            {this.state.text}
+
           </textarea>
           <button type = "button" id = "assignBtn" value = {0} onClick = {this.assignMe}> MIN</button>
         </div>
@@ -131,7 +145,7 @@ class Blackboard extends Component {
 };
 
 const condition = authUser =>
-    authUser && (authUser.role===ROLES.COUNSELOR);
+    authUser && (authUser.role===ROLES.COUNSELOR || authUser.role===ROLES.ADMIN);
 
 export default compose(
     withFirebase,
