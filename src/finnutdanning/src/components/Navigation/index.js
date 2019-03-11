@@ -26,6 +26,11 @@ const NavigationAuth = ({authUser}) => (
                     <button> Admin </button>
                 </Link>
                 }
+                {authUser.role === ROLES.COUNSELOR &&
+                  <Link to={ROUTES.BLACKBOARD}>
+                      <button> Veiledertavle </button>
+                  </Link>
+                }
                 <SignOut/>
                 <p>Logget inn som: {authUser.email}</p>
             </div>

@@ -1,33 +1,60 @@
 import React, {Component} from 'react';
+import {withFirebase} from '../Firebase';
 
 class Dropdown extends Component{
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        interests : Object,
+        loading : false
+      }
+    };
+
+    componentDidMount(){
+
+    this.setState({ loading: true });
+    this.props.firebase.interests().once('value', snapshot => {
+        const interestObjects = snapshot.val();
+        this.setState({
+            interests: interestObjects,
+            loading: false
+        });
+    });
+  }
+
+  componentWillUnmount() {
+    this.props.firebase.interests().off();
+  }
 
 
     render(){
 
-        // Henter json-filen som har alle mulige interesser og koblingen til studieretninger
-        var jsonData = require('../../data/interests');
-        
+        const {interests, loading}=this.state;
+
         // Oppretter tomt array for å lagre interesser
-        var interests = [];
+        var interestList = [];
 
         // Fyller arrayet med alle mulige interesser
-        Object.keys(jsonData).forEach(function(interest){
-            interests.push(interest)
-        });
+
+        if (interests != null) {
+            Object.keys(interests).forEach(function(interest) {
+              interestList.push(interest);
+            })
+        };
 
         // Lager HTML-liste med alle knappene som skal lages
-        var allButtons = interests.sort().map((interest) =>
+        var allButtons = interestList.sort().map((interest) =>
             <button value = {interest} onClick = {this.props.capture}>{interest}</button>
         );
-        
+
         return(
             // Itererer gjennom alle interessene for å lage knapper
-            <div>
+            <div className="buttons">
                 {allButtons}
             </div>
         )
     }
 }
 
-export default Dropdown;
+export default withFirebase(Dropdown);

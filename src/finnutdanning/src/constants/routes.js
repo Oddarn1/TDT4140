@@ -9,4 +9,5 @@ export const SIGNUP='/signup';
 export const SIGNIN='/signin';
 export const PASSWORDFORGET='/forgottenpassword';
 export const ACCOUNT='/account';
+export const BLACKBOARD='/blackboard';
 export const NEWMESSAGE='/newmessage';

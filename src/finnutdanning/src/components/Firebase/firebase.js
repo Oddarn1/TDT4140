@@ -1,7 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import * as ROLES from '../../constants/roles';
 
 export const config = {
     apiKey: "AIzaSyB75ISkhork5Z_-6Gp-oVq4iHA7zC2zuZ4",
@@ -47,9 +46,9 @@ class Firebase {
                     .then(snapshot => {
                         const dbUser = snapshot.val();
 
-                        // default user-roles
+                        // default empty roles
                         if (!dbUser.role) {
-                            dbUser.role = ROLES.USER;
+                            dbUser.role = "";
                         }
 
                         // merge auth and db user
@@ -75,9 +74,14 @@ class Firebase {
 
     messages= () => this.db.ref('messages');
 
-    conversation = convid => this.db.ref('conversations/' + convid);
-    
-    conversations = () => this.db.ref('conversations');
+    recpid = msgid => this.db.ref('messages/'+msgid+'/recpid')
+
+    // ** Interest API ***
+    interest = iname => this.db.ref('interests/'+iname);
+
+    interests = () => this.db.ref('interests');
+
+    hits = iname => this.db.ref('interests/'+iname+'/hits')
 
 }
 

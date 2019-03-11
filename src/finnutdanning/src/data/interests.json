@@ -1,119 +1,176 @@
 {
-  "Sudoku": [
-    "Matematikk",
-    "Datateknikk"
-  ],
-  "Industri": [
-    "Industrioppmålingsfag",
-    "Industriell matproduksjon",
-    "Industriell overflatebehandling",
-    "Industriell skotøyproduksjon",
-    "Industrisømfag"
-  ],
-  "Rengjøring": [
-    "Renholdsoperatørfag",
-    "Tekstilrensfag"
-  ],
-  "Materialer": [
-    "Polymerkomposittfag",
-    "Termoplastfag",
-    "Industriell overflatebehandling"
-  ],
-  "Barn": [
-    "Lærerutdanning",
-    "Pedagogikk",
-    "Fag- og yrkesfaglærerutdanning",
-    "Grunnskolelærerutdanning 1.-7.",
-    "Grunnskolelærerutdanning 5.-10.",
-    "Barnehagelærerutdanning"
-  ],
-  "Båt": [
-    "Nautisk instrumentmakerfag",
-    "Matrosfag",
-    "Maritime fag",
-    "Trebåtbyggerfag",
-    "Komposittbåtbyggerfag"
-  ],
-  "Mote": [
-    "Mote og industridesign",
-    "Design",
-    "Frisørfag",
-    "Maskør- og parykkmakerfag",
-    "Kunstfag",
-    "Sminkørutdanning (make-up artist)"
-  ],
-  "Samisk": [
-    "Horn-, bein- og metallduodjifag",
-    "Treduodjifag",
-    "Tekstilduodjifag",
-    "Skinn- og pelsduodjifag",
-    "Veve- og håndstrikkeduodjifag",
-    "Reindriftsfag"
-  ],
-  "Lesing": [
-    "Litteraturvitenskap",
-    "Språkvitenskapelig utdanning",
-    "Forfatterutdanning",
-    "Historie"
-  ],
-  "Klima": [
-    "Kjemi og bioteknologi",
-    "Akvakulturfag",
-    "Skogfag",
-    "Gjenvinningsfag"
-  ],
-  "Hage": [
-    "Anleggsgartnerfag",
-    "Gartnernæring",
-    "Landbruk",
-    "Skogfag"
-  ],
-  "Natur": [
-    "Akvakulturfag",
-    "Anleggsgartnerfag",
-    "Fiske og fangst",
-    "Gartnernæring",
-    "Landbruk",
-    "Skogfag",
-    "Landbruksfag og naturbruk"
-  ],
-  "Idrett": [
-    "Idrettsanleggsfag",
-    "Idrettsfag"
-  ],
-  "Dyr": [
-    "Hestefag",
-    "Reindriftsfag"
-  ],
-  "Film": [
-    "Film- og TV-produksjon",
-    "Maskør- og parykkmakerfag",
-    "Animasjon, spill- og 3D-design",
-    "Sminkørutdanning (make-up artist)"
-  ],
-  "Mat": [
-    "Servitørfag",
-    "Industriell matproduksjon",
-    "Matvitenskap",
-    "Institusjonskokkfag",
-    "Kokkfag",
-    "Konditorfag"
-  ],
-  "Bil": [
-    "Yrkessjåførfag",
-    "Bilfaget, lette kjøretøy",
-    "Bilfaget, tunge kjøretøy",
-    "Billakkererfag",
-    "Bilskadefag"
-  ],
-  "Dataspill": [
-    "Animasjon, spill- og 3D-design",
-    "Datateknikk",
-    "Elektro"
-  ],
-  "Fotografi": [
-    "Fotografi",
-    "Grafisk design",
-    "Kunstfag"
-  ]
+  "Sudoku": {
+    "studies": [
+      "Matematikk",
+      "Datateknikk"
+    ],
+    "hits": 10
+  },
+  "Industri": {
+    "studies": [
+      "Industrioppmålingsfag",
+      "Industriell matproduksjon",
+      "Industriell overflatebehandling",
+      "Industriell skotøyproduksjon",
+      "Industrisømfag"
+    ],
+    "hits": 12
+  },
+  "Rengjøring": {
+    "studies": [
+      "Renholdsoperatørfag",
+      "Tekstilrensfag"
+    ],
+    "hits": 20
+  },
+  "Materialer": {
+    "studies": [
+      "Polymerkomposittfag",
+      "Termoplastfag",
+      "Industriell overflatebehandling"
+    ],
+    "hits": 15
+  },
+  "Barn": {
+    "studies": [
+      "Lærerutdanning",
+      "Pedagogikk",
+      "Fag- og yrkesfaglærerutdanning",
+      "Grunnskolelærerutdanning 1.-7.",
+      "Grunnskolelærerutdanning 5.-10.",
+      "Barnehagelærerutdanning"
+    ],
+    "hits": 45
+  },
+  "Båt": {
+    "studies": [
+      "Nautisk instrumentmakerfag",
+      "Matrosfag",
+      "Maritime fag",
+      "Trebåtbyggerfag",
+      "Komposittbåtbyggerfag"
+    ],
+    "hits": 18
+  },
+  "Mote": {
+    "studies": [
+      "Mote og industridesign",
+      "Design",
+      "Frisørfag",
+      "Maskør- og parykkmakerfag",
+      "Kunstfag",
+      "Sminkørutdanning (make-up artist)"
+    ],
+    "hits": 32
+  },
+  "Samisk": {
+    "studies": [
+      "Horn-, bein- og metallduodjifag",
+      "Treduodjifag",
+      "Tekstilduodjifag",
+      "Skinn- og pelsduodjifag",
+      "Veve- og håndstrikkeduodjifag",
+      "Reindriftsfag"
+    ],
+    "hits": 5
+  },
+  "Lesing": {
+    "studies": [
+      "Litteraturvitenskap",
+      "Språkvitenskapelig utdanning",
+      "Forfatterutdanning",
+      "Historie"
+    ],
+    "hits": 28
+  },
+  "Klima": {
+    "studies": [
+      "Kjemi og bioteknologi",
+      "Akvakulturfag",
+      "Skogfag",
+      "Gjenvinningsfag"
+    ],
+    "hits": 32
+  },
+  "Hage": {
+    "studies": [
+      "Anleggsgartnerfag",
+      "Gartnernæring",
+      "Landbruk",
+      "Skogfag"
+    ],
+    "hits": 10
+  },
+  "Natur": {
+    "studies": [
+      "Akvakulturfag",
+      "Anleggsgartnerfag",
+      "Fiske og fangst",
+      "Gartnernæring",
+      "Landbruk",
+      "Skogfag",
+      "Landbruksfag og naturbruk"
+    ],
+    "hits": 28
+  },
+  "Idrett": {
+    "studies": [
+      "Idrettsanleggsfag",
+      "Idrettsfag"
+    ],
+    "hits": 48
+  },
+  "Dyr": {
+    "studies": [
+      "Hestefag",
+      "Reindriftsfag"
+    ],
+    "hits": 24
+  },
+  "Film": {
+    "studies": [
+      "Film- og TV-produksjon",
+      "Maskør- og parykkmakerfag",
+      "Animasjon, spill- og 3D-design",
+      "Sminkørutdanning (make-up artist)"
+    ],
+    "hits": 32
+  },
+  "Mat": {
+    "studies": [
+      "Servitørfag",
+      "Industriell matproduksjon",
+      "Matvitenskap",
+      "Institusjonskokkfag",
+      "Kokkfag",
+      "Konditorfag"
+    ],
+    "hits": 23
+  },
+  "Bil": {
+    "studies": [
+      "Yrkessjåførfag",
+      "Bilfaget, lette kjøretøy",
+      "Bilfaget, tunge kjøretøy",
+      "Billakkererfag",
+      "Bilskadefag"
+    ],
+    "hits": 18
+  },
+  "Dataspill": {
+    "studies": [
+      "Animasjon, spill- og 3D-design",
+      "Datateknikk",
+      "Elektro"
+    ],
+    "hits": 29
+  },
+  "Fotografi": {
+    "studies": [
+      "Fotografi",
+      "Grafisk design",
+      "Kunstfag"
+    ],
+    "hits": 18
+  }
 }

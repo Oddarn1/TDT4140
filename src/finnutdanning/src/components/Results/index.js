@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-
-import {GetResults} from "./getResults"
+import GetResults from "./getResults";
+import InterestCloud from "./wordCloud";
+import {withFirebase} from '../Firebase'
 
 class Results extends Component {
 
@@ -20,9 +21,11 @@ class Results extends Component {
         * Save results to specific users, make most recent (max 10) searches available when searching.*/}
 
             <div>
-                <GetResults interests={query}/>
+                <GetResults query={query}/>
             </div>
-        <div>[Placeholder for ordsky]</div>
+            <div>
+              <InterestCloud/>
+            </div>
     </div>
 
   );}
