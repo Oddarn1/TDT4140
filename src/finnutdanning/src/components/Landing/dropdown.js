@@ -30,7 +30,7 @@ class Dropdown extends Component{
 
     render(){
 
-        const {interests, loading}=this.state;
+        const {interests}=this.state;
 
         // Oppretter tomt array for å lagre interesser
         var interestList = [];

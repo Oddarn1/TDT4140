@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import withAuthorization from "../Session/withAuthorization";
-import {AuthUserContext} from '../Session';
 import {withFirebase} from '../Firebase';
 import {compose} from 'recompose';
 import * as ROLES from "../../constants/roles";
@@ -68,7 +67,7 @@ class Blackboard extends Component {
   // den veilederen som er innlogget og har trykket "Min".
   assignMe(event) {
 
-    if (event.target.value != 0) {
+    if (event.target.value !== 0) {
       // Denne linjen skjuler meldingen som har blitt valgt av veileder.
       document.getElementById(event.target.value).style.display = "none";
 

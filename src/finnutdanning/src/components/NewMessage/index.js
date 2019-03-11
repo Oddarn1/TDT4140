@@ -23,7 +23,7 @@ class MessageForm extends Component{
        onSubmit = event => {
        const {content, to} = this.state;
        const senderid = this.props.firebase.auth.currentUser.uid;
-       const recpid = "";
+       const recpid = ROLES.COUNSELOR;
        const first = true;
        this.props.firebase
        .messages().push({senderid, recpid, content})
@@ -50,10 +50,7 @@ class MessageForm extends Component{
        const role=this.props.authUser.role;
 
       return (
-
-
         <div>
-            {console.log(role)}
         <form onSubmit={this.onSubmit}>
         <label>Til </label>
                 <input value={this.state.to}

@@ -3,6 +3,7 @@ som blir valgt i index
  */
 import React,{Component} from "react";
 import {withFirebase} from "../Firebase";
+import './index.css';
 
 class Inbox extends Component{
     constructor(props){
@@ -15,14 +16,6 @@ class Inbox extends Component{
         this.userFromUid=this.userFromUid.bind(this);
     }
 
-    componentWillReceiveProps(nextProps,nextContent){
-        if (nextProps.conversation!==this.props.conversation){
-            this.componentDidMount();
-            this.props.firebase.messages().off();
-            console.log(this.state.user);
-            console.log(this.state.messages);
-        }
-    }
 
     //Ved mounting av funksjon (kallet i messages/index)
     /*Promises benyttes som en sekvensiell try/catch-blokk i hovedsak, en .then kan ikke gjøre noe før funksjonen før
@@ -48,13 +41,13 @@ class Inbox extends Component{
                 //Ny promise for å sette state og gjøre endringer, dette kommer etter forrige promise er resolved (gjennomført)
             }).then(()=>{
                 this.setState({messages:msg,
-                loading: false,});
-            this.userFromUid();
+                },()=> {this.setState({loading:false,});
+                this.userFromUid();});
                 }
             )
             //Fallback dersom promisene ikke gjennomføres
             .catch(error=>
-        console.log(error))
+        console.log(error));
     }
 
     componentWillUnmount(){
@@ -80,25 +73,23 @@ class Inbox extends Component{
     //Mapper meldinger til en liste for å displaye i innboks.
     ConvList(){
         return (
-            <ul>
+            <div className="inbox">
                 {this.state.messages.map(message=>(
-
-                    <li key={message.msgid}>
                         <div>
-                        <span><strong>Fra: </strong>{message.senderid}</span><br/>
-                        <span><strong> Innhold: </strong>{message.content}</span>
+                        <span><label> Fra: </label><br/><input disabled value={message.senderid}/></span><br/>
+                        <span><label> Innhold: </label><br/><textarea value={message.content} disabled/></span>
                         </div>
-                    </li>
                 ))}
-            </ul>
+            </div>
         )
     }
 
     render(){
         const ConvList=this.ConvList();
+        const {loading}=this.state;
         return(
             <div className="inbox">
-                {!this.state.loading && <div>{ConvList}</div>}
+                {!loading && <div>{ConvList}</div>}
             </div>
         )
     }

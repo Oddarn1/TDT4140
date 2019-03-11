@@ -3,6 +3,7 @@ import {withAuthorization} from "../Session";
 import Inbox from './messageInbox';
 import * as ROUTES from '../../constants/routes';
 import {Link} from 'react-router-dom';
+import * as ROLES from '../../constants/roles';
 
 class Messages extends Component {
     constructor(props){
@@ -11,7 +12,8 @@ class Messages extends Component {
             messages:[], //Vil inneholde siste melding i hver samtale for å displaye dette
             loading: false,
             conversations: [],
-            activeMessages: null
+            activeMessages: null,
+            renderCount:0,
         };
         this.getConversationsFromUid = this.getConversationsFromUid.bind(this);
         this.getMessageFromID=this.getMessageFromID.bind(this);
@@ -40,10 +42,12 @@ class Messages extends Component {
     
     //Henter inn en liste med samtaler hvor en gitt bruker er en deltaker
     getConversationsFromUid(uid){
+        const query=this.props.authUser.role===ROLES.USER?'participant1':'participant2';
         this.setState({
             loading: true
         });
-        this.props.firebase.conversations().on("value", snapshot => {
+        this.props.firebase.conversations().orderByChild(query).equalTo(uid)
+            .on("value", snapshot => {
             const convObject = snapshot.val();
             if (convObject===null) {
                 return;
@@ -64,10 +68,13 @@ class Messages extends Component {
         });
     }
 
+    //Endrer renderCount for å tvinge remount av Inbox
     openConversation(event){
         event.preventDefault();
+        console.log(this.state.conversations[event.target.value]);
         let convmessages=this.state.conversations[event.target.value];
-        this.setState({activeMessages:convmessages})
+        this.setState({activeMessages:convmessages,
+        renderCount: this.state.renderCount +1})
     }
 
 
@@ -76,7 +83,7 @@ class Messages extends Component {
         return (
             <ul>
             {messages.map((message,index) =>
-                <li key={message.msgid}> <button value={index} onClick={this.openConversation}>{message.content.substr(0,50)}</button> </li>
+                <li key={index}> <button value={index} onClick={this.openConversation}>{message.content.substr(0,50)}</button> </li>
             )}
             </ul>
         )
@@ -93,15 +100,15 @@ class Messages extends Component {
                 {/*Setter siden til loading mens meldingene lastes inn*/}
                 {loading && <p>Loading</p>}
                 {conversationList}
-                {
-                    this.state.activeMessages?
-                        <Inbox conversation={this.state.activeMessages}/>
+                {this.state.activeMessages?
+                        <Inbox key={this.state.renderCount} conversation={this.state.activeMessages}/>
                         :null
                 }
                 {/*Sprint 2 TODO:
       * Create a messaging service, connection to a firebase with stored messages. General messages to counselor
       * can be accessed by all counselors, messages from counselors and admin to users can only be accessed by
       * that user.*/}
+      <br/>
                 <Link to={ROUTES.NEWMESSAGE}>
                     <button>Ny melding</button>
                 </Link>
