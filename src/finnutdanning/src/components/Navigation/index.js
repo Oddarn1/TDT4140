@@ -32,6 +32,11 @@ const NavigationAuth = ({authUser}) => (
                       <button> Veiledertavle </button>
                   </Link>
                 }
+                {authUser.role === ROLES.ADMIN &&
+                  <Link to={ROUTES.BLACKBOARD}>
+                      <button> Vedlikeholdstavle </button>
+                  </Link>
+                }
                 <SignOut/>
                 <p>Logget inn som: {authUser.email}</p>
             </div>

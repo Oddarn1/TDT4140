@@ -70,6 +70,8 @@ class Firebase {
 
     users = () => this.db.ref('users');
 
+    role = uid => this.db.ref('users/'+uid+'/role');
+
     message=msgid=>this.db.ref('messages/'+msgid);
 
     messages= () => this.db.ref('messages');
