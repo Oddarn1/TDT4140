@@ -1,10 +1,9 @@
-import React,{Component} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import "./index.css";
 import {AuthUserContext} from '../Session';
 import * as ROLES from '../../constants/roles';
-import {withFirebase} from '../Firebase';
 import SignOut from "../SignOut";
 
 /*Whenever TODO:
@@ -26,6 +25,16 @@ const NavigationAuth = ({authUser}) => (
                 <Link to={ROUTES.ADMIN}>
                     <button> Admin </button>
                 </Link>
+                }
+                {authUser.role === ROLES.COUNSELOR &&
+                  <Link to={ROUTES.BLACKBOARD}>
+                      <button> Veiledertavle </button>
+                  </Link>
+                }
+                {authUser.role === ROLES.ADMIN &&
+                  <Link to={ROUTES.BLACKBOARD}>
+                      <button> Vedlikeholdstavle </button>
+                  </Link>
                 }
                 <SignOut/>
                 <p>Logget inn som: {authUser.email}</p>

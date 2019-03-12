@@ -20,6 +20,8 @@ class Admin extends Component {
         this.roleSearch=this.roleSearch.bind(this);
     }
 
+
+    //Ved render lastes databasen inn i users. Vises på siden.
     componentDidMount(){
         this.setState({ loading: true });
 
@@ -102,7 +104,6 @@ class Admin extends Component {
         event.preventDefault();
     }
 
-
     onSubmit(){
         const {users}=this.state;
         for(var i=0;i<users.length;i++){
@@ -125,6 +126,7 @@ class Admin extends Component {
         }
     }
 
+    //Lister brukere i admin
     UserList ({users}) {
         return (
             <ul>
