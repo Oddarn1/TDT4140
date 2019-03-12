@@ -58,7 +58,8 @@ const NavigationNonAuth = () => (
             <Link to={ROUTES.SIGNIN}>
                 <button>Logg inn</button>
             </Link>
-            <Link to={ROUTES.SIGNIN}>
+            <Link to={{pathname: ROUTES.SIGNIN,
+            error: "Du må være logget inn for å kontakte veileder."}}>
                 <button>Kontakt veileder</button>
             </Link>
     </div>
