@@ -3,7 +3,7 @@ import {withAuthorization} from "../Session";
 import Inbox from './messageInbox';
 import * as ROUTES from '../../constants/routes';
 import {Link} from 'react-router-dom';
-import * as ROLES from '../../constants/roles';
+import AdminMessage from "./adminMsg";
 
 const INITIAL_STATE={
     messages:[],
@@ -115,7 +115,7 @@ class Messages extends Component {
         return (
             <ul>
             {messages.map((message,index) =>
-                <li key={index}> <button style={{backgroundColor:this.state.conversations[index]['read']?"white":""}} value={index} onClick={this.openConversation}>{message.content.substr(0,50)}</button> </li>
+                <li key={index}> <button style={{backgroundColor:this.state.conversations[index]['read']?"white":""}} value={index} onClick={this.openConversation}>{message.content.length>=50?message.content.substr(0,50)+"...":message.content}</button> </li>
             )}
             </ul>
         )
@@ -143,6 +143,9 @@ class Messages extends Component {
                 <Link to={ROUTES.NEWMESSAGE}>
                     <button>Ny melding</button>
                 </Link>
+                <br/>
+                <h2>Systemmeldinger:</h2>
+                <AdminMessage/>
             </div>
         )
     }
