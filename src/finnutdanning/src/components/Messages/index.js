@@ -76,7 +76,8 @@ class Messages extends Component {
                 let tempId = this.state.conversations[i].msgids[this.state.conversations[i].msgids.length - 1];
                 this.getMessageFromID(tempId);
             }
-        }).then(this.forceUpdate())
+        }).then(()=>{this.forceUpdate();
+        console.log(this.state.conversations)})
             .catch(error=>console.log(error))
     }
 
@@ -94,7 +95,7 @@ class Messages extends Component {
         return (
             <ul>
             {messages.map((message,index) =>
-                <li key={index}> <button value={index} onClick={this.openConversation}>{message.content.substr(0,50)}</button> </li>
+                <li key={index}> <button style={{backgroundColor:this.state.conversations[index]['read']?"white":""}} value={index} onClick={this.openConversation}>{message.content.substr(0,50)}</button> </li>
             )}
             </ul>
         )

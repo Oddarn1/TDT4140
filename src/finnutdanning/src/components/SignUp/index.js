@@ -103,7 +103,7 @@ class SignUpFormBase extends Component {
                     value={passwordTwo}
                     onChange={this.onChange}
                     type="password"
-                    placeholder="Bekreft Passorc"
+                    placeholder="Bekreft Passord"
                 />
 
                 <button type="submit" disabled={isInvalid}>Registrer deg</button>

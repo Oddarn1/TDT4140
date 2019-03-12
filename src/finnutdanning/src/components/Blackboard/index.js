@@ -85,7 +85,8 @@ class Blackboard extends Component {
           0 : key
         },
         participant1: document.getElementById(key).getAttribute('data-value2'),
-        participant2: this.state.user
+        participant2: this.state.user,
+          read: 0
       });
     }}catch(error){
     console.log("Hva prøver du på egentlig?")}

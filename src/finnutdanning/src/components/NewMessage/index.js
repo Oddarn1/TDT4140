@@ -23,7 +23,8 @@ class NewMessage extends Component{
 
        onSubmit = event => {
          event.preventDefault();
-       const {content, to} = this.state;
+       let {content, to} = this.state;
+       to=this.props.authUser.role===ROLES.USER?ROLES.COUNSELOR:to;
        const senderid = this.props.authUser.uid;
        const recpid = to;
        const first = true;
@@ -50,7 +51,7 @@ class NewMessage extends Component{
         <div>
         <form onSubmit={this.onSubmit}>
         <label>Til </label>
-                <input value={to}
+                <input value={role===ROLES.USER?ROLES.COUNSELOR:to}
                    placeholder={role===ROLES.USER?"Veileder":"Mottaker"}
                    onChange={this.onChange}
                    name="to"
