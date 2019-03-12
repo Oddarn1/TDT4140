@@ -34,14 +34,18 @@ class Messages extends Component {
         this.getConversationsFromUid(this.props.firebase.auth.currentUser.uid);
     }
 
-    getMessageFromID(msgid){
-        this.props.firebase.message(msgid).on('value',snapshot=>{
-            console.log(snapshot.val().content);
-            let messages=this.state.messages;
-            messages.push(snapshot.val());
-            this.setState({messages})
-        })
-    }
+    getMessageFromID(){
+        const convs=this.state.conversations;
+        const messagepromises=convs.map(conv=>{
+            return this.props.firebase.message(conv.msgids[conv.msgids.length -1]).once('value',s=>s);
+        });
+        Promise.all(messagepromises)
+            .then(messagelist=>
+            messagelist.map(snapshot=>{{this.setState(prevState => ({
+                messages: [...prevState.messages, snapshot.val()]
+            }))}}))
+            .catch(error=> console.log(error));
+        }
 
     //Skrur av listener som opprettes i ComponentDidMount.
     componentWillUnmount(){
@@ -52,34 +56,37 @@ class Messages extends Component {
     //Henter inn en liste med samtaler hvor en gitt bruker er en deltaker
     getConversationsFromUid(uid){
         //Tar utgangspunkt i at bruker alltid er participant1 i første omgang
-        const query=this.props.authUser.role===ROLES.USER?'participant1':'participant2';
         this.setState({
             loading: true
         });
-        this.props.firebase.conversations().orderByChild(query).equalTo(uid)
-            .once("value", snapshot => {
-            const convObject = snapshot.val();
-            if (convObject===null) {
-                return;
-            }
-            const convList = Object.keys(convObject).map(key =>({
-                ...convObject[key],
-                convid: key,
-            }));
-
-            this.setState({
-                conversations: convList,
-                loading: false,
-            });
-
-            for (let i =0;i<this.state.conversations.length;i++) {
-                let tempId = this.state.conversations[i].msgids[this.state.conversations[i].msgids.length - 1];
-                this.getMessageFromID(tempId);
-            }
-        }).then(()=>{this.forceUpdate();
-        console.log(this.state.conversations)})
-            .catch(error=>console.log(error))
-    }
+        const parts=['participant1','participant2'];
+        const convpromises=parts.map(part=>{
+            return this.props.firebase.conversations().orderByChild(part).equalTo(uid).once('value',s=>s)
+        });
+        Promise.all(convpromises)
+        //Tar inn liste med datasnapshots, mappes til snap.val();
+            .then(convo=>{
+                convo.map(snap=>{
+                    const obj=snap.val();
+                    if (obj===null){
+                        return;
+                    }
+                    const convList=Object.keys(obj).map(key=>({
+                        ...obj[key],
+                        convid:key,
+                    }));
+                    convList.map(conv=>{
+                        this.setState(prevState => ({
+                            conversations: [...prevState.conversations, conv]
+                        }))
+                    });
+                })
+            })
+            .then(()=>this.getMessageFromID())
+            .then(()=>{this.forceUpdate();
+                this.setState({loading:false});})
+                .catch(error=>console.log(error))
+        }
 
     //Endrer renderCount for å tvinge remount av Inbox
     openConversation(event){
