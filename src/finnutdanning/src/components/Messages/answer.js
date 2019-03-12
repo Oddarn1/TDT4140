@@ -30,6 +30,7 @@ class Answer extends Component{
             })
             .catch(error=>console.log(error));
         this.setState({answerText:""});
+        this.props.update();
     }
 
 

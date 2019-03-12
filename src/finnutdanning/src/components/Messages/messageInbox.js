@@ -91,7 +91,7 @@ class Inbox extends Component{
         return(
             <div className="inbox">
                 {!loading &&
-                <div>{ConvList}<Answer conversation={this.props.conversation}/></div>}
+                <div>{ConvList}<Answer update={this.props.updateParent} conversation={this.props.conversation}/></div>}
             </div>
         )
     }

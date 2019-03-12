@@ -26,6 +26,7 @@ class Messages extends Component {
         this.getConversationsFromUid = this.getConversationsFromUid.bind(this);
         this.getMessageFromID=this.getMessageFromID.bind(this);
         this.openConversation=this.openConversation.bind(this);
+        this.update=this.update.bind(this);
     }
 
     //Laster inn ALLE meldinger i databasen. Snapshot er verdien som hentes inn, hentes ut som en objekt-liste ved .val().
@@ -111,6 +112,9 @@ class Messages extends Component {
         )
     }
 
+    update(){
+        this.setState({renderCount:this.state.renderCount+1})
+    }
 
 
     render(){
@@ -123,7 +127,7 @@ class Messages extends Component {
                 {loading && <p>Loading</p>}
                 {conversationList}
                 {this.state.activeMessages?
-                        <Inbox key={this.state.renderCount} conversation={this.state.activeMessages}/>
+                        <Inbox updateParent={this.update} key={this.state.renderCount} conversation={this.state.activeMessages}/>
                         :null
                 }
                 <br/>
