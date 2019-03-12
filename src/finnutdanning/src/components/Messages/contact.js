@@ -1,33 +1,29 @@
 import React, {Component} from 'react';
 import withAuthorization from "../Session/withAuthorization";
+import * as roles from '../../constants/roles';
+import {withRouter} from 'react-router-dom';
+import * as routes from '../../constants/routes';
+import {compose} from 'recompose';
 
-<!DOCTYPE html>
-<html>
-<body>
+class ContactCouncellor extends Component {
+    constructor(props) {
+        super(props);
 
-<button id="myButton" class="float-left submit-button" >Kontakt veileder</button>
+    }
 
-<script type="text/javascript">
-    document.getElementById("myButton").onclick = function () {
-        location.href = "www.finnutdanning.no";
-    };
-</script>
+    contact(event) {
+        this.props.authUser.role === roles.USER ?
+        this.props.history.push(routes.NEWMESSAGE) :
+        this.props.history.push(routes.SIGNIN);
+    }
 
-
-</body>
-</html>
-
-//
-
-// Put this code after user first logs in
-jQuery(window).load(function() {
-  sessionStorage.setItem('status','loggedIn')
-});
-
-
-if (sessionStorage.getItem('status') != null))
-    //redirect to page
+    render () {
+        return (<button type="button" onClick={this.contact}>
+            Kontakt veileder
+        </button>)
+    }
 }
-else{
-    //show validation message
-}
+
+const condition=authUser => !authUser || authUser.role === roles.USER;
+
+export default compose (withRouter,withAuthorization(condition)) (ContactCouncellor);
