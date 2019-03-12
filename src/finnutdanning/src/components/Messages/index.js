@@ -48,7 +48,7 @@ class Messages extends Component {
         this.setState({...INITIAL_STATE});
         this.props.firebase.messages().off();
     }
-    
+
     //Henter inn en liste med samtaler hvor en gitt bruker er en deltaker
     getConversationsFromUid(uid){
         //Tar utgangspunkt i at bruker alltid er participant1 i første omgang
@@ -76,7 +76,8 @@ class Messages extends Component {
                 let tempId = this.state.conversations[i].msgids[this.state.conversations[i].msgids.length - 1];
                 this.getMessageFromID(tempId);
             }
-        }).then(this.forceUpdate())
+        }).then(()=>{this.forceUpdate();
+        console.log(this.state.conversations)})
             .catch(error=>console.log(error))
     }
 
@@ -85,7 +86,10 @@ class Messages extends Component {
         event.preventDefault();
         let convmessages=this.state.conversations[event.target.value];
         this.setState({activeMessages:convmessages,
-        renderCount: this.state.renderCount +1})
+        renderCount: this.state.renderCount +1});
+        this.props.firebase.conversation(this.state.conversations[event.target.value]['convid']).update({read: 1})
+        .then(()=>this.forceUpdate())
+        .catch(error=>console.log(error))
     }
 
 
@@ -94,7 +98,7 @@ class Messages extends Component {
         return (
             <ul>
             {messages.map((message,index) =>
-                <li key={index}> <button value={index} onClick={this.openConversation}>{message.content.substr(0,50)}</button> </li>
+                <li key={index}> <button style={{backgroundColor:this.state.conversations[index]['read']?"white":""}} value={index} onClick={this.openConversation}>{message.content.substr(0,50)}</button> </li>
             )}
             </ul>
         )

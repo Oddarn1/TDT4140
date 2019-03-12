@@ -4,6 +4,7 @@ som blir valgt i index
 import React,{Component} from "react";
 import {withFirebase} from "../Firebase";
 import './index.css';
+import Answer from './answer';
 
 class Inbox extends Component{
     constructor(props){
@@ -89,7 +90,8 @@ class Inbox extends Component{
         const {loading}=this.state;
         return(
             <div className="inbox">
-                {!loading && <div>{ConvList}</div>}
+                {!loading &&
+                <div>{ConvList}<Answer conversation={this.props.conversation}/></div>}
             </div>
         )
     }
