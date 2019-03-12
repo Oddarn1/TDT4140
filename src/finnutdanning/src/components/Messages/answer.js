@@ -45,7 +45,7 @@ class Answer extends Component{
             <div>
                 <form onSubmit={this.submit}>
                 <textarea name="answerText" placeholder="Skriv ditt svar her" onChange={this.onChange} value={this.state.answerText}/>
-                <button type="submit" onClick={this.props.update} disabled={isInvalid}>Send</button>
+                <button type="submit" disabled={isInvalid}>Send</button>
                 </form>
             </div>
         )

@@ -59,6 +59,7 @@ class InterestCloud extends React.Component {
       {!loading && <h1>Resultat: </h1>}
       </div>,
       <div>
+          <h1>Mest valgte interesser</h1>
         <WordCloud
           data={interestList}
           fontSizeMapper={fontSizeMapper}

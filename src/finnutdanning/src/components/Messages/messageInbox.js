@@ -85,17 +85,13 @@ class Inbox extends Component{
         )
     }
 
-    update(){
-        this.forceUpdate();
-    }
-
     render(){
         const ConvList=this.ConvList();
         const {loading}=this.state;
         return(
             <div className="inbox">
                 {!loading &&
-                <div>{ConvList}<Answer update={()=>this.update} conversation={this.props.conversation}/></div>}
+                <div>{ConvList}<Answer conversation={this.props.conversation}/></div>}
             </div>
         )
     }
