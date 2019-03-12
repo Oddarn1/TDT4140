@@ -36,6 +36,7 @@ class Messages extends Component {
     }
 
     getMessageFromID(){
+        this.sortConversations();
         const convs=this.state.conversations;
         const messagepromises=convs.map(conv=>{
             return this.props.firebase.message(conv.msgids[conv.msgids.length -1]).once('value',s=>s);
@@ -52,6 +53,14 @@ class Messages extends Component {
     componentWillUnmount(){
         this.setState({...INITIAL_STATE});
         this.props.firebase.messages().off();
+    }
+
+    sortConversations(){
+        const conversations=[];
+        this.state.conversations.map(conv=>{
+            conv['read']?conversations.push(conv):conversations.unshift(conv);
+        });
+        this.setState({conversations});
     }
 
     //Henter inn en liste med samtaler hvor en gitt bruker er en deltaker
