@@ -20,13 +20,13 @@ class Answer extends Component{
             content:this.state.answerText,
             first:false,
             recpid:this.props.authUser.uid===conv['participant1']?conv['participant2']:conv['participant1'],
-            senderid: this.props.authUser.uid
+            senderid: this.props.authUser.uid,
+            read:0
         };
         const key=this.props.firebase.messages().push(message).key;
         conv['msgids'].push(key);
         this.props.firebase.conversation(conv['convid']).update({
-                msgids: conv['msgids'],
-                read: 0
+                msgids: conv['msgids']
             })
             .catch(error=>console.log(error));
         this.setState({answerText:""});

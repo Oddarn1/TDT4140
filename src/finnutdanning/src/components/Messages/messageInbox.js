@@ -5,6 +5,8 @@ import React,{Component} from "react";
 import {withFirebase} from "../Firebase";
 import './index.css';
 import Answer from './answer';
+import withAuthorization from "../Session/withAuthorization";
+import {compose} from 'recompose';
 
 class Inbox extends Component{
     constructor(props){
@@ -97,4 +99,7 @@ class Inbox extends Component{
     }
 }
 
-export default withFirebase(Inbox);
+const condition = authUser=>! !authUser;
+
+export default compose(withFirebase,
+    withAuthorization(condition),)(Inbox);

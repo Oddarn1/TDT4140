@@ -32,7 +32,7 @@ class Messages extends Component {
     //Laster inn ALLE meldinger i databasen. Snapshot er verdien som hentes inn, hentes ut som en objekt-liste ved .val().
     //Settes til messages i state.
     componentDidMount(){
-        this.getConversationsFromUid(this.props.firebase.auth.currentUser.uid);
+        this.getConversationsFromUid(this.props.authUser.uid);
     }
 
     getMessageFromID(){
@@ -102,12 +102,15 @@ class Messages extends Component {
     openConversation(event){
         event.preventDefault();
         let convmessages=this.state.conversations[event.target.value];
-        this.setState({activeMessages:convmessages,
-        renderCount: this.state.renderCount +1});
-        this.props.firebase.conversation(this.state.conversations[event.target.value]['convid']).update({read: 1})
-        .then(()=>this.forceUpdate())
-        .catch(error=>console.log(error))
-    }
+        this.setState({activeMessages:convmessages,});
+        if(this.state.messages[event.target.value].recpid===this.props.authUser.uid){
+            this.props.firebase.message(convmessages['msgids'][convmessages.msgids.length-1]).update({read: 1})
+                .then(()=>{
+                    this.forceUpdate();
+                    this.update();
+                })
+                .catch(error => console.log(error))
+    }}
 
 
     //Mapper samtaleobjekter til en liste med knapper
@@ -115,7 +118,7 @@ class Messages extends Component {
         return (
             <ul>
             {messages.map((message,index) =>
-                <li key={index}> <button style={{backgroundColor:this.state.conversations[index]['read']?"white":""}} value={index} onClick={this.openConversation}>{message.content.length>=50?message.content.substr(0,50)+"...":message.content}</button> </li>
+                <li key={index}> <button style={{backgroundColor: message['senderid']===this.props.authUser.uid?"white":""}} value={index} onClick={this.openConversation}>{message.content.length>=50?message.content.substr(0,50)+"...":message.content}</button>{message['read']?<label>&#10004;</label>:null} </li>
             )}
             </ul>
         )
