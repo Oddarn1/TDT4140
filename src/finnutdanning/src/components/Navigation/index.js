@@ -31,6 +31,10 @@ const NavigationAuth = ({authUser}) => (
                       <button> Veiledertavle </button>
                   </Link>
                 }
+                {authUser.role!==ROLES.USER&&
+                <Link to={ROUTES.INTERESTMANAGER}>
+                    <button> Interessebehandling </button>
+                </Link>}
                 {authUser.role === ROLES.ADMIN &&
                   <Link to={ROUTES.BLACKBOARD}>
                       <button> Vedlikeholdstavle </button>
@@ -41,6 +45,9 @@ const NavigationAuth = ({authUser}) => (
                         <button>Kontakt veileder</button>
                     </Link>
                 }
+                <Link to={ROUTES.ACCOUNT}>
+                    <button>Brukerinnstillinger</button>
+                </Link>
                 <SignOut/>
                 <p>Logget inn som: {authUser.email}</p>
             </div>

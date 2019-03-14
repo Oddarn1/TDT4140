@@ -5,6 +5,8 @@ import * as ROUTES from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import AdminMessage from "./adminMsg";
 
+
+/*TODO: Egen meldingsboks for sist sendte og sist mottatte meldinger*/
 const INITIAL_STATE={
     messages:[],
     loading: false,
@@ -36,7 +38,6 @@ class Messages extends Component {
     }
 
     getMessageFromID(){
-        this.sortConversations();
         const convs=this.state.conversations;
         const messagepromises=convs.map(conv=>{
             return this.props.firebase.message(conv.msgids[conv.msgids.length -1]).once('value',s=>s);
@@ -105,10 +106,7 @@ class Messages extends Component {
         this.setState({activeMessages:convmessages,});
         if(this.state.messages[event.target.value].recpid===this.props.authUser.uid){
             this.props.firebase.message(convmessages['msgids'][convmessages.msgids.length-1]).update({read: 1})
-                .then(()=>{
-                    this.forceUpdate();
-                    this.update();
-                })
+                .then(this.forceUpdate())
                 .catch(error => console.log(error))
     }}
 
