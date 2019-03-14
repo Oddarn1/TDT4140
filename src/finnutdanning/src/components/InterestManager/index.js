@@ -14,14 +14,9 @@ class InterestManager extends Component{
         this.selectAction=this.selectAction.bind(this);
     }
 
-    shouldComponentUpdate(nextProps,nextState,nextContext) {
-        return this.state.selectedAction !== nextState.selectedAction;
-    }
-
-
     selectAction(event){
         event.preventDefault();
-        this.setState({selectedAction:event.target.value,});
+        this.setState({selectedAction:event.target.value===this.state.selectedAction?null:event.target.value,});
     }
 
     render(){
