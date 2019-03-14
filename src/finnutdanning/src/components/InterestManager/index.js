@@ -32,18 +32,17 @@ class InterestManager extends Component{
                 <button value={0} onClick={this.selectAction}> Legge til interesse </button>
                 <button value={1} onClick={this.selectAction}> Endre på interessemapping </button>
                 <button value={2} onClick={this.selectAction}> Slette interesse </button>
-                {/*Av en eller jævlig fucka grunn må vi bruke == og ikke === ????*/}
-                {this.state.selectedAction==0&&
+                {this.state.selectedAction==="0"&&
                 <div>
                     <h3>Legg til interesser med mapping:</h3> <br/>
                     <AddInterest/><br/>
                 </div>}
-                {this.state.selectedAction==1&&
+                {this.state.selectedAction==="1"&&
                 <div>
                     <h3> Endre interesser med mapping:</h3> <br/>
                     <ChangeInterest/><br/>
                 </div>}
-                {this.state.selectedAction==2&&
+                {this.state.selectedAction==="2"&&
                 <div>
                     <h3>Slette interesser:</h3>
                     <DeleteInterest/>
