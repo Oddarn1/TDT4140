@@ -11,22 +11,48 @@ class InterestManager extends Component{
         this.state={
             selectedAction:null,
         };
+        this.selectAction=this.selectAction.bind(this);
+    }
+
+    shouldComponentUpdate(nextProps,nextState,nextContext) {
+        return this.state.selectedAction !== nextState.selectedAction;
+    }
+
+
+    selectAction(event){
+        event.preventDefault();
+        this.setState({selectedAction:event.target.value,});
     }
 
     render(){
         return(
             <div>
-                <h1>Legg til interesser med mapping:</h1> <br/>
-                <AddInterest/><br/>
-                <h1> Endre interesser med mapping:</h1> <br/>
-                <ChangeInterest/><br/>
-                <h1>Slette interesser:</h1>
-                <DeleteInterest/>
+                {console.log(this.state.selectedAction)}
+                <h3>Hva ønsker du å gjøre?</h3>
+                <button value={0} onClick={this.selectAction}> Legge til interesse </button>
+                <button value={1} onClick={this.selectAction}> Endre på interessemapping </button>
+                <button value={2} onClick={this.selectAction}> Slette interesse </button>
+                {/*Av en eller jævlig fucka grunn må vi bruke == og ikke === ????*/}
+                {this.state.selectedAction==0&&
+                <div>
+                    <h3>Legg til interesser med mapping:</h3> <br/>
+                    <AddInterest/><br/>
+                </div>}
+                {this.state.selectedAction==1&&
+                <div>
+                    <h3> Endre interesser med mapping:</h3> <br/>
+                    <ChangeInterest/><br/>
+                </div>}
+                {this.state.selectedAction==2&&
+                <div>
+                    <h3>Slette interesser:</h3>
+                    <DeleteInterest/>
+                </div>}
             </div>
         )
     }
 }
 
-const condition=authUser=>! !authUser; {/*authUser.role===ROLES.COUNSELOR||authUser.role===ROLES.EMPLOYEE;*/}
+const condition=authUser=>! !authUser; {/*authUser.role!==ROLES.USER*/}
 
 export default withAuthorization(condition)(InterestManager);
