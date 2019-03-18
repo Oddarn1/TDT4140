@@ -10,8 +10,7 @@ const INITIAL_STATE = {
        loading: false,
        error: null,
        search: "",
-       users: [],
-       validRec : false
+       users: []
 };
 
 class NewMessage extends Component{
@@ -83,7 +82,7 @@ class NewMessage extends Component{
 
        onSubmit = event => {
          event.preventDefault();
-       let {content, to, validRec, users} = this.state;
+       let {content, to, users} = this.state;
        to=this.props.authUser.role===ROLES.USER?ROLES.COUNSELOR:to;
 
        if (users.filter(user => (user.email === to)).length != 0 || to === "Veileder" || to === "Alle") {
@@ -96,10 +95,23 @@ class NewMessage extends Component{
          const senderid = this.props.authUser.uid;
          const first = true;
          const read=0;
-         this.props.firebase.messages().push({senderid, recpid, content, first,read})
-         .then(() => {
-                this.setState({...INITIAL_STATE});
-         }).catch(error=>console.log(error));
+         const messageID = this.props.firebase.messages().push({
+           senderid,
+           recpid,
+           content,
+           first,
+           read}).getKey();
+         this.props.firebase.conversations().push({
+           msgids : {
+             0 : messageID
+           },
+           participant1 : this.props.authUser.uid,
+           participant2 : recpid,
+           read : 0
+         }).then(() => {
+           this.setState({...INITIAL_STATE});
+         }).catch(error => console.log(error));
+
        } else {
          console.log("Could not send, yippi")
        }
