@@ -103,7 +103,8 @@ class Messages extends Component {
     openConversation(event){
         event.preventDefault();
         let convmessages=this.state.conversations[event.target.value];
-        this.setState({activeMessages:convmessages,});
+        this.setState({activeMessages:convmessages,
+            renderCount:this.state.renderCount+1});
         if(this.state.messages[event.target.value].recpid===this.props.authUser.uid){
             this.props.firebase.message(convmessages['msgids'][convmessages.msgids.length-1]).update({read: 1})
                 .then(this.forceUpdate())
