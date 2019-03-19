@@ -145,7 +145,7 @@ class Blackboard extends Component {
           <textarea rows="4" cols="50" disabled name = "Melding:" id = "textarea" value = "">
 
           </textarea>
-          <button type = "button" id = "assignBtn" value = {0} data-value = "" onClick = {this.assignMe}> MIN</button>
+          <button type = "button" id = "assignBtn" value = {0} data-value = "" onClick = {this.assignMe}>Jeg tar denne!</button>
         </div>
       </div>
     );

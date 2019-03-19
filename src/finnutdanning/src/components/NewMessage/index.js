@@ -28,7 +28,8 @@ class NewMessage extends Component{
        const senderid = this.props.authUser.uid;
        const recpid = to;
        const first = true;
-       this.props.firebase.messages().push({senderid, recpid, content, first})
+       const read=0;
+       this.props.firebase.messages().push({senderid, recpid, content, first,read})
        .then(() => {
               this.setState({...INITIAL_STATE});
        }).catch(error=>console.log(error));

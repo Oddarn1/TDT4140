@@ -8,9 +8,9 @@ const Account = () => (
     <AuthUserContext.Consumer>
         {authUser=> (
             <div>
-                <h1>Account: {authUser.email} </h1>
-                <h1>Roles:  {authUser.role}</h1>
-                <PasswordForgetForm />
+                <h1>Bruker: {authUser.email} </h1>
+                <h1>Rolle:  {authUser.role}</h1>
+                <h3>Endre Passord:</h3>
                 <PasswordChangeForm />
             </div>
         )}

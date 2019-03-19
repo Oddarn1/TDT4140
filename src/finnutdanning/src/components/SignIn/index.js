@@ -51,11 +51,18 @@ class SignInFormBase extends Component {
 
     render() {
         const { email, password, error } = this.state;
+        let propError;
+        try {
+            propError = this.props.location.error
+        }catch(error){
+            propError = null;
+        }
 
         const isInvalid = password === '' || email === '';
 
         return (
             <form onSubmit={this.onSubmit}>
+                {propError && <p style={{color:"red"}}>{propError}</p>}
                 <input
                     name="email"
                     value={email}
