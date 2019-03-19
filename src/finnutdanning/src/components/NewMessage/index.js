@@ -85,7 +85,7 @@ class NewMessage extends Component{
          let {content, to, users} = this.state;
          to=this.props.authUser.role===ROLES.USER?ROLES.COUNSELOR:to;
 
-         if (users.filter(user => (user.email === to)).length != 0 || to === "Veileder" || to === "Alle") {
+         if (users.filter(user => (user.email === to)).length != 0 || to === "Veileder" || to === "Alle" || "Admin") {
 
            var recpid = to;
            if (users.filter(user => (user.email === to)).length === 1) {
@@ -101,7 +101,7 @@ class NewMessage extends Component{
              content,
              first,
              read}).getKey();
-          if (recpid === "Veileder" || recpid === "Alle") {
+          if (recpid === "Veileder" || recpid === "Alle" || recpid === "Admin") {
           } else {
              this.props.firebase.conversations().push({
                msgids : {
