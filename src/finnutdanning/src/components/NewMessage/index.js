@@ -6,35 +6,145 @@ import {compose} from 'recompose';
 
 const INITIAL_STATE = {
        to: "",
-       content: ""
+       content: "",
+       loading: false,
+       error: null,
+       search: "",
+       users: []
 };
 
 class NewMessage extends Component{
      constructor(props){
         super(props);
         this.state={...INITIAL_STATE};
-        this.onChange=this.onChange.bind(this);
+        this.onSearch=this.onSearch.bind(this);
+        this.onContent=this.onContent.bind(this);
         this.onSubmit=this.onSubmit.bind(this);
      }
 
-       onChange(event){
-       this.setState({[event.target.name]:event.target.value});
-       }
+     componentDidMount() {
+       //Henter ut alle brukere i firebase under 'users', users()-funksjonen er definert i firebase.js
+       this.props.firebase.users().on('value', snapshot => {
+           const usersObject = snapshot.val();
+
+           if (usersObject===null){
+               return;
+           }
+
+           const usersList = Object.keys(usersObject).map(key => ({
+               ...usersObject[key],
+               uid: key,
+           }));
+
+           this.setState({
+               users: usersList,
+               loading: false,
+           });
+       })
+     };
+
+     componentWillUnmount(){
+         this.props.firebase.users().off();
+     };
+
+     onSearch(event) {
+           this.props.firebase.db.ref("users").orderByChild("email").startAt(event.target.value)
+               .endAt(event.target.value+"\uf8ff").on('value', snapshot => {
+               const usersObject = snapshot.val();
+               let usersList;
+               if (usersObject===null){
+                   usersList=[];
+                   this.setState({users:usersList,
+                       loading: false,});
+                   return;
+               }
+
+               usersList = Object.keys(usersObject).map(key => ({
+                   ...usersObject[key],
+                   uid: key
+               }));
+
+               this.setState({
+                   users: usersList,
+                   loading: false,
+               })
+
+           });
+           this.setState({search:event.target.value, to: event.target.value});
+           event.preventDefault();
+      };
+
+      onContent(event) {
+          this.setState({content : event.target.value})
+      };
+
+
 
        onSubmit = event => {
          event.preventDefault();
-       let {content, to} = this.state;
-       to=this.props.authUser.role===ROLES.USER?ROLES.COUNSELOR:to;
-       const senderid = this.props.authUser.uid;
-       const recpid = to;
-       const first = true;
-       const read=0;
-       this.props.firebase.messages().push({senderid, recpid, content, first,read})
-       .then(() => {
-              this.setState({...INITIAL_STATE});
-       }).catch(error=>console.log(error));
+         let {content, to, users} = this.state;
+         to=this.props.authUser.role===ROLES.USER?ROLES.COUNSELOR:to;
+
+         if (users.filter(user => (user.email === to)).length != 0 || to === "Veileder" || to === "Alle" || "Admin") {
+
+           var recpid = to;
+           if (users.filter(user => (user.email === to)).length === 1) {
+             const userObject = users.filter(user => (user.email === to));
+             recpid = userObject["0"]["uid"];
+           }
+           const senderid = this.props.authUser.uid;
+           const first = true;
+           const read=0;
+           const messageID = this.props.firebase.messages().push({
+             senderid,
+             recpid,
+             content,
+             first,
+             read}).getKey();
+          if (recpid === "Veileder" || recpid === "Alle" || recpid === "Admin") {
+          } else {
+             this.props.firebase.conversations().push({
+               msgids : {
+                 0 : messageID
+               },
+               participant1 : this.props.authUser.uid,
+               participant2 : recpid,
+               read : 0
+             }).then(() => {
+               this.setState({...INITIAL_STATE});
+             }).catch(error => console.log(error));
+           }
+
+           this.setState({...INITIAL_STATE});
+
+         } else {
+           console.log("Could not send, yippi")
+         }
+
+
 
 };
+
+//Lister brukere i admin
+UserList ({users}) {
+    return (
+        <ul>
+            {users.map((user,index) => (
+                <li key={user.uid}>
+                    <span>
+                        <strong>&nbsp;&nbsp;E-post:</strong>&nbsp; {user.email}
+                    </span>
+                    <span>
+                        <strong>&nbsp;&nbsp;Fullt navn:</strong>&nbsp; {user.fullName}
+                    </span>
+                    <span>
+                        <strong>&nbsp;&nbsp;Rolle:</strong> &nbsp;{user.role}
+                    </span>
+                </li>
+            ))}
+        </ul>
+    );
+}
 
 // hente brukerid currentuser : this.props.firebase.auth.currentUser.uid
 
@@ -44,30 +154,40 @@ class NewMessage extends Component{
 
     render() {
 
-       const {to, content} = this.state;
+       const {to, content, loading, error, search, users} = this.state;
        const isInvalid = content === '';
        const role=this.props.authUser.role;
+       const userList=this.UserList({users});
 
       return (
         <div>
         <form onSubmit={this.onSubmit}>
+          <div>
+            {role === ROLES.USER?ROLES.COUNSELOR : (<label> Brukersøk (NB: Case-sensitiv) </label>)}
+          </div>
         <label>Til </label>
-                <input value={role===ROLES.USER?ROLES.COUNSELOR:to}
-                   placeholder={role===ROLES.USER?"Veileder":"Mottaker"}
-                   onChange={this.onChange}
+                <input value={role===ROLES.USER?ROLES.COUNSELOR:search}
+                   placeholder={role===ROLES.USER?"Veileder":"Epost til mottaker"}
+                   onChange={this.onSearch}
                    name="to"
+                   type="text"
                    disabled={role===ROLES.USER}
             />
             <br/>
 
                 <textarea value={content}
                        placeholder="Skriv din melding her"
-                       onChange={this.onChange}
+                       onChange={this.onContent}
                        name="content"
                        />
                        <br/>
                        <button disabled={isInvalid} type="submit">Send </button>
         </form>
+          {role === ROLES.USER?ROLES.COUNSELOR :
+          (<div>
+            {!loading && <div ref="ListUsers"><br/>{userList}</div>}
+            {this.state.error}
+          </div>)}
         </div>
 
 
