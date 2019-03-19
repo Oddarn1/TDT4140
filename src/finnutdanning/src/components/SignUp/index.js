@@ -77,36 +77,41 @@ class SignUpFormBase extends Component {
 
         return (
             <form onSubmit={this.onSubmit}>
+                <label>Fullt navn</label><br/>
                 <input
                     name="fullName"
                     value={fullName}
                     onChange={this.onChange}
                     type="text"
                     placeholder="Fullt navn"
-                />
+                /><br/>
+                <label>Epost</label><br/>
                 <input
                     name="email"
                     value={email}
                     onChange={this.onChange}
                     type="text"
                     placeholder="Epost-adresse"
-                />
+                /><br/>
+                <label>Passord</label><br/>
                 <input
                     name="passwordOne"
                     value={passwordOne}
                     onChange={this.onChange}
                     type="password"
                     placeholder="Passord"
-                />
+                /><br/>
+                <label>Passord må bestå av minimum 6 tegn.</label><br/><br/>
+                <label>Gjenta passord</label><br/>
                 <input
                     name="passwordTwo"
                     value={passwordTwo}
                     onChange={this.onChange}
                     type="password"
                     placeholder="Bekreft Passord"
-                />
+                /><br/>
 
-                <button type="submit" disabled={isInvalid}>Registrer deg</button>
+                <button type="submit" disabled={isInvalid}>Registrer deg</button><br/>
 
                 {error && <p>{error.message}</p>}
             </form>

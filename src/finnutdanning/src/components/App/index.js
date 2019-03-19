@@ -16,6 +16,7 @@ import Account from '../Account';
 import './index.css';
 import NewMessage from '../NewMessage';
 import Blackboard from '../Blackboard';
+import InterestManager from '../InterestManager';
 
 import * as ROUTES from '../../constants/routes';
 import withAuthentication from "../Session/withAuthentication";
@@ -40,6 +41,7 @@ const App =()=>(
                 <Route path={ROUTES.ACCOUNT} component={Account}/>
                 <Route path={ROUTES.NEWMESSAGE} component={NewMessage}/>
                 <Route path={ROUTES.BLACKBOARD} component={Blackboard}/>
+                <Route path={ROUTES.INTERESTMANAGER} component={InterestManager}/>
                 <Route component={NotFound}/>
 
             </Switch>
