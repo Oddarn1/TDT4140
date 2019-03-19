@@ -117,7 +117,15 @@ class Messages extends Component {
         return (
             <ul>
             {messages.map((message,index) =>
-                <li key={index}> <button style={{backgroundColor: message['senderid']===this.props.authUser.uid?"white":""}} value={index} onClick={this.openConversation}>{message.content.length>=50?message.content.substr(0,50)+"...":message.content}</button>{message['read']?<label>&#10004;</label>:null} </li>
+                <li key={index}>
+                    <button value={index} onClick={this.openConversation}>
+                        {message.recpid===this.props.authUser.uid&&!message.read?
+                        <strong>{message.content.length>=50?message.content.substr(0,50)+"...":message.content}</strong>
+                            :message.recpid===this.props.authUser.uid?
+                            message.content.length>=50?message.content.substr(0,50)+"...":message.content
+                        :message.content.length>=50?message.content.substr(0,50)+"..."+"\u0020\u2713":message.content}
+                        </button>
+                </li>
             )}
             </ul>
         )

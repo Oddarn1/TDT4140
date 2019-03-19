@@ -5,6 +5,7 @@ import Dropdown from './dropdown';
 import './index.css';
 import {compose} from 'recompose';
 import {withAuthentication} from '../Session';
+import RecentSearches from "./recentSearches";
 
 class Landing extends Component {
     constructor(props){
@@ -89,6 +90,7 @@ class Landing extends Component {
             </div>
         {this.props.firebase.auth.currentUser ? null:
         <p> For å få tilgang til flere funksjoner på nettsiden må du være <Link to={ROUTES.SIGNIN}> logget inn</Link>.</p>}
+        <RecentSearches/>
     </div>
             );
     }

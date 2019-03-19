@@ -4,6 +4,7 @@ import * as ROLES from '../../constants/roles';
 import AddInterest from './addInterest';
 import ChangeInterest from './changeInterest';
 import DeleteInterest from "./deleteInterest";
+import RemoveStudies from "./removeStudies";
 
 class InterestManager extends Component{
     constructor(props){
@@ -22,11 +23,11 @@ class InterestManager extends Component{
     render(){
         return(
             <div>
-                {console.log(this.state.selectedAction)}
                 <h3>Hva ønsker du å gjøre?</h3>
                 <button value={0} onClick={this.selectAction}> Legge til interesse </button>
-                <button value={1} onClick={this.selectAction}> Endre på interessemapping </button>
+                <button value={1} onClick={this.selectAction}> Endre interesse </button>
                 <button value={2} onClick={this.selectAction}> Slette interesse </button>
+                <button value={3} onClick={this.selectAction}> Slette studieretning </button>
                 {this.state.selectedAction==="0"&&
                 <div>
                     <h3>Legg til interesser med mapping:</h3> <br/>
@@ -41,6 +42,11 @@ class InterestManager extends Component{
                 <div>
                     <h3>Slette interesser:</h3>
                     <DeleteInterest/>
+                </div>}
+                {this.state.selectedAction==="3"&&
+                <div>
+                    <h3>Slette studieretning:</h3>
+                    <RemoveStudies/>
                 </div>}
             </div>
         )
