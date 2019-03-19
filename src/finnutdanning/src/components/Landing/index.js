@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {withRouter,Link} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import Dropdown from './dropdown';
-import './index.css';
 import {compose} from 'recompose';
 import {withAuthentication} from '../Session';
 
@@ -77,7 +76,14 @@ class Landing extends Component {
     render(){
         return(
     <div className="searchBar">
-        <input type="text" placeholder="Interesser" onChange={this.onChange} value={this.state.search} onClick={this.showMenu}/>
+        <TextField style = {{padding: 24}}
+        id = "searchInput"
+        placeholder = "Interesser"
+        margin = "normal"
+        variant = "outlined"
+        onChange = {this.onChange}
+        value = {this.state.search}
+        onClick = {this.showMenu} />
         {this.state.showMenu ?
             <div className="dropDown" ref={(element)=>
             this.dropDownMenu=element}>
