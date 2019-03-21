@@ -6,8 +6,13 @@ class RemoveStudies extends Component{
         super(props);
         this.state={
           studiesList:[],
+            studiesObject:[],
           loading:false,
+            selectedStudy:null,
         };
+        this.removeConfirm=this.removeConfirm.bind(this);
+        this.cancel=this.cancel.bind(this);
+        this.removeStudy=this.removeStudy.bind(this);
     }
 
     componentDidMount(){
@@ -20,13 +25,13 @@ class RemoveStudies extends Component{
                 ...obj[key],
                 studyid:key
             }));
-            console.log(studiesList);
             let templist=[];
             for (let i=0;i<studiesList.length;i++){
                 templist.push.apply(templist,studiesList[i].studies);
             }
-            const unique=[...new Set(templist)];
+            const unique=[...new Set(templist)].sort();
             this.setState({
+                studiesObject:studiesList,
                 studiesList:unique,
                 loading: false,
             })
@@ -35,6 +40,37 @@ class RemoveStudies extends Component{
 
     componentWillUnmount(){
         this.props.firebase.interests().off();
+    }
+
+    removeStudy(event){
+        this.setState({selectedStudy:event.target.value});
+    }
+
+    cancel(event){
+        event.preventDefault();
+        this.setState({selectedStudy:null});
+    }
+
+    removeConfirm(event){
+        const {studiesObject}=this.state;
+        event.preventDefault();
+        studiesObject.map(study=>{
+            if(study.studies.includes(this.state.selectedStudy)){
+                let studies=study.studies;
+                if (studies.length===1){
+                    this.props.firebase.interest(study.studyid).remove()
+                        .then(this.setState({selectedStudy: null}))
+                        .catch(error=>console.log(error));
+                    return;
+                }
+                studies.splice(studies.indexOf(this.state.selectedStudy),1);
+                this.props.firebase.interest(study.studyid).set({
+                    hits:study.hits,
+                    studies:studies,
+                }).catch(error=>console.log(error));
+            }
+        });
+        this.setState({selectedStudy:null});
     }
 
     StudiesList(studylist){
@@ -52,7 +88,14 @@ class RemoveStudies extends Component{
         const studyList=this.StudiesList(studiesList);
         return(
             <div>
+                <p>Dersom du sletter en studieretning som eksisterer alene i en interesse, vil interessen slettes.</p>
             {!loading&&studyList}
+                {this.state.selectedStudy &&<div>
+                <h3 style={{color: "red"}}>Er du sikker på at du ønsker å slette {this.state.selectedStudy}</h3>
+                < button onClick={this.removeConfirm}>Bekreft</button>
+                    &nbsp;<button onClick={this.cancel}>Avbryt</button>
+                </div>
+                }
             </div>
         )
     }
