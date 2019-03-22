@@ -4,6 +4,8 @@ import * as ROLES from '../../constants/roles';
 import AddInterest from './addInterest';
 import ChangeInterest from './changeInterest';
 import DeleteInterest from "./deleteInterest";
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 class InterestManager extends Component{
     constructor(props){
@@ -23,23 +25,31 @@ class InterestManager extends Component{
         return(
             <div>
                 {console.log(this.state.selectedAction)}
-                <h3>Hva ønsker du å gjøre?</h3>
+                <Typography variant="h4" gutterBottom style={{padding:20}}>
+                    Hva ønsker du å gjøre?
+                </Typography>
                 <button value={0} onClick={this.selectAction}> Legge til interesse </button>
                 <button value={1} onClick={this.selectAction}> Endre på interessemapping </button>
                 <button value={2} onClick={this.selectAction}> Slette interesse </button>
                 {this.state.selectedAction==="0"&&
                 <div>
-                    <h3>Legg til interesser med mapping:</h3> <br/>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Legg til interesser med mapping:
+                    </Typography><br/>
                     <AddInterest/><br/>
                 </div>}
                 {this.state.selectedAction==="1"&&
                 <div>
-                    <h3> Endre interesser med mapping:</h3> <br/>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Endre interessemapping:
+                    </Typography>
                     <ChangeInterest/><br/>
                 </div>}
                 {this.state.selectedAction==="2"&&
                 <div>
-                    <h3>Slette interesser:</h3>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Slette interesse:
+                    </Typography><br/>
                     <DeleteInterest/>
                 </div>}
             </div>

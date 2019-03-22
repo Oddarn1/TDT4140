@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 import {withFirebase} from '../Firebase';
 
+import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+
 class GetResults extends Component {
 
     constructor(props) {
@@ -87,19 +94,23 @@ class GetResults extends Component {
 
         // Lager en html-liste for alle studieretningene som matchet med søket
         listOfStudyProgramme = studiesList.length===0?<li> Ingen studieretninger </li>: studiesList.slice(0,5).map((studie) =>
-            <li> {studie.studyProgramme} {studie.relevance} </li>
+            <ListItem >
+              <Typography component="h5" variant = "overline">
+              {studie.studyProgramme}
+              </Typography>
+            </ListItem>
         );
       };
 
 
       return(
         <div>
-            {search}
+            <Typography component="h5" variant = "overline" style={{padding:5}}>Dine søk: {search}</Typography>
             {loading && <div>Loading ...</div>}
-            {!loading && <h1>Resultat: </h1>}
-            <ul>
+            {!loading && <Typography component="h2" variant = "h4" style = {{padding: 15}}>Resultat</Typography>}
+            <List>
               { listOfStudyProgramme }
-          </ul>
+          </List>
         </div>
       );}
     }
