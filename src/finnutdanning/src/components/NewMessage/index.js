@@ -3,6 +3,9 @@ import * as ROLES from '../../constants/roles';
 import withAuthorization from "../Session/withAuthorization";
 import {withFirebase} from "../Firebase";
 import {compose} from 'recompose';
+import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 const INITIAL_STATE = {
        to: "",
@@ -132,13 +135,14 @@ UserList ({users}) {
             {users.map((user,index) => (
                 <li key={user.uid}>
                     <span>
-                        <strong>&nbsp;&nbsp;E-post:</strong>&nbsp; {user.email}
-                    </span>
-                    <span>
-                        <strong>&nbsp;&nbsp;Fullt navn:</strong>&nbsp; {user.fullName}
-                    </span>
-                    <span>
-                        <strong>&nbsp;&nbsp;Rolle:</strong> &nbsp;{user.role}
+                        <Typography variant="body1" gutterBottom style={{padding:4}}>
+                            E-post {user.email}
+                        </Typography>
+                        <Typography variant="body1" gutterBottom style={{padding:4}}>
+                            Fullt navn: {user.fullName}
+                        </Typography><Typography variant="body1" gutterBottom style={{padding:4}}>
+                            rolle: {user.role}
+                        </Typography>
                     </span>
                 </li>
             ))}
@@ -163,9 +167,10 @@ UserList ({users}) {
         <div>
         <form onSubmit={this.onSubmit}>
           <div>
-            {role === ROLES.USER?ROLES.COUNSELOR : (<label> Brukersøk (NB: Case-sensitiv) </label>)}
+            {role === ROLES.USER?ROLES.COUNSELOR : <Typography variant="body1" gutterBottom style={{padding:15}}>Brukersøk (NB: Case-sensitiv)</Typography>}
           </div>
-        <label>Til </label>
+          <label>Til</label>
+
                 <input value={role===ROLES.USER?ROLES.COUNSELOR:search}
                    placeholder={role===ROLES.USER?"Veileder":"Epost til mottaker"}
                    onChange={this.onSearch}

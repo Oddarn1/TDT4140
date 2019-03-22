@@ -4,6 +4,8 @@ import {withFirebase} from '../Firebase';
 import * as ROLES from "../../constants/roles";
 import {compose} from 'recompose';
 import withAuthorization from "../Session/withAuthorization";
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 class Admin extends Component {
     constructor(props) {
@@ -194,6 +196,9 @@ class Admin extends Component {
         return (
             <div>
                 <Register registered={users}/>
+                    <Typography component="h5" variant="h5" gutterBottom style={{padding:20}}>
+                        Brukere
+                    </Typography>
                 <h1>Brukere: </h1>
                 <label>Brukersøk (NB: Case-sensitiv)</label><br/>
                 <input name="search" type="text" onChange={this.nameSearch} placeholder="Søk i brukere på navn"/>
