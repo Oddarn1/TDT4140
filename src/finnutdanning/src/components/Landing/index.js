@@ -17,7 +17,7 @@ class Landing extends Component {
         this.closeMenu=this.closeMenu.bind(this);
         this.onChange=this.onChange.bind(this);
         this.submit=this.submit.bind(this);
-        this.capture=this.capture.bind(this);
+        this.capture=this.capture.bind(this);   
     }
 
     /*Gets event from searchbar, provides the state with a value to be displayed in the input field's value*/
@@ -91,9 +91,11 @@ class Landing extends Component {
                 <Dropdown capture={this.capture}/>
             </div>
             :null}
+            {this.state.showMenu ?
             <div className="submitButton">
                 <button onClick={this.submit}> Finn Utdanning </button>
             </div>
+            :null}
         {this.props.firebase.auth.currentUser ? null:
         <p> For å få tilgang til flere funksjoner på nettsiden må du være <Link to={ROUTES.SIGNIN}> logget inn</Link>.</p>}
     </div>
