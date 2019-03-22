@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.9.2",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-15": "^1.3.0",
     "firebase": "^5.8.3",
