@@ -46,8 +46,11 @@ class RecentSearches extends Component{
         return(
             <div className="recentSearches">
                 {searches.map((search,index)=>(
-                    <Link to={ROUTES.RESULTS} location={{state: {query:search}}}>
-                        {search} - {this.state.recentResults[index]}
+                    <Link to={{pathname: ROUTES.RESULTS,
+                    state:{query:search,
+                    recent: true,
+                    results:this.state.recentResults[index]}}}>
+                        {search}<strong>&nbsp;->&nbsp; </strong>{this.state.recentResults[index]} <br/>
                         </Link>))}
             </div>
         )
@@ -58,6 +61,9 @@ class RecentSearches extends Component{
         const searchList=this.SearchList(recentSearches);
         return(
             <div>
+                <h2>
+                    Nylige søk:
+                </h2>
                 {!loading&&searchList}
             </div>
         )

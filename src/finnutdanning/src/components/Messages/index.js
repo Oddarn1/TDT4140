@@ -66,7 +66,6 @@ class Messages extends Component {
 
     //Henter inn en liste med samtaler hvor en gitt bruker er en deltaker
     getConversationsFromUid(uid){
-        //Tar utgangspunkt i at bruker alltid er participant1 i første omgang
         this.setState({
             loading: true
         });
@@ -105,6 +104,7 @@ class Messages extends Component {
         let convmessages=this.state.conversations[event.target.value];
         this.setState({activeMessages:convmessages,
             renderCount:this.state.renderCount+1});
+        console.log(convmessages);
         if(this.state.messages[event.target.value].recpid===this.props.authUser.uid){
             this.props.firebase.message(convmessages['msgids'][convmessages.msgids.length-1]).update({read: 1})
                 .then(this.forceUpdate())

@@ -6,7 +6,6 @@ class Results extends Component {
 
   render(){
       let query;
-      console.log(this.props.history);
       try {
           query = this.props.location.state.query;
       }catch(e){
@@ -15,13 +14,9 @@ class Results extends Component {
       }
     return(
     <div>
-        {/*Sprint 2 TODO:
-        * Save queries to json-file or similar, analytics on values and create wordcloud by popularity.
-        * Sprint 3 TODO:
-        * Save results to specific users, make most recent (max 10) searches available when searching.*/}
-
             <div>
-                <GetResults query={query}/>
+                <GetResults query={query} recent={this.props.location.state.recent}
+                results={this.props.location.state.results}/>
             </div>
             <div>
               <InterestCloud/>
