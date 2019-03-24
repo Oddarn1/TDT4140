@@ -55,6 +55,8 @@ class GetResults extends Component {
                         this.saveRecentSearch()
                     }
                 });
+        }else{
+            this.setState({loading:false})
         }
     }
 
