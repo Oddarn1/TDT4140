@@ -6,6 +6,7 @@ class Results extends Component {
 
   render(){
       let query;
+      console.log(this.props.history);
       try {
           query = this.props.location.state.query;
       }catch(e){

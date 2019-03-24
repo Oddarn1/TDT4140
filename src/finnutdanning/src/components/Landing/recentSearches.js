@@ -8,6 +8,7 @@ class RecentSearches extends Component{
         super(props);
         this.state={
             recentSearches:[],
+            recentResults:[],
             loading:false,
         }
     }
@@ -29,9 +30,9 @@ class RecentSearches extends Component{
                     ...obj[key],
                     searchid:key
                 }));
-                console.log(searching[0]);
                 this.setState({
-                    recentSearches:searching[0],
+                    recentSearches:searching[0]['searches'],
+                    recentResults: searching[0]['results'],
                     loading: false,
                 })
             })
@@ -45,8 +46,8 @@ class RecentSearches extends Component{
         return(
             <div className="recentSearches">
                 {searches.map((search,index)=>(
-                    <Link to={ROUTES.RESULTS} params={{searchQuery:search}}>
-                        {search} - {this.state.recentSearches.results[index]}
+                    <Link to={ROUTES.RESULTS} location={{state: {query:search}}}>
+                        {search} - {this.state.recentResults[index]}
                         </Link>))}
             </div>
         )
@@ -54,10 +55,10 @@ class RecentSearches extends Component{
 
     render(){
         const {recentSearches,loading}=this.state;
-        const searchList=this.SearchList(recentSearches.searches)
+        const searchList=this.SearchList(recentSearches);
         return(
             <div>
-                Hei
+                {!loading&&searchList}
             </div>
         )
     }
