@@ -86,7 +86,7 @@ class Landing extends Component {
             </div>
             :null}
             <div className="submitButton">
-                <button onClick={this.submit}> Finn Utdanning </button>
+                <button onClick={this.submit}><strong> Finn Utdanning</strong> </button>
             </div>
         {this.props.firebase.auth.currentUser ? null:
         <p> For å få tilgang til flere funksjoner på nettsiden må du være <Link to={ROUTES.SIGNIN}> logget inn</Link>.</p>}

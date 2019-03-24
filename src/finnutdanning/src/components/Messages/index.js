@@ -104,12 +104,23 @@ class Messages extends Component {
         let convmessages=this.state.conversations[event.target.value];
         this.setState({activeMessages:convmessages,
             renderCount:this.state.renderCount+1});
-        console.log(convmessages);
         if(this.state.messages[event.target.value].recpid===this.props.authUser.uid){
             this.props.firebase.message(convmessages['msgids'][convmessages.msgids.length-1]).update({read: 1})
                 .then(this.forceUpdate())
                 .catch(error => console.log(error))
     }}
+
+    messageDisplay(message){
+        let content=message.content.length>=50?message.content.substr(0,50)+"...":message.content;
+        if (message.senderid===this.props.authUser.uid){
+            if(message.read){
+                content=message.content.length>=50?"Deg: "+message.content.substr(0,50)+"..."+"\u0020\u2713":"Deg: "+message.content+"\u0020\u2713";
+            }else{
+                content=message.content.length>=50?"Deg: "+message.content.substr(0,50)+"...":"Deg: "+message.content;
+            }
+        }
+        return content;
+    }
 
 
     //Mapper samtaleobjekter til en liste med knapper
@@ -117,13 +128,10 @@ class Messages extends Component {
         return (
             <ul>
             {messages.map((message,index) =>
-                <li key={index}>
-                    <button value={index} onClick={this.openConversation}>
-                        {message.recpid===this.props.authUser.uid&&!message.read?
-                        <strong>{message.content.length>=50?message.content.substr(0,50)+"...":message.content}</strong>
-                            :message.recpid===this.props.authUser.uid?
-                            message.content.length>=50?message.content.substr(0,50)+"...":message.content
-                        :message.content.length>=50?message.content.substr(0,50)+"..."+"\u0020\u2713":message.content}
+                <li>
+                    <button value={index} onClick={this.openConversation}
+                            style={{fontWeight:(message.recpid===this.props.authUser.uid&&!message.read)?'bold':'normal'}}>
+                        {this.messageDisplay(message)}
                         </button>
                 </li>
             )}
@@ -144,7 +152,7 @@ class Messages extends Component {
                 <h1>Mine Meldinger</h1>
                 {/*Setter siden til loading mens meldingene lastes inn*/}
                 {loading && <p>Loading</p>}
-                {conversationList}
+                {!loading && conversationList}
                 {this.state.activeMessages?
                         <Inbox updateParent={this.update} key={this.state.renderCount} conversation={this.state.activeMessages}/>
                         :null
