@@ -4,7 +4,12 @@ import {withFirebase} from '../Firebase';
 import * as ROLES from "../../constants/roles";
 import {compose} from 'recompose';
 import withAuthorization from "../Session/withAuthorization";
+<<<<<<< HEAD
 import ThemeChanger from './changeTheme'
+=======
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+>>>>>>> a88847c9305097a2ca820c21b24f4daa6cbc7d8e
 
 class Admin extends Component {
     constructor(props) {
@@ -196,6 +201,9 @@ class Admin extends Component {
             <div>
                 <ThemeChanger/>
                 <Register registered={users}/>
+                    <Typography component="h5" variant="h5" gutterBottom style={{padding:20}}>
+                        Brukere
+                    </Typography>
                 <h1>Brukere: </h1>
                 <label>Brukersøk (NB: Case-sensitiv)</label><br/>
                 <input name="search" type="text" onChange={this.nameSearch} placeholder="Søk i brukere på navn"/>

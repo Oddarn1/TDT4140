@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {withRouter,Link} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
+import TextField from '@material-ui/core/TextField';
 import Dropdown from './dropdown';
-import './index.css';
 import {compose} from 'recompose';
 import {withAuthentication} from '../Session';
 
@@ -17,7 +17,7 @@ class Landing extends Component {
         this.closeMenu=this.closeMenu.bind(this);
         this.onChange=this.onChange.bind(this);
         this.submit=this.submit.bind(this);
-        this.capture=this.capture.bind(this);
+        this.capture=this.capture.bind(this);   
     }
 
     /*Gets event from searchbar, provides the state with a value to be displayed in the input field's value*/
@@ -77,16 +77,25 @@ class Landing extends Component {
     render(){
         return(
     <div className="searchBar">
-        <input type="text" placeholder="Interesser" onChange={this.onChange} value={this.state.search} onClick={this.showMenu}/>
+        <TextField style = {{padding: 24}}
+        id = "searchInput"
+        placeholder = "Interesser"
+        margin = "normal"
+        variant = "outlined"
+        onChange = {this.onChange}
+        value = {this.state.search}
+        onClick = {this.showMenu} />
         {this.state.showMenu ?
             <div className="dropDown" ref={(element)=>
             this.dropDownMenu=element}>
                 <Dropdown capture={this.capture}/>
             </div>
             :null}
+            {this.state.showMenu ?
             <div className="submitButton">
                 <button onClick={this.submit}> Finn Utdanning </button>
             </div>
+            :null}
         {this.props.firebase.auth.currentUser ? null:
         <p> For å få tilgang til flere funksjoner på nettsiden må du være <Link to={ROUTES.SIGNIN}> logget inn</Link>.</p>}
     </div>
