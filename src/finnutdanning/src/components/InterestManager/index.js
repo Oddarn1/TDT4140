@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {withAuthorization} from '../Session';
-import * as ROLES from '../../constants/roles';
 import AddInterest from './addInterest';
 import ChangeInterest from './changeInterest';
 import DeleteInterest from "./deleteInterest";
 import RemoveStudies from "./removeStudies";
+import MappingManager from "./manageMapping";
 
 class InterestManager extends Component{
     constructor(props){
@@ -28,6 +28,7 @@ class InterestManager extends Component{
                 <button value={1} onClick={this.selectAction}> Endre interesse </button>
                 <button value={2} onClick={this.selectAction}> Slette interesse </button>
                 <button value={3} onClick={this.selectAction}> Slette studieretning </button>
+                <button value={4} onClick={this.selectAction}> Sette mapping for studieretning </button>
                 {this.state.selectedAction==="0"&&
                 <div>
                     <h3>Legg til interesser med mapping:</h3> <br/>
@@ -47,6 +48,11 @@ class InterestManager extends Component{
                 <div>
                     <h3>Slette studieretning:</h3>
                     <RemoveStudies/>
+                </div>}
+                {this.state.selectedAction==="4"&&
+                <div>
+                    <h3>Sette mapping for studieretning:</h3>
+                    <MappingManager/>
                 </div>}
             </div>
         )
