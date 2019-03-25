@@ -197,9 +197,8 @@ class Admin extends Component {
             <div>
                 <Register registered={users}/>
                     <Typography component="h5" variant="h5" gutterBottom style={{padding:20}}>
-                        Brukere
+                        Brukere:
                     </Typography>
-                <h1>Brukere: </h1>
                 <label>Brukersøk (NB: Case-sensitiv)</label><br/>
                 <input name="search" type="text" onChange={this.nameSearch} placeholder="Søk i brukere på navn"/>
                 <select name="selectedRole" defaultChecked={this.state.selectedRole} onChange={this.roleSearch}>
