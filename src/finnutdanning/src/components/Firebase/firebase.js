@@ -93,6 +93,9 @@ class Firebase {
 
     conversations = () => this.db.ref('conversations');
 
+    // ** Theme API **
+    theme = () => this.db.ref('theme');
+
 
 }
 

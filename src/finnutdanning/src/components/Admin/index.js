@@ -4,6 +4,7 @@ import {withFirebase} from '../Firebase';
 import * as ROLES from "../../constants/roles";
 import {compose} from 'recompose';
 import withAuthorization from "../Session/withAuthorization";
+import ThemeChanger from './changeTheme'
 
 class Admin extends Component {
     constructor(props) {
@@ -193,6 +194,7 @@ class Admin extends Component {
 
         return (
             <div>
+                <ThemeChanger/>
                 <Register registered={users}/>
                 <h1>Brukere: </h1>
                 <label>Brukersøk (NB: Case-sensitiv)</label><br/>
