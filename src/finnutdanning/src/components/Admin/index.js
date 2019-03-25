@@ -4,12 +4,9 @@ import {withFirebase} from '../Firebase';
 import * as ROLES from "../../constants/roles";
 import {compose} from 'recompose';
 import withAuthorization from "../Session/withAuthorization";
-<<<<<<< HEAD
-import ThemeChanger from './changeTheme'
-=======
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
->>>>>>> a88847c9305097a2ca820c21b24f4daa6cbc7d8e
+import ThemeChanger from './changeTheme'
 
 class Admin extends Component {
     constructor(props) {
