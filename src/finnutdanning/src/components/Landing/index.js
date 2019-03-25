@@ -21,6 +21,16 @@ class Landing extends Component {
         this.capture=this.capture.bind(this);
     }
 
+    componentDidMount(){
+        try{
+            if(this.props.location.state.newsearch) {
+                this.state.search = this.props.location.state.query;
+            }
+        }catch(error){
+            console.log(error)
+        }
+    }
+
     /*Gets event from searchbar, provides the state with a value to be displayed in the input field's value*/
     onChange(event){
         this.setState({search: event.target.value});

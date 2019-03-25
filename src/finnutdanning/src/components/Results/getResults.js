@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {withFirebase} from '../Firebase';
+import {withRouter} from 'react-router-dom';
+import {compose} from 'recompose';
+import * as ROUTES from '../../constants/routes';
 
 class GetResults extends Component {
 
@@ -10,9 +13,11 @@ class GetResults extends Component {
         loading : false,
           searches:[],
           results:[],
+          timestamps:[],
           studies:[],
       };
       this.studies=[];
+      this.newSearch=this.newSearch.bind(this);
       this.saveRecentSearch=this.saveRecentSearch.bind(this);
     }
 
@@ -41,6 +46,7 @@ class GetResults extends Component {
                             this.setState({
                                 searches: child.val()['searches'],
                                 results: child.val()['results'],
+                                timestamps:child.val()['timestamp'],
                                 loading: false,
                         })
                     })}
@@ -65,8 +71,15 @@ class GetResults extends Component {
       this.props.firebase.db.ref("searchhistory").off();
     }
 
+    getTime(){
+        const currentDate=new Date();
+        const time=currentDate.getDate()+"."+(currentDate.getMonth()+1)+"."+currentDate.getFullYear()+" "+currentDate.getHours()+":"+(currentDate.getMinutes().length===1?"0"+currentDate.getMinutes():currentDate.getMinutes());
+        return time;
+    }
+
     saveRecentSearch(){
-        const {searches,results}=this.state;
+        const {searches,results,timestamps}=this.state;
+        const time=this.getTime();
         const uid=this.props.firebase.auth.currentUser.uid;
             let output = "";
             for (let i = 0; i < this.studies.length; i++) {
@@ -74,7 +87,9 @@ class GetResults extends Component {
             }
             searches.unshift(this.props.query);
             results.unshift(output.substr(0, output.length - 2));
+            timestamps.unshift(time);
             this.props.firebase.db.ref('searchhistory/' + uid).set({
+                timestamp:timestamps.slice(0,5),
                 searches: searches.slice(0,5),
                 results: results.slice(0,5),
                 uid: uid
@@ -153,6 +168,14 @@ class GetResults extends Component {
             }
         }
 
+        newSearch(event){
+            this.props.history.push({
+                pathname:ROUTES.LANDING,
+                state:{query:event.target.value +", ",
+                newsearch:true}
+            })
+        }
+
     render() {
 
       const {loading}=this.state;
@@ -160,7 +183,7 @@ class GetResults extends Component {
 
       return(
         <div>
-            <p>Ditt søk: {this.props.query}</p>
+            <p>Ditt søk: {this.props.query}</p> <button value={this.props.query} onClick={this.newSearch}>Bruk i nytt søk</button>
             {!loading && <h1>Resultat: </h1>}
             <ul>
               { listOfStudyProgramme }
@@ -170,4 +193,4 @@ class GetResults extends Component {
     }
 
 
-export default withFirebase(GetResults);
+export default compose(withRouter,withFirebase)(GetResults);

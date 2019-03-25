@@ -9,6 +9,7 @@ class RecentSearches extends Component{
         this.state={
             recentSearches:[],
             recentResults:[],
+            timestamp:[],
             loading:false,
         }
     }
@@ -33,6 +34,7 @@ class RecentSearches extends Component{
                 this.setState({
                     recentSearches:searching[0]['searches'],
                     recentResults: searching[0]['results'],
+                    timestamp: searching[0]['timestamp'],
                     loading: false,
                 })
             })
@@ -50,7 +52,7 @@ class RecentSearches extends Component{
                     state:{query:search,
                     recent: true,
                     results:this.state.recentResults[index]}}}>
-                        {search}<strong>&nbsp;->&nbsp; </strong>{this.state.recentResults[index]} <br/>
+                        {this.state.timestamp[index]} <br/>
                         </Link>))}
             </div>
         )
