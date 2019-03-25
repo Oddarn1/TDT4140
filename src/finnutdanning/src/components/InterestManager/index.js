@@ -6,6 +6,8 @@ import ChangeInterest from './changeInterest';
 import DeleteInterest from "./deleteInterest";
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
 class InterestManager extends Component{
     constructor(props){
@@ -28,7 +30,10 @@ class InterestManager extends Component{
                 <Typography variant="h4" gutterBottom style={{padding:20}}>
                     Hva ønsker du å gjøre?
                 </Typography>
-                <button value={0} onClick={this.selectAction}> Legge til interesse </button>
+
+                <Button value={0} onClick={this.selectAction} variant="contained" style={{margin:10}}>
+                    <Typography>Legge til interesse</Typography>
+                </Button>
                 <button value={1} onClick={this.selectAction}> Endre på interessemapping </button>
                 <button value={2} onClick={this.selectAction}> Slette interesse </button>
                 {this.state.selectedAction==="0"&&
