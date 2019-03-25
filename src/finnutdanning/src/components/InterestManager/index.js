@@ -4,6 +4,7 @@ import * as ROLES from '../../constants/roles';
 import AddInterest from './addInterest';
 import ChangeInterest from './changeInterest';
 import DeleteInterest from "./deleteInterest";
+import RemoveStudies from "./removeStudies";
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -29,8 +30,9 @@ class InterestManager extends Component{
                     Hva ønsker du å gjøre?
                 </Typography>
                 <button value={0} onClick={this.selectAction}> Legge til interesse </button>
-                <button value={1} onClick={this.selectAction}> Endre på interessemapping </button>
+                <button value={1} onClick={this.selectAction}> Endre interesse </button>
                 <button value={2} onClick={this.selectAction}> Slette interesse </button>
+                <button value={3} onClick={this.selectAction}> Slette studieretning </button>
                 {this.state.selectedAction==="0"&&
                 <div>
                     <Typography variant="h6" gutterBottom style={{padding:20}}>
@@ -51,6 +53,11 @@ class InterestManager extends Component{
                         Slette interesse:
                     </Typography><br/>
                     <DeleteInterest/>
+                </div>}
+                {this.state.selectedAction==="3"&&
+                <div>
+                    <h3>Slette studieretning:</h3>
+                    <RemoveStudies/>
                 </div>}
             </div>
         )

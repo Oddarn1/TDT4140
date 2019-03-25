@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Dropdown from './dropdown';
 import {compose} from 'recompose';
 import {withAuthentication} from '../Session';
+import RecentSearches from "./recentSearches";
 
 class Landing extends Component {
     constructor(props){
@@ -93,11 +94,12 @@ class Landing extends Component {
             :null}
             {this.state.showMenu ?
             <div className="submitButton">
-                <button onClick={this.submit}> Finn Utdanning </button>
+                <button onClick={this.submit}><strong> Finn Utdanning</strong> </button>
             </div>
             :null}
         {this.props.firebase.auth.currentUser ? null:
         <p> For å få tilgang til flere funksjoner på nettsiden må du være <Link to={ROUTES.SIGNIN}> logget inn</Link>.</p>}
+        <RecentSearches/>
     </div>
             );
     }

@@ -67,7 +67,6 @@ class Messages extends Component {
 
     //Henter inn en liste med samtaler hvor en gitt bruker er en deltaker
     getConversationsFromUid(uid){
-        //Tar utgangspunkt i at bruker alltid er participant1 i første omgang
         this.setState({
             loading: true
         });
@@ -112,13 +111,30 @@ class Messages extends Component {
                 .catch(error => console.log(error))
     }}
 
+    messageDisplay(message){
+        let content=message.content.length>=50?message.content.substr(0,50)+"...":message.content;
+        if (message.senderid===this.props.authUser.uid){
+            if(message.read){
+                content=message.content.length>=50?"Deg: "+message.content.substr(0,50)+"..."+"\u0020\u2713":"Deg: "+message.content+"\u0020\u2713";
+            }else{
+                content=message.content.length>=50?"Deg: "+message.content.substr(0,50)+"...":"Deg: "+message.content;
+            }
+        }
+        return content;
+    }
+
 
     //Mapper samtaleobjekter til en liste med knapper
     ConversationList({messages}) {
         return (
             <ul>
             {messages.map((message,index) =>
-                <li key={index}> <button style={{backgroundColor: message['senderid']===this.props.authUser.uid?"white":""}} value={index} onClick={this.openConversation}>{message.content.length>=50?message.content.substr(0,50)+"...":message.content}</button>{message['read']?<label>&#10004;</label>:null} </li>
+                <li>
+                    <button value={index} onClick={this.openConversation}
+                            style={{fontWeight:(message.recpid===this.props.authUser.uid&&!message.read)?'bold':'normal'}}>
+                        {this.messageDisplay(message)}
+                        </button>
+                </li>
             )}
             </ul>
         )
@@ -139,7 +155,7 @@ class Messages extends Component {
                 </Typography>
                 {/*Setter siden til loading mens meldingene lastes inn*/}
                 {loading && <p>Loading</p>}
-                {conversationList}
+                {!loading && conversationList}
                 {this.state.activeMessages?
                         <Inbox updateParent={this.update} key={this.state.renderCount} conversation={this.state.activeMessages}/>
                         :null
