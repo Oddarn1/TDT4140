@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import {withAuthorization} from '../Session';
 import * as ROLES from '../../constants/roles';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 const INITIAL_STATE={
     interest:"",
