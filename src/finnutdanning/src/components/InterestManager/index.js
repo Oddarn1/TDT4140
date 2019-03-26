@@ -33,6 +33,7 @@ class InterestManager extends Component{
                 <button value={1} onClick={this.selectAction}> Endre interesse </button>
                 <button value={2} onClick={this.selectAction}> Slette interesse </button>
                 <button value={3} onClick={this.selectAction}> Slette studieretning </button>
+                <button value={4} onClick={this.selectAction}> Sette kobling for studieretning </button>
                 {this.state.selectedAction==="0"&&
                 <div>
                     <Typography variant="h6" gutterBottom style={{padding:20}}>
