@@ -40,6 +40,12 @@ class InterestManager extends Component{
                 <Button value={2} onClick={this.selectAction} variant="contained" style={{padding:15, margin:10}}>
                     Slette interesse
                 </Button>
+                <Button value={3} onClick={this.selectAction} variant="contained" style={{padding:15, margin:10}}>
+                    Slette studieretning
+                </Button>
+                <Button value={4} onClick={this.selectAction} variant="contained" style={{padding:15, margin:10}} >
+                    Sette kobling på studieretninger
+                </Button>
                 {/*<button value={1} onClick={this.selectAction}> Endre på interessemapping </button>
             <button value={2} onClick={this.selectAction}> Slette interesse </button>*/}
                 {this.state.selectedAction==="0"&&
@@ -65,12 +71,16 @@ class InterestManager extends Component{
                 </div>}
                 {this.state.selectedAction==="3"&&
                 <div>
-                    <h3>Slette studieretning:</h3>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Slette studieretning:
+                    </Typography><br/>
                     <RemoveStudies/>
                 </div>}
                 {this.state.selectedAction==="4"&&
                 <div>
-                    <h3>Sette mapping for studieretning:</h3>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Sette kobling på studieretninger:
+                    </Typography><br/>
                     <MappingManager/>
                 </div>}
             </div>
