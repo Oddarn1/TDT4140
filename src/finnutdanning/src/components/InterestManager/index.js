@@ -7,6 +7,8 @@ import RemoveStudies from "./removeStudies";
 import MappingManager from "./manageMapping";
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
 class InterestManager extends Component{
     constructor(props){
@@ -29,11 +31,17 @@ class InterestManager extends Component{
                 <Typography variant="h4" gutterBottom style={{padding:20}}>
                     Hva ønsker du å gjøre?
                 </Typography>
-                <button value={0} onClick={this.selectAction}> Legge til interesse </button>
-                <button value={1} onClick={this.selectAction}> Endre interesse </button>
-                <button value={2} onClick={this.selectAction}> Slette interesse </button>
-                <button value={3} onClick={this.selectAction}> Slette studieretning </button>
-                <button value={4} onClick={this.selectAction}> Sette kobling for studieretning </button>
+                <Button value={0} onClick={this.selectAction} variant="contained" style={{padding:15, margin:10}}>
+                    Legge til interesse
+                </Button>
+                <Button value={1} onClick={this.selectAction} variant="contained" style={{padding:15, margin:10}}>
+                    Endre på interessemapping
+                </Button>
+                <Button value={2} onClick={this.selectAction} variant="contained" style={{padding:15, margin:10}}>
+                    Slette interesse
+                </Button>
+                {/*<button value={1} onClick={this.selectAction}> Endre på interessemapping </button>
+            <button value={2} onClick={this.selectAction}> Slette interesse </button>*/}
                 {this.state.selectedAction==="0"&&
                 <div>
                     <Typography variant="h6" gutterBottom style={{padding:20}}>
