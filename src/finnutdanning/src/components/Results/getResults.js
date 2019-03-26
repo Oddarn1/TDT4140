@@ -131,7 +131,7 @@ class GetResults extends Component {
                             // Sjekker om studieretningen allerede er i listen
                             if (!studiesList.some(e => e.studyProgramme === study)) {
                                 // Lager et nytt objekt for denne studieretningen
-                                const newStudy = {studyProgramme: study, relevance: 0, reason: []}
+                                const newStudy = {studyProgramme: study, relevance: 0, reason: []};
                                 // Dette objektet legges til listen
                                 studiesList.push(newStudy);
                             }
@@ -171,7 +171,7 @@ class GetResults extends Component {
         newSearch(event){
             this.props.history.push({
                 pathname:ROUTES.LANDING,
-                state:{query:event.target.value +", ",
+                state:{query:event.target.value.split(", "),
                 newsearch:true}
             })
         }

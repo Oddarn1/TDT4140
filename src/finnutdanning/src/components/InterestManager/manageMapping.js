@@ -36,7 +36,7 @@ class MappingManager extends Component{
         return(
             <div>
                 {selected.map((sel,index)=>(
-                    <button value={index} style={{backgroundColor:'green'}} onClick={this.onUnselect}>{sel}</button>
+                    <button value={index} style={{backgroundColor:'lightgreen'}} onClick={this.onUnselect}>{sel+(" \u24E7".toUpperCase())}</button>
                 ))}
             </div>
         )
