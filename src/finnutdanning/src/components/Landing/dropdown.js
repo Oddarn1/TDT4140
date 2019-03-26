@@ -7,7 +7,7 @@ class Dropdown extends Component{
       super(props);
       this.state = {
         interests : Object,
-        loading : false
+        loading : false,
       }
     };
 
@@ -39,9 +39,9 @@ class Dropdown extends Component{
 
         if (interests != null) {
             Object.keys(interests).forEach(function(interest) {
-              interestList.push(interest);
+                interestList.push(interest);
             })
-        };
+        }
 
         // Lager HTML-liste med alle knappene som skal lages
         var allButtons = interestList.sort().map((interest) =>

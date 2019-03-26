@@ -4,6 +4,12 @@ import {withFirebase} from '../Firebase';
 import {compose} from 'recompose';
 import * as ROLES from "../../constants/roles";
 import './index.css';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import red from '@material-ui/core/colors/red'
+
+const primary = red[500];
 
 class Blackboard extends Component {
 
@@ -145,7 +151,7 @@ class Blackboard extends Component {
           <textarea rows="4" cols="50" disabled name = "Melding:" id = "textarea" value = "">
 
           </textarea>
-          <button type = "button" id = "assignBtn" value = {0} data-value = "" onClick = {this.assignMe}>Jeg tar denne!</button>
+          <button type = "button" id = "assignBtn" color = "primary" value = {0} variant = "contained" data-value = "" onClick = {this.assignMe}>Jeg tar denne!</button>
         </div>
       </div>
     );
