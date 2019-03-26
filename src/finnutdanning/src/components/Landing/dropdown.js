@@ -39,7 +39,7 @@ class Dropdown extends Component{
 
         if (interests != null) {
             Object.keys(interests).forEach(function(interest) {
-              interestList.push(interest);
+                interestList.push(interest);
             })
         }
 

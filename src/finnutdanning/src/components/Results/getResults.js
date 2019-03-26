@@ -73,7 +73,7 @@ class GetResults extends Component {
 
     getTime(){
         const currentDate=new Date();
-        const time=currentDate.getDate()+"."+(currentDate.getMonth()+1)+"."+currentDate.getFullYear()+" "+currentDate.getHours()+":"+(currentDate.getMinutes().length===1?"0"+currentDate.getMinutes():currentDate.getMinutes());
+        const time=currentDate.getDate()+"."+(currentDate.getMonth()+1)+"."+currentDate.getFullYear()+" "+currentDate.getHours()+":"+(currentDate.getMinutes()<10?"0"+currentDate.getMinutes():currentDate.getMinutes());
         return time;
     }
 

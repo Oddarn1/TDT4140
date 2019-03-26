@@ -92,7 +92,7 @@ class Landing extends Component {
         {this.state.showMenu ?
             <div className="dropDown" ref={(element)=>
             this.dropDownMenu=element}>
-                <Dropdown capture={this.capture}/>
+                <Dropdown capture={this.capture} search={this.state.search}/>
             </div>
             :null}
             <div className="submitButton">
