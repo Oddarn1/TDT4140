@@ -150,17 +150,20 @@ class Landing extends Component {
         const selectedList=this.SelectedButtons(selectedInterests);
         const unselectedList=this.UnselectedButtons(this.state.search===""?unselectedInterests:queriedInterests);
         return(
-    <div className="searchBar">
-        {this.props.firebase.auth.currentUser ? null:
-            <p> For å få tilgang til flere funksjoner på nettsiden må du være <Link to={ROUTES.SIGNIN}> logget inn</Link>.</p>}
-        <input type="text" onChange={this.intersearch} value={this.state.search} placeholder="Søk på interesser"/>
-        <button style={{fontWeight:'bold'}} onClick={this.submit}>Finn Utdanning!</button>
-        <p>Valgte interesser:</p>
-        {!loading&&selectedList}
-        <p>Liste over interesser: </p>
-        {!loading&&unselectedList}
-        <RecentSearches/>
-    </div>
+            <div>
+                <div className="searchBar">
+                    {this.props.firebase.auth.currentUser ? null:
+                        <p> For å få tilgang til flere funksjoner på nettsiden må du være <Link to={ROUTES.SIGNIN}> logget inn</Link>.</p>}
+                    <input type="text" onChange={this.intersearch} value={this.state.search} placeholder="Søk på interesser"/>
+                    <button style={{fontWeight:'bold'}} onClick={this.submit}>Finn Utdanning!</button>
+                    <p>Valgte interesser:</p>
+                    {!loading&&selectedList}
+                    <p>Liste over interesser: </p>
+                    {!loading&&unselectedList}
+                </div>
+                <RecentSearches/>
+            </div>
+
             );
     }
 }
