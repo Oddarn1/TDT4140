@@ -5,6 +5,8 @@ import ChangeInterest from './changeInterest';
 import DeleteInterest from "./deleteInterest";
 import RemoveStudies from "./removeStudies";
 import MappingManager from "./manageMapping";
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 class InterestManager extends Component{
     constructor(props){
@@ -23,25 +25,33 @@ class InterestManager extends Component{
     render(){
         return(
             <div>
-                <h3>Hva ønsker du å gjøre?</h3>
+                {console.log(this.state.selectedAction)}
+                <Typography variant="h4" gutterBottom style={{padding:20}}>
+                    Hva ønsker du å gjøre?
+                </Typography>
                 <button value={0} onClick={this.selectAction}> Legge til interesse </button>
                 <button value={1} onClick={this.selectAction}> Endre interesse </button>
                 <button value={2} onClick={this.selectAction}> Slette interesse </button>
                 <button value={3} onClick={this.selectAction}> Slette studieretning </button>
-                <button value={4} onClick={this.selectAction}> Sette mapping for studieretning </button>
                 {this.state.selectedAction==="0"&&
                 <div>
-                    <h3>Legg til interesser med mapping:</h3> <br/>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Legg til interesser med mapping:
+                    </Typography><br/>
                     <AddInterest/><br/>
                 </div>}
                 {this.state.selectedAction==="1"&&
                 <div>
-                    <h3> Endre interesser med mapping:</h3> <br/>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Endre interessemapping:
+                    </Typography>
                     <ChangeInterest/><br/>
                 </div>}
                 {this.state.selectedAction==="2"&&
                 <div>
-                    <h3>Slette interesser:</h3>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Slette interesse:
+                    </Typography><br/>
                     <DeleteInterest/>
                 </div>}
                 {this.state.selectedAction==="3"&&

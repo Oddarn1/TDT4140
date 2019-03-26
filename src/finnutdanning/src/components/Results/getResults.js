@@ -4,6 +4,13 @@ import {withRouter} from 'react-router-dom';
 import {compose} from 'recompose';
 import * as ROUTES from '../../constants/routes';
 
+import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+
 class GetResults extends Component {
 
     constructor(props) {
@@ -166,7 +173,16 @@ class GetResults extends Component {
                 }
                 return listOfStudyProgramme;
             }
-        }
+
+        // Lager en html-liste for alle studieretningene som matchet med søket
+        listOfStudyProgramme = studiesList.length===0?<li> Ingen studieretninger </li>: studiesList.slice(0,5).map((studie) =>
+            <ListItem >
+              <Typography component="h5" variant = "overline">
+              {studie.studyProgramme}
+              </Typography>
+            </ListItem>
+        );
+      };
 
         newSearch(event){
             this.props.history.push({
@@ -186,11 +202,18 @@ class GetResults extends Component {
             <p>Ditt søk: {this.props.query}</p> <button value={this.props.query} onClick={this.newSearch}>Bruk i nytt søk</button>
             {!loading && <h1>Resultat: </h1>}
             <ul>
+            <Typography component="h5" variant = "overline" style={{padding:5}}>Dine søk: {search}</Typography>
+            {loading && <div>Loading ...</div>}
+            {!loading && <Typography component="h2" variant = "h4" style = {{padding: 15}}>Resultat</Typography>}
+            <List>
+
               { listOfStudyProgramme }
-          </ul>
+          </List>
         </div>
-      );}
+      );
     }
+    }
+
 
 
 export default compose(withRouter,withFirebase)(GetResults);

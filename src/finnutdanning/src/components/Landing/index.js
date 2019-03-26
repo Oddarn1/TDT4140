@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {withRouter,Link} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-import './index.css';
+import TextField from '@material-ui/core/TextField';
+import Dropdown from './dropdown';
 import {compose} from 'recompose';
 import {withAuthentication} from '../Session';
 import RecentSearches from "./recentSearches";

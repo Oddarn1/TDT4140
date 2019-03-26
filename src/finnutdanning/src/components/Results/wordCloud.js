@@ -2,6 +2,10 @@ import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import {withFirebase} from '../Firebase';
 
+import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+
 class InterestCloud extends React.Component {
 
   constructor(props) {
@@ -56,10 +60,12 @@ class InterestCloud extends React.Component {
     return(
       <div>
       {loading && <div>Loading ...</div>}
-      {!loading && <h1>Resultat: </h1>}
+      {!loading && <Typography component="h2" variant = "h4" gutterBottom style = {{padding: 24}}>Resultat: </Typography>}
       </div>,
       <div>
-          <h1>Mest valgte interesser</h1>
+          <Typography component="h2" variant = "h4" gutterBottom style = {{padding: 15}}>
+                Mest valgte interesser
+          </Typography>
         <WordCloud
           data={interestList}
           fontSizeMapper={fontSizeMapper}

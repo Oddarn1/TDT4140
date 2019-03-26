@@ -66,7 +66,7 @@ class DeleteInterest extends Component{
                 {interestList}
                 {selectedInterest&&
                 <div>
-                   <h3 style={{color:"red"}}>Er du sikker på at du ønsker å slette {selectedInterest.interestName}</h3>
+                   <h3 style={{color:"red"}}>Er du sikker på at du ønsker å slette {selectedInterest.interestName}?</h3>
                     <button onClick={this.deleteConfirm}>Bekreft</button>
                     &nbsp;<button onClick={this.cancel}>Avbryt</button>
                 </div>}

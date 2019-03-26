@@ -64,7 +64,7 @@ class RecentSearches extends Component{
         return(
             <div>
                 <h2>
-                    Nylige søk:
+                    Tidligere søk:
                 </h2>
                 {!loading&&searchList}
             </div>

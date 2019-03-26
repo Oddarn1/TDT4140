@@ -4,7 +4,8 @@ import Inbox from './messageInbox';
 import * as ROUTES from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import AdminMessage from "./adminMsg";
-
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 /*TODO: Egen meldingsboks for sist sendte og sist mottatte meldinger*/
 const INITIAL_STATE={
@@ -149,7 +150,9 @@ class Messages extends Component {
         const conversationList = this.ConversationList({messages});
         return(
             <div>
-                <h1>Mine Meldinger</h1>
+                <Typography component="h5" variant="h5" gutterBottom style={{padding:20}}>
+                    Mine meldinger
+                </Typography>
                 {/*Setter siden til loading mens meldingene lastes inn*/}
                 {loading && <p>Loading</p>}
                 {!loading && conversationList}
@@ -162,7 +165,9 @@ class Messages extends Component {
                     <button>Ny melding</button>
                 </Link>
                 <br/>
-                <h2>Systemmeldinger:</h2>
+                    <Typography component="h5" variant="h5" gutterBottom style={{padding:20}}>
+                        Systemmeldinger
+                    </Typography>
                 <AdminMessage/>
             </div>
         )
