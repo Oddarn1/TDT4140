@@ -199,14 +199,11 @@ class GetResults extends Component {
 
       return(
         <div>
-            <p>Ditt søk: {this.props.query}</p> <button value={this.props.query} onClick={this.newSearch}>Bruk i nytt søk</button>
-            {!loading && <h1>Resultat: </h1>}
-            <ul>
-            <Typography component="h5" variant = "overline" style={{padding:5}}>Dine søk: {search}</Typography>
+            <Typography component="h5" variant = "overline" style={{padding:5}}>Ditt søk: {this.props.query}</Typography>
+                <button value={this.props.query} onClick={this.newSearch}>Bruk i nytt søk</button>
             {loading && <div>Loading ...</div>}
             {!loading && <Typography component="h2" variant = "h4" style = {{padding: 15}}>Resultat</Typography>}
             <List>
-
               { listOfStudyProgramme }
           </List>
         </div>
