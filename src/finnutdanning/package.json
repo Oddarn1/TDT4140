@@ -1,6 +1,7 @@
 {
   "name": "finnutdanning",
   "version": "0.1.0",
+  "homepage": "http://folk.ntnu.no/oddaow/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.2",
