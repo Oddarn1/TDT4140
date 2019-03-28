@@ -8,12 +8,6 @@
     outline: none;
 }
 
-.header{
-    margin-top: -2%;
-    width: 100%;
-    position: fixed;
-}
-
 .NavButtons.signout{
     padding: 24px 24px;
     font-size: 15px;
