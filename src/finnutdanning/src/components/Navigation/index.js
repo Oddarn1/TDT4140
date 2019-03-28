@@ -45,7 +45,7 @@ class SimpleTabs extends React.Component {
 
 
 const NavigationAuth = ({authUser}) => (
-            <div>
+            <div className="header">
                 <AppBar position="static">
                     <Toolbar className="NavButtons">
                         <Link to={ROUTES.LANDING}>
@@ -84,7 +84,7 @@ const NavigationAuth = ({authUser}) => (
                         <Link to={ROUTES.ABOUT}>
                             <button> Om oss</button>
                         </Link>
-                        <p>Logget inn som: {authUser.email}</p>
+                        <p className="loggetinn">Logget inn som: {authUser.email}</p>
                         <SignOut className="signout"/>
 
                     </Toolbar>
@@ -94,7 +94,7 @@ const NavigationAuth = ({authUser}) => (
 
 
 const NavigationNonAuth = () => (
-    <div>
+    <div className="header">
         <AppBar position="static">
             <Toolbar className="NavButtons">
             <Link to={ROUTES.LANDING}>
