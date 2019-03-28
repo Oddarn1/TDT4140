@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import GetResults from "./getResults";
 import InterestCloud from "./wordCloud";
+import './index.css';
 
 class Results extends Component {
 
@@ -13,8 +14,8 @@ class Results extends Component {
           query = "";
       }
     return(
-    <div>
-            <div>
+    <div className="center">
+            <div className="results">
                 <GetResults query={query} recent={this.props.location.state.recent}
                 results={this.props.location.state.results}/>
             </div>
