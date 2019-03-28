@@ -154,7 +154,7 @@ class Blackboard extends Component {
             return 1;
           }
         });
-      };
+      }
 
         // Slutten av loopen
         var messageButtons = messageList.map((message) =>
@@ -167,7 +167,6 @@ class Blackboard extends Component {
         );
       }
         console.log(messageList)
-      };
 
 
     return(

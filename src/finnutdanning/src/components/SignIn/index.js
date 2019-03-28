@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-
 import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import {PasswordForgetLink} from "../PasswordForget";
 import Typography from '@material-ui/core/Typography';
 
+/*For SignIn, SignOut, SignUp, PasswordForget, Session, Firebase, Account har vi fulgt tutorial på:
+* https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/ */
 
 const SignInPage = () => (
     <div>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {withAuthorization} from '../Session';
 import {Link} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
+import './index.css';
 
 class RecentSearches extends Component{
     constructor(props){
@@ -10,6 +11,7 @@ class RecentSearches extends Component{
             recentSearches:[],
             recentResults:[],
             timestamp:[],
+            weights:[],
             loading:false,
         }
     }
@@ -38,6 +40,7 @@ class RecentSearches extends Component{
                     recentSearches:searching[0]['searches'],
                     recentResults: searching[0]['results'],
                     timestamp: searching[0]['timestamp'],
+                    weights: searching[0]['weights'],
                     loading: false,
                 })
             })
@@ -52,14 +55,30 @@ class RecentSearches extends Component{
     SearchList(searches){
         return(
             <div className="recentSearches">
+                <h4 id="date">Dato for søk:</h4>
+                <h4 id="search">Du søkte på:</h4>
                 {searches.map((search,index)=>(
                     //Listes i linkformat som ved klikk tar en til resultat med samme søk og resultat
-                    <Link to={{pathname: ROUTES.RESULTS,
+                    <div className="linkElem">
+                    <Link id="date" to={{pathname: ROUTES.RESULTS,
                     state:{query:search,
                     recent: true,
-                    results:this.state.recentResults[index]}}}>
-                        {this.state.timestamp[index]+" - "+this.state.recentSearches[index]} <br/>
-                        </Link>))}
+                    results:this.state.recentResults[index],
+                    weights: this.state.weights[index]}}}>
+                        {this.state.timestamp[index]}
+                        </Link>
+                    <Link id="search" to={{pathname: ROUTES.RESULTS,
+                    state:{query:search,
+                    recent: true,
+                    results:this.state.recentResults[index],
+                    weights: this.state.weights[index]}}}>
+                        {/*Hvis lengden på søket er over 40 karakterer: legg til "..." og kutt ned*/}
+                        {this.state.recentSearches[index].length>40?
+                            this.state.recentSearches[index].substr(0,40)+"...":
+                            this.state.recentSearches[index]}
+                    </Link>
+                    </div>
+                    ))}
             </div>
         )
     }
@@ -72,7 +91,9 @@ class RecentSearches extends Component{
                 <h2>
                     Tidligere søk:
                 </h2>
-                {!loading&&searchList}
+                <div className="searchList">
+                    {!loading&&searchList}
+                </div>
             </div>
         )
     }

@@ -38,7 +38,7 @@ class Messages extends Component {
     }
 
     getMessageFromID(){
-        const convs=this.state.conversations;
+        const convs=this.state.conversations.reverse();
         const messagepromises=convs.map(conv=>{
             return this.props.firebase.message(conv.msgids[conv.msgids.length -1]).once('value',s=>s);
         });
@@ -94,7 +94,7 @@ class Messages extends Component {
             })
             .then(()=>this.getMessageFromID())
             .then(()=>{this.forceUpdate();
-                this.setState({loading:false});})
+                this.setState({loading:false})})
                 .catch(error=>console.log(error))
         }
 

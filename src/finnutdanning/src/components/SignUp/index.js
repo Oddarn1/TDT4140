@@ -6,6 +6,9 @@ import {compose} from 'recompose';
 import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
 
+/*For SignIn, SignOut, SignUp, PasswordForget, Session, Firebase, Account har vi fulgt tutorial på:
+* https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/ */
+
 //Lager en ny komponent med andre Komponenter for å holde registreringssiden slik vi ønsker
 const SignUpPage= () => (
     <div>

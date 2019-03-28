@@ -118,6 +118,6 @@ class ChangeInterest extends Component{
 
 }
 
-const condition=authUser=>authUser&&(authUser.role===ROLES.COUNSELOR);
+const condition=authUser=>authUser&&(authUser.role===ROLES.COUNSELOR||authUser.role===ROLES.ADMIN);
 
 export default withAuthorization(condition)(ChangeInterest);

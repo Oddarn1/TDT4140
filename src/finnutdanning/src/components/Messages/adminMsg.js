@@ -21,7 +21,7 @@ class AdminMessage extends Component{
                 ...obj[key],
                 msgid:key
             }));
-            this.setState({messages: messages})
+            this.setState({messages: messages.reverse()})
         }).catch(error=>console.log(error))
     }
 

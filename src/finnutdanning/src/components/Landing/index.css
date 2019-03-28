@@ -12,3 +12,22 @@
     text-align: center;
     width: 100%;
 }
+
+.recentSearches {
+    width: 35%;
+    display: inline-block;
+    horiz-align: center;
+}
+
+.linkElem{
+    width: 100%;
+    display:inline-block;
+}
+
+#date{
+    float:left;
+}
+
+#search{
+    float:right;
+}
