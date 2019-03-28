@@ -4,12 +4,10 @@ import {withFirebase} from '../Firebase';
 class ThemeChanger extends Component {
   constructor(props) {
     super(props);
-
     this.onClick = this.onClick.bind(this);
-
-
   }
 
+  /*Valgt knappeverdi (tall 1-4) skrives til firebase under verdien theme*/
   onClick(event) {
     const theme = this.props.firebase.theme();
     const pickedTheme = parseInt(event.target.value);
@@ -20,6 +18,7 @@ class ThemeChanger extends Component {
 
   }
 
+  /*TODO: Enable knapper når funksjonalitet for å endre fargetema er på plass. Disse knappene endrer theme i firebase*/
   render() {
     return (
       <div>
@@ -36,6 +35,9 @@ class ThemeChanger extends Component {
       </div>
     );
   };
-};
+}
 
+
+/*withFirebase er en Higher Order Component som "wrapper" klassen med funksonalitet for aksess til firebase på f.eks. formen
+* this.props.firebase...*/
 export default withFirebase(ThemeChanger);

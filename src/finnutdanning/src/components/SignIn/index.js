@@ -6,11 +6,8 @@ import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import {PasswordForgetLink} from "../PasswordForget";
-import Input from '@material-ui/core/Input';
-
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+
 
 const SignInPage = () => (
     <div>

@@ -1,12 +1,8 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-/*Whenever TODO:
-* Create a more correct about us.*/
-
-/* install @material-ui/styles
-*/
-
+/*Om oss-siden. Her kan hva som står på "Om oss" endres. Formateringen teksten er definert av Typography-komponenten, og kan også
+* endres i style.*/
 const About = () =>(
     <div>
           <Typography paragraph = "true" align = "left" style = {{padding: 24}}>

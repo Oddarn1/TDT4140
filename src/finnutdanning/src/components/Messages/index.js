@@ -5,7 +5,6 @@ import * as ROUTES from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import AdminMessage from "./adminMsg";
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 
 /*TODO: Egen meldingsboks for sist sendte og sist mottatte meldinger*/
 const INITIAL_STATE={

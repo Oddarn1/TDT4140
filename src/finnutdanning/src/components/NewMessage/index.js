@@ -3,9 +3,7 @@ import * as ROLES from '../../constants/roles';
 import withAuthorization from "../Session/withAuthorization";
 import {withFirebase} from "../Firebase";
 import {compose} from 'recompose';
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 
 const INITIAL_STATE = {
        to: "",
@@ -46,10 +44,12 @@ class NewMessage extends Component{
        })
      };
 
+     //Fjerner lytter til database for å unngå memory-leak
      componentWillUnmount(){
          this.props.firebase.users().off();
      };
 
+     //Leser inn brukere fra firebase som matcher email som fylles inn i til-feltet
      onSearch(event) {
            this.props.firebase.db.ref("users").orderByChild("email").startAt(event.target.value)
                .endAt(event.target.value+"\uf8ff").on('value', snapshot => {
@@ -77,27 +77,30 @@ class NewMessage extends Component{
            event.preventDefault();
       };
 
+     //Når melding skrives oppdateres dette
       onContent(event) {
           this.setState({content : event.target.value})
       };
 
 
-
+        //Meldingen og mottaker leses inn og skrives til firebase
        onSubmit = event => {
          event.preventDefault();
          let {content, to, users} = this.state;
          to=this.props.authUser.role===ROLES.USER?ROLES.COUNSELOR:to;
 
-         if (users.filter(user => (user.email === to)).length != 0 || to === "Veileder" || to === "Alle" || "Admin") {
+         if (users.filter(user => (user.email === to)).length !== 0 || to === "Veileder" || to === "Alle" || "Admin") {
 
            var recpid = to;
            if (users.filter(user => (user.email === to)).length === 1) {
              const userObject = users.filter(user => (user.email === to));
              recpid = userObject["0"]["uid"];
            }
+           //Setter avsender til bruker som sender
            const senderid = this.props.authUser.uid;
            const first = true;
            const read=0;
+           //Får tilbake messageID fra skriving til firebase
            const messageID = this.props.firebase.messages().push({
              senderid,
              recpid,
@@ -106,6 +109,7 @@ class NewMessage extends Component{
              read}).getKey();
           if (recpid === "Veileder" || recpid === "Alle" || recpid === "Admin") {
           } else {
+              //Dersom mottaker ikke er veileder,alle eller admin så opprettes et samtaleobjekt med meldingen.
              this.props.firebase.conversations().push({
                msgids : {
                  0 : messageID
@@ -128,11 +132,11 @@ class NewMessage extends Component{
 
 };
 
-//Lister brukere i admin
+//Lister brukere i databasen
 UserList ({users}) {
     return (
         <ul>
-            {users.map((user,index) => (
+            {users.map(user => (
                 <li key={user.uid}>
                     <span>
                         <Typography variant="body1" gutterBottom style={{padding:4}}>
@@ -150,15 +154,9 @@ UserList ({users}) {
     );
 }
 
-// hente brukerid currentuser : this.props.firebase.auth.currentUser.uid
-
-// "sende" melding this.props.firebase.messages().push({senderid: ^,content})
-// .then(this.setState({standard}))
-// .catch(error)
-
     render() {
 
-       const {to, content, loading, error, search, users} = this.state;
+       const { content, loading, search, users} = this.state;
        const isInvalid = content === '';
        const role=this.props.authUser.role;
        const userList=this.UserList({users});
@@ -200,11 +198,8 @@ UserList ({users}) {
 }
 }
 
-
 //Wrapper klassen i en consumer som gir tilgang til authUser
-
 //Setter en condition som forhindrer siden i å laste før authUser er registrert.
-//Dette var bakgrunnen i at man ikke fikk desablet inputfelt, ettersom den først leste siden uten at bruker var logget inn
 const condition=authUser => ! !authUser;
 
 export default compose(withFirebase,withAuthorization(condition))(NewMessage);

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {withRouter,Link} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-import TextField from '@material-ui/core/TextField';
-import Dropdown from './dropdown';
 import {compose} from 'recompose';
 import {withAuthentication} from '../Session';
 import RecentSearches from "./recentSearches";
@@ -25,6 +23,7 @@ class Landing extends Component {
         this.unselect=this.unselect.bind(this);
     }
 
+    //Leser inn interesser i databasen
     componentDidMount(){
         this.setState({
             loading:true,
@@ -40,9 +39,11 @@ class Landing extends Component {
                 interestid:key,
             }));
             const interests=[];
+            //Sjekker om bruker er redirigert fra "Bruk i nytt søk" - knappen i results
             try{
                 if(this.props.location.state.newsearch) {
                     this.props.location.state.query.map(study=>{
+                        //Går over og flytter allerede valgte interesser over til riktig
                         interestList.map((inter,index)=>{
                             if (study===inter.interestid){
                                 interests.push(interestList.splice(index,1)[0])
@@ -63,6 +64,7 @@ class Landing extends Component {
 
     }
 
+    //Setter sammen søkestreng som brukes i results. Dette omgjøres til array igjen i getresults men inntil videre funker dette
     makeString(){
         let search="";
         this.state.selectedInterests.map(inter=>{
@@ -72,7 +74,7 @@ class Landing extends Component {
     }
 
 
-    /*Redirects the user to result-page on button-press*/
+    /*Omdirigerer bruker til resultater når bruker søker*/
     submit() {
         let search=this.makeString();
         this.props.history.push({
@@ -81,6 +83,7 @@ class Landing extends Component {
         })
     }
 
+    //Foretar søk blant uvalgte interesser basert på tekstfelt
     intersearch(event){
         this.setState({search: event.target.value,
         queriedInterests:[]});
@@ -94,6 +97,7 @@ class Landing extends Component {
         });
     }
 
+    //Mapper valgte interesser til knapper for å displaye disse for seg selv
     SelectedButtons(selected){
         return(
             <div>
@@ -104,6 +108,7 @@ class Landing extends Component {
         )
     }
 
+    //Mapper uvalgte interesser til knapper for å displaye disse
     UnselectedButtons(unselected){
         return(
             <div>
@@ -115,6 +120,7 @@ class Landing extends Component {
     }
 
 
+    //Flytter uvalgt interesse til valgte interesser
     select(event){
         let temp=[];
         if(this.state.search===""){
@@ -135,6 +141,7 @@ class Landing extends Component {
         }))
     }
 
+    //Flytter valgt interesse til uvalgte interesser
     unselect(event){
         const temp=this.state.selectedInterests;
         const tempObj=temp.splice(event.target.value,1)[0];
@@ -155,16 +162,21 @@ class Landing extends Component {
                 <div className="searchBar">
                     {this.props.firebase.auth.currentUser ? null:
                         <p> For å få tilgang til flere funksjoner på nettsiden må du være <Link to={ROUTES.SIGNIN}> logget inn</Link>.</p>}
+
                     <input type="text" onChange={this.intersearch} value={this.state.search} placeholder="Søk på interesser"/>
-                    <button style={{fontWeight:'bold'}} onClick={this.submit}>Finn Utdanning!</button>
+                    <br/>
+
                     <p>Valgte interesser:</p>
                     {!loading&&selectedList}
+                    <br/><br/>
+                    <button style={{fontWeight:'bold'}} onClick={this.submit}>Finn Utdanning!</button>
+
+
                     <p>Liste over interesser: </p>
                     {!loading&&unselectedList}
                 </div>
                 <RecentSearches/>
             </div>
-
             );
     }
 }

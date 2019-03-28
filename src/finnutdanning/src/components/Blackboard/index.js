@@ -4,9 +4,6 @@ import {withFirebase} from '../Firebase';
 import {compose} from 'recompose';
 import * as ROLES from "../../constants/roles";
 import './index.css';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import red from '@material-ui/core/colors/red'
 
 const primary = red[500];
@@ -115,7 +112,7 @@ class Blackboard extends Component {
               content: messages[message]["content"],
               senderid: messages[message]["senderid"]
             });
-          };
+          }
         } else if (role === "Admin") {
             if ((messages[message]["recpid"] === "Admin")) {
             // Her lages en liste med alle meldingene som er relevante for tavlen.
@@ -124,8 +121,8 @@ class Blackboard extends Component {
                 content: messages[message]["content"],
                 senderid: messages[message]["senderid"]
               });
-            };
-          };
+            }
+          }
       });
         // Slutten av loopen
         var messageButtons = messageList.map((message) =>
@@ -136,7 +133,7 @@ class Blackboard extends Component {
 
             </button>
         );
-      };
+      }
 
     return(
       <div className="blackBoard">
@@ -157,8 +154,9 @@ class Blackboard extends Component {
     );
 
   };
-};
+}
 
+/*Kun brukere som er logget inn som veileder eller admin har tilgang til meldingstavlen*/
 const condition = authUser =>
     authUser && (authUser.role===ROLES.COUNSELOR || authUser.role===ROLES.ADMIN);
 

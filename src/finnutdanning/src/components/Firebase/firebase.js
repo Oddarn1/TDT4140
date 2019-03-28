@@ -65,6 +65,7 @@ class Firebase {
             }
         });
 
+
     // ** User API **
     user=uid=>this.db.ref('users/'+uid);
 
@@ -89,6 +90,8 @@ class Firebase {
 
     hits = iname => this.db.ref('interests/'+iname+'/hits');
 
+
+    // ** Conversation API **
     conversation = convid => this.db.ref('conversations/' + convid);
 
     conversations = () => this.db.ref('conversations');

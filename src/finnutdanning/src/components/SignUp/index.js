@@ -6,6 +6,7 @@ import {compose} from 'recompose';
 import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
 
+//Lager en ny komponent med andre Komponenter for å holde registreringssiden slik vi ønsker
 const SignUpPage= () => (
     <div>
         <h1>Registrer deg</h1>
@@ -22,6 +23,7 @@ const INITIAL_STATE = {
     error: null,
 };
 
+//Lager en komponent som står for funksjonen med registrering
 class SignUpFormBase extends Component {
     constructor(props) {
         super(props);
@@ -30,13 +32,16 @@ class SignUpFormBase extends Component {
     }
 
 
+    //Skriver utfylt data fra inputfelter til firebase
     onSubmit = event =>{
         const { fullName, email, passwordOne } = this.state;
         const role=ROLES.USER;
 
+        //Oppretter bruker i auth-grensesnittet
         this.props.firebase
             .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
+                //Skriver så til firebase med informasjon om brukeren
                 return this.props.firebase
                     .user(authUser.user.uid)
                     .set({
@@ -56,6 +61,7 @@ class SignUpFormBase extends Component {
         event.preventDefault();
     };
 
+    //Lagrer tekstinput-felter til state
     onChange = event => {
         this.setState({[event.target.name]: event.target.value});
     };
@@ -119,6 +125,7 @@ class SignUpFormBase extends Component {
     }
 }
 
+//Oppretter en link som brukes på logg inn-siden for å linke til registrering
 const SignUpLink = () => (
     <p>
         Har du ikke bruker? <Link to={ROUTES.SIGNUP}>Registrer deg</Link>

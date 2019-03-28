@@ -3,11 +3,7 @@ import {withFirebase} from '../Firebase';
 import {withRouter} from 'react-router-dom';
 import {compose} from 'recompose';
 import * as ROUTES from '../../constants/routes';
-
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 

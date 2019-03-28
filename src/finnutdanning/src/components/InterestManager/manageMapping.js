@@ -18,6 +18,7 @@ class MappingManager extends Component{
         this.submit=this.submit.bind(this);
     }
 
+    //Leser inn alle studieprogrammer i studyprogrammes-objektet i firebase.
     componentDidMount(){
         this.setState({
             loading:true,
@@ -28,10 +29,12 @@ class MappingManager extends Component{
         this.setState({loading:false});
     }
 
+    //Fjerner lytter til databasen for å unngå memory-leaks
     componentWillUnmount(){
         this.props.firebase.db.ref('studyprogrammes').off();
     }
 
+    //Mapper liste over valgte knapper med studieprogram så disse vises adskilt
     SelectedList(selected){
         return(
             <div>
@@ -42,6 +45,7 @@ class MappingManager extends Component{
         )
     }
 
+    //Mapper liste over studieprogram til knapper
     UnselectedList(unselected){
         return(
             <div>
@@ -52,6 +56,7 @@ class MappingManager extends Component{
         )
     }
 
+    //Uvalgte knapper føres til valgte
     onSelect(event){
         const unselected=[...this.state.unselectedStudies];
         const temp = unselected.splice(event.target.value,1)[0];
@@ -61,6 +66,7 @@ class MappingManager extends Component{
         }));
     }
 
+    //Valgte knapper føres til uvalgte
     onUnselect(event){
         const selected=[...this.state.selectedStudies];
         const temp = selected.splice(event.target.value,1)[0];
@@ -70,6 +76,7 @@ class MappingManager extends Component{
         }));
     }
 
+    //Oppdaterer inputfelt for interessenavn
     onChange(event){
         event.preventDefault();
         this.setState({
@@ -77,8 +84,8 @@ class MappingManager extends Component{
         });
     }
 
+    //Går over valgte studier og setter disse inn i studies for interesse og skriver dette til database.
     submit(event){
-        console.log(this.state.selectedStudies);
         event.preventDefault();
         this.props.firebase.interest(this.state.interest).set({
             hits:0,
@@ -109,6 +116,6 @@ class MappingManager extends Component{
 
 }
 
-const condition=authUser=>authUser.role!==ROLES.USER;
+const condition=authUser=>authUser&&(authUser.role!==ROLES.USER);
 
 export default withAuthorization(condition)(MappingManager);

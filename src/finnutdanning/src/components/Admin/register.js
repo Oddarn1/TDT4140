@@ -3,6 +3,8 @@ import {withFirebase} from '../Firebase';
 import * as ROLES from '../../constants/roles';
 import firebase from 'firebase';
 
+/*Oppretter en secondary konfigurasjon av firebase-appen. Dette gjøres for at admin ikke skal bli logget ut ved registrering
+* av ny bruker i verktøyet.*/
 const config = {
     apiKey: "AIzaSyB75ISkhork5Z_-6Gp-oVq4iHA7zC2zuZ4",
     authDomain: "finnutdanning.firebaseapp.com",
@@ -28,10 +30,12 @@ class Register extends Component {
         this.isRegistered=this.isRegistered.bind(this);
     }
 
+    /*Oppdaterer state fra input-felter*/
     onChange(event){
         this.setState({[event.target.name]:event.target.value});
     }
 
+    /*Kontrollmetode av e-post som registreres, er denne allerede i databasen?*/
     isRegistered(email){
         const users=this.props.registered;
         for(var i=0;i<users.length;i++) {
@@ -44,6 +48,7 @@ class Register extends Component {
         return false;
     }
 
+    /*Genererer et midlertidig tilfeldig passord for bruker.*/
     generatePass(){
         let letters="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#%&/?()"
         let pass="";
@@ -53,32 +58,36 @@ class Register extends Component {
         return pass;
     }
 
-    /*Firebase: write to database with user info. Creates new user and a unique user id*/
+    /*Skriver til firebase med oppgitt informasjon i tekstfelter.*/
     submit=event=> {
         const {email, fullName, role} = this.state;
         const pass=this.generatePass();
+        //Oppretter bruker med det genererte passordet
         secondaryApp.auth().createUserWithEmailAndPassword(email,pass)
             .then(authUser => {
+                //Skriver bruker til firebase for å synkronisere dette mot autentiseringen
                     return secondaryApp.database().ref('users/'+authUser.user.uid)
                         .set({
                             fullName,
                             email,
                             role,
                         });
-            })
+            })//Sender så ut reset passord-mail til bruker for å gi bruker mulighet til å velge eget passord
             .then(()=> {
                 this.props.firebase.doPasswordReset(email);
+                //Bruker logges så ut av secondaryapp for å gjøre det mulig å registrere ny bruker.
                 secondaryApp.auth().signOut();
             })
             .catch(error =>
             {console.log(error);
-                this.setState({error:"Noe gikk galt!"});}
+                this.setState({error});}
             );
 
         event.preventDefault();
         this.setState({...INITIAL_STATE});
         };
 
+    //Kontrollerer at eposten er godkjent og at registrering kan gjennomføres. Kaller submit som gjør registrering.
     onSubmit = (event) => {
         event.preventDefault();
         if(!this.isRegistered(this.state.email)) {
@@ -162,4 +171,6 @@ class Register extends Component {
 
 }
 
+/*withFirebase er en Higher Order Component som "wrapper" klassen med funksonalitet for aksess til firebase på f.eks. formen
+* this.props.firebase...*/
 export default withFirebase(Register);

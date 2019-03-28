@@ -14,6 +14,7 @@ class RecentSearches extends Component{
         }
     }
 
+    //Leser inn nylige søk for bruker. Nylige søk er lagret på brukerid i databasen
     componentDidMount(){
         this.setState({
             loading:true,
@@ -31,6 +32,8 @@ class RecentSearches extends Component{
                     ...obj[key],
                     searchid:key
                 }));
+                /*Etter mapping har vi en liste med ett objekt, henter ut dette på 0-index. Er det mer enn 1 objekt her har
+                * databasen fucka seg*/
                 this.setState({
                     recentSearches:searching[0]['searches'],
                     recentResults: searching[0]['results'],
@@ -40,14 +43,17 @@ class RecentSearches extends Component{
             })
     }
 
+    //Fjerner lytter fra database for å unngå memory-leaks
     componentWillUnmount(){
         this.props.firebase.db.ref('searchhistory').off();
     }
 
+    //Lister nylige søk for innloggede brukere
     SearchList(searches){
         return(
             <div className="recentSearches">
                 {searches.map((search,index)=>(
+                    //Listes i linkformat som ved klikk tar en til resultat med samme søk og resultat
                     <Link to={{pathname: ROUTES.RESULTS,
                     state:{query:search,
                     recent: true,
