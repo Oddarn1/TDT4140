@@ -52,7 +52,7 @@ class RecentSearches extends Component{
                     state:{query:search,
                     recent: true,
                     results:this.state.recentResults[index]}}}>
-                        {this.state.timestamp[index]} <br/>
+                        {this.state.timestamp[index]+" - "+this.state.recentSearches[index]} <br/>
                         </Link>))}
             </div>
         )

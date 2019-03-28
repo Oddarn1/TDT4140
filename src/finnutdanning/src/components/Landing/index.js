@@ -127,7 +127,6 @@ class Landing extends Component {
             temp=this.state.unselectedInterests;
             temp.splice(temp.indexOf(tempObj),1);
         }
-        console.log(temp);
         event.preventDefault();
         this.setState(prevState=>({
             selectedInterests: [...prevState.selectedInterests,tempObj].sort(),

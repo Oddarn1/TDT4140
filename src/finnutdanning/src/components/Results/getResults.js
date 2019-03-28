@@ -152,7 +152,6 @@ class GetResults extends Component {
                         });
                     }
                 });
-
                 // Sorterer listen basert på relevans
                 studiesList.sort(function(a, b){
                     return b.relevance - a.relevance;
@@ -199,7 +198,7 @@ class GetResults extends Component {
 
       return(
         <div>
-            <Typography component="h5" variant = "overline" style={{padding:5}}>Ditt søk: {this.props.query}</Typography>
+            <Typography component="h4" variant = "h7" style={{padding:5}}>Ditt søk: {this.props.query}</Typography>
                 <button value={this.props.query} onClick={this.newSearch}>Bruk i nytt søk</button>
             {loading && <div>Loading ...</div>}
             {!loading && <Typography component="h2" variant = "h4" style = {{padding: 15}}>Resultat</Typography>}
