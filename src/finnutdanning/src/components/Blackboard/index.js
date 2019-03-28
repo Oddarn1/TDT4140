@@ -17,6 +17,7 @@ class Blackboard extends Component {
     this.assignMe = this.assignMe.bind(this);
     this.state = {
       messages : Object,
+      sroles : Object,
       loading : false,
       user: String,
       role: String
@@ -25,19 +26,30 @@ class Blackboard extends Component {
 
   componentDidMount(){
     this.setState({ loading: true });
+
+    var component = this
+    var messageObjects
+    var curRole
+    var senderRoles = {}
     this.props.firebase.messages().once('value', snapshot => {
-        const messageObjects = snapshot.val();
+        messageObjects = snapshot.val();
         const userID = this.props.firebase.auth.currentUser.uid;
         this.props.firebase.role(userID).once('value', snapshot2 => {
-          const curRole = snapshot2.val();
-          this.setState({
-            role: curRole
+          curRole = snapshot2.val();
+          Object.keys(messageObjects).forEach(function (message) {
+            component.props.firebase.role(messageObjects[message]["senderid"]).once('value', snapshot3 => {
+              var obj = {};
+              obj[message] = snapshot3.val();
+              Object.assign(senderRoles, obj);
+              component.setState({
+                  messages: messageObjects,
+                  sroles: senderRoles,
+                  loading: false,
+                  user: component.props.firebase.auth.currentUser.uid,
+                  role: curRole
+              });
+            });
           });
-        });
-        this.setState({
-            messages: messageObjects,
-            loading: false,
-            user: this.props.firebase.auth.currentUser.uid
         });
     });
   };
@@ -97,10 +109,13 @@ class Blackboard extends Component {
 
   render() {
 
-    const {messages, loading, role}=this.state;
+    const {messages, sroles, loading, role}=this.state;
+
+    var component = this;
 
     var messageList = [];
-    if (messages != null) {
+    if (Object.keys(messages).length !== 0 && Object.keys(sroles).length === Object.keys(messages).length) {
+
       Object.keys(messages).forEach(function (message) {
         // Her sjekker vi alle meldingen og om hvilken av de som ikke har en
         // recpid.
@@ -119,11 +134,28 @@ class Blackboard extends Component {
               messageList.push({
                 key : message,
                 content: messages[message]["content"],
-                senderid: messages[message]["senderid"]
+                senderid: messages[message]["senderid"],
+                srole: sroles[message]
               });
             }
           }
       });
+
+      // Sortering av knappene meldingen:
+      if (role === "Admin") {
+        messageList.sort(function (a, b) {
+          if ((a.srole !== "Veileder" && b.srole !== "Veileder") || a.srole === b.srole) {
+            return 0;
+          }
+          if (a.srole === "Veileder") {
+            return -1;
+          }
+          if (b.srole === "Veileder") {
+            return 1;
+          }
+        });
+      };
+
         // Slutten av loopen
         var messageButtons = messageList.map((message) =>
             //Lengden på denne må være like lang som lengden på en header.
@@ -134,6 +166,9 @@ class Blackboard extends Component {
             </button>
         );
       }
+        console.log(messageList)
+      };
+
 
     return(
       <div className="blackBoard">
