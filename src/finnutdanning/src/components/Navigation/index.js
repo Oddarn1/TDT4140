@@ -13,10 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
-/*Whenever TODO:
-Implement search bar in the navigation bar.
-Sprint 2 TODO:
-User-protected routes, make sure registered users get access to messages, employees to employee-protected pages and so on.*/
 
 function TabContainer(props) {
   return (
@@ -51,17 +47,12 @@ class SimpleTabs extends React.Component {
 const NavigationAuth = ({authUser}) => (
             <div>
                 <AppBar position="static">
-                    <Toolbar>
-
-
+                    <Toolbar className="NavButtons">
                         <Link to={ROUTES.LANDING}>
                             <button> Hjem</button>
                         </Link>
                         <Link to={ROUTES.MESSAGES}>
                             <button> Meldinger</button>
-                        </Link>
-                        <Link to={ROUTES.ABOUT}>
-                            <button> Om oss</button>
                         </Link>
                         {authUser.role === ROLES.ADMIN &&
                         <Link to={ROUTES.ADMIN}>
@@ -90,8 +81,12 @@ const NavigationAuth = ({authUser}) => (
                         <Link to={ROUTES.ACCOUNT}>
                             <button>Brukerinnstillinger</button>
                         </Link>
-                        <SignOut/>
+                        <Link to={ROUTES.ABOUT}>
+                            <button> Om oss</button>
+                        </Link>
                         <p>Logget inn som: {authUser.email}</p>
+                        <SignOut className="signout"/>
+
                     </Toolbar>
                 </AppBar>
             </div>
@@ -100,19 +95,23 @@ const NavigationAuth = ({authUser}) => (
 
 const NavigationNonAuth = () => (
     <div>
+        <AppBar position="static">
+            <Toolbar className="NavButtons">
             <Link to={ROUTES.LANDING}>
                 <button>Hjem</button>
             </Link>
             <Link to={ROUTES.ABOUT}>
                 <button>Om oss</button>
             </Link>
-            <Link to={ROUTES.SIGNIN}>
-                <button>Logg inn</button>
-            </Link>
             <Link to={{pathname: ROUTES.SIGNIN,
             error: "Du må være logget inn for å kontakte veileder."}}>
                 <button>Kontakt veileder</button>
             </Link>
+                <Link to={ROUTES.SIGNIN}>
+                    <button className="signin">Logg inn</button>
+                </Link>
+            </Toolbar>
+        </AppBar>
     </div>
 );
 

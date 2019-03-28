@@ -1,14 +1,10 @@
-.searchBar {
+.results {
     text-align: center;
     width: 100%;
 }
 
-.searchBar input {
-    display: inline-block;
-}
-
 .center{
-    margin-top: 10%;
+    margin-top: 5%;
     text-align: center;
     width: 100%;
 }

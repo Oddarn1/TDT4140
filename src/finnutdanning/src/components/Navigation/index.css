@@ -1,11 +1,33 @@
-.header {
-    position: fixed;
-    height: 100px;
-    opacity: 50%;
-    width: max-content;
+.NavButtons button {
+    padding: 24px 32px;
+    font-size: 17px;
+    background-color: #3F51B5;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
 }
 
-link {
+.NavButtons.signout{
+    padding: 24px 32px;
+    font-size: 17px;
+    background-color: #3F51B5;
+    color: white;
     float: right;
-    padding: 20px 16px;
+    border: none;
+    outline: none;
+}
+
+.NavButtons .signin{
+    padding: 24px 32px;
+    font-size: 17px;
+    background-color: #3F51B5;
+    color: white;
+    float: right;
+    border: none;
+    outline: none;
+}
+
+.NavButtons button:hover{
+    background-color: #039be5;
 }

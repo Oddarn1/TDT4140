@@ -167,7 +167,7 @@ UserList ({users}) {
         <div>
         <form onSubmit={this.onSubmit}>
           <div>
-            {role === ROLES.USER?ROLES.COUNSELOR : <Typography variant="body1" gutterBottom style={{padding:15}}>Brukersøk (NB: Case-sensitiv)</Typography>}
+            {role === ROLES.USER?null: <Typography variant="body1" gutterBottom style={{padding:15}}>Brukersøk (NB: Case-sensitiv)</Typography>}
           </div>
           <label>Til</label>
 
@@ -188,9 +188,9 @@ UserList ({users}) {
                        <br/>
                        <button disabled={isInvalid} type="submit">Send </button>
         </form>
-          {role === ROLES.USER?ROLES.COUNSELOR :
+          {role === ROLES.USER?<p>Du kan kun sende melding til {ROLES.COUNSELOR}</p>:
           (<div>
-            {!loading && <div ref="ListUsers"><br/>{userList}</div>}
+              {!loading && <div ref="ListUsers"><br/><p>Du kan sende til disse brukerne:</p><br/>{userList}</div>}
             {this.state.error}
           </div>)}
         </div>
