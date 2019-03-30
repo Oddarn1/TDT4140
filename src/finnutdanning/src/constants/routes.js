@@ -12,3 +12,4 @@ export const ACCOUNT='/account';
 export const BLACKBOARD='/blackboard';
 export const NEWMESSAGE='/newmessage';
 export const INTERESTMANAGER='/interestmanager';
+export const FEEDBACK='/feedback';

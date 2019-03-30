@@ -64,7 +64,14 @@ class Inbox extends Component{
         let {messages}=this.state;
         messages.map(message=>{
             this.props.firebase.user(message.senderid).once('value',snapshot=>{
-                message['senderid']=snapshot.val()['fullName'];
+                if(this.props.firebase.user(message.senderid) !== null){
+                    message['senderid']=snapshot.val()['fullName'];
+
+                } else if(message['senderid'] === 'Anonym'){
+                    message['senderid'] = 'Anonym';
+                } else {
+                    message['senderid']=message['senderid'];
+                }
             }).then(()=>
                 this.setState({messages})
             ).catch(error=>
