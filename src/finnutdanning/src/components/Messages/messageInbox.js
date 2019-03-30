@@ -63,20 +63,17 @@ class Inbox extends Component{
     userFromUid(){
         let {messages}=this.state;
         messages.map(message=>{
-            this.props.firebase.user(message.senderid).once('value',snapshot=>{
-                if(this.props.firebase.user(message.senderid) !== null){
-                    message['senderid']=snapshot.val()['fullName'];
-
-                } else if(message['senderid'] === 'Anonym'){
-                    message['senderid'] = 'Anonym';
-                } else {
-                    message['senderid']=message['senderid'];
-                }
-            }).then(()=>
-                this.setState({messages})
-            ).catch(error=>
-            console.log(error))
-        })
+            try{
+                this.props.firebase.user(message.senderid).once('value',snapshot=>{
+                    if(this.props.firebase.user(message.senderid) !== null){
+                        message['senderid']=snapshot.val()['fullName'];
+                }}).then(()=>
+                    this.setState({messages})
+                ).catch(error=>
+                console.log(error))
+            }catch(error){
+                console.log(error);
+            }})
     }
 
 
@@ -100,7 +97,9 @@ class Inbox extends Component{
         return(
             <div className="inbox">
                 {!loading &&
-                <div>{ConvList}<Answer update={this.props.updateParent} conversation={this.props.conversation}/></div>}
+                <div>{ConvList}
+                    <Answer update={this.props.updateParent} conversation={this.props.conversation}/>
+                </div>}
             </div>
         )
     }

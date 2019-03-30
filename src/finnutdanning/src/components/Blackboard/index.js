@@ -27,29 +27,41 @@ class Blackboard extends Component {
   componentDidMount(){
     this.setState({ loading: true });
 
-    var component = this
-    var messageObjects
-    var curRole
-    var senderRoles = {}
+    var component = this;
+    var messageObjects;
+    var curRole;
+    var senderRoles = {};
     this.props.firebase.messages().once('value', snapshot => {
         messageObjects = snapshot.val();
         const userID = this.props.firebase.auth.currentUser.uid;
         this.props.firebase.role(userID).once('value', snapshot2 => {
           curRole = snapshot2.val();
           Object.keys(messageObjects).forEach(function (message) {
-            component.props.firebase.role(messageObjects[message]["senderid"]).once('value', snapshot3 => {
-              var obj = {};
-              obj[message] = snapshot3.val();
-              Object.assign(senderRoles, obj);
-              component.setState({
-                  messages: messageObjects,
-                  sroles: senderRoles,
-                  loading: false,
-                  user: component.props.firebase.auth.currentUser.uid,
-                  role: curRole
-              });
-            });
-          });
+            try {
+                component.props.firebase.role(messageObjects[message]["senderid"]).once('value', snapshot3 => {
+                    var obj = {};
+                    obj[message] = snapshot3.val();
+                    Object.assign(senderRoles, obj);
+                    component.setState({
+                        messages: messageObjects,
+                        sroles: senderRoles,
+                        loading: false,
+                        user: component.props.firebase.auth.currentUser.uid,
+                        role: curRole
+                    });
+                });
+            }catch{
+                var obj={};
+                obj[message]="Gjest";
+                Object.assign(senderRoles, obj);
+                component.setState({
+                    messages: messageObjects,
+                    sroles: senderRoles,
+                    loading: false,
+                    user: component.props.firebase.auth.currentUser.uid,
+                    role: curRole
+                });
+            }});
         });
     });
   };
@@ -110,8 +122,7 @@ class Blackboard extends Component {
   render() {
 
     const {messages, sroles, loading, role}=this.state;
-
-    var component = this;
+    console.log(sroles);
 
     var messageList = [];
     if (Object.keys(messages).length !== 0 && Object.keys(sroles).length === Object.keys(messages).length) {
@@ -166,7 +177,7 @@ class Blackboard extends Component {
             </button>
         );
       }
-        console.log(messageList)
+        console.log(messageList);
 
 
     return(

@@ -45,7 +45,15 @@ class Answer extends Component{
         return(
             <div>
                 <form onSubmit={this.submit}>
-                <textarea name="answerText" placeholder="Skriv ditt svar her" onChange={this.onChange} value={this.state.answerText}/>
+                <textarea
+                    disabled={this.props.conversation.participant1==="Anonym"||
+                this.props.conversation.participant1.includes("@")}
+                          name="answerText"
+                          placeholder={this.props.conversation.participant1==="Anonym"||
+                this.props.conversation.participant1.includes("@")?"Du kan ikke svare direkte på denne":
+                              "Skriv ditt svar her"}
+                          onChange={this.onChange}
+                          value={this.state.answerText}/>
                 <button type="submit" disabled={isInvalid}>Send</button>
                 </form>
             </div>
