@@ -3,6 +3,7 @@ import {withAuthorization} from '../Session';
 import {Link} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import './index.css';
+import Typography from '@material-ui/core/Typography';
 
 class RecentSearches extends Component{
     constructor(props){
@@ -55,8 +56,8 @@ class RecentSearches extends Component{
     SearchList(searches){
         return(
             <div className="recentSearches">
-                <h4 id="date">Dato for søk:</h4>
-                <h4 id="search">Du søkte på:</h4>
+                <Typography variant="h6" gutterBottom id="date">Dato for søk:</Typography>
+                <Typography variant="h6" gutterBottom id="search">Du søkte på:</Typography>
                 {searches.map((search,index)=>(
                     //Listes i linkformat som ved klikk tar en til resultat med samme søk og resultat
                     <div className="linkElem">
@@ -65,7 +66,7 @@ class RecentSearches extends Component{
                     recent: true,
                     results:this.state.recentResults[index],
                     weights: this.state.weights[index]}}}>
-                        {this.state.timestamp[index]}
+                        <Typography variant="body1" gutterBottom style={{color:"blue"}}>{this.state.timestamp[index]}</Typography>
                         </Link>
                     <Link id="search" to={{pathname: ROUTES.RESULTS,
                     state:{query:search,
@@ -73,9 +74,10 @@ class RecentSearches extends Component{
                     results:this.state.recentResults[index],
                     weights: this.state.weights[index]}}}>
                         {/*Hvis lengden på søket er over 40 karakterer: legg til "..." og kutt ned*/}
-                        {this.state.recentSearches[index].length>40?
+                        <Typography variant="body1" gutterBottom style={{color:"blue"}}>{this.state.recentSearches[index].length>40?
                             this.state.recentSearches[index].substr(0,40)+"...":
                             this.state.recentSearches[index]}
+                        </Typography>
                     </Link>
                     </div>
                     ))}
@@ -87,13 +89,10 @@ class RecentSearches extends Component{
         const {recentSearches,loading}=this.state;
         const searchList=this.SearchList(recentSearches);
         return(
-            <div>
-                <h2>
-                    Tidligere søk:
-                </h2>
-                <div className="searchList">
-                    {!loading&&searchList}
-                </div>
+            <div className="searchList">
+                <Typography variant="h4" gutterBottom>Dine tidligere søk:</Typography>
+                {!loading&&searchList}
+
             </div>
         )
     }

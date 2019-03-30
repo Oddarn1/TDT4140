@@ -1,22 +1,41 @@
 .searchBar {
+    margin-top: 5%;
     text-align: center;
     width: 100%;
 }
 
-.searchBar input {
-    display: inline-block;
+.finnutdanning{
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.unselectedInterests{
+    width:55%;
+    margin-left: 3%;
+    position:center;
+}
+
+.selectedInterests{
+    margin-top:3%;
+    width: 35%;
+    margin-right:2%;
+    background-color: #cccccc;
+    float:right;
+    height: 500px;
+    display: inline;
+    overflow:scroll;
 }
 
 .center{
-    margin-top: 10%;
+    margin-top: 5%;
     text-align: center;
     width: 100%;
 }
 
 .recentSearches {
-    width: 35%;
+    width: 60%;
     display: inline-block;
-    horiz-align: center;
+    text-align: center;
 }
 
 .linkElem{

@@ -28,57 +28,51 @@ TabContainer.propTypes = {
 
 const NavigationAuth = ({authUser}) => (
             <div className="header">
-                <AppBar position="static">
-                    <Toolbar className="NavButtons">
-                        <Link to={ROUTES.LANDING}>
-                            <button> Hjem</button>
-                        </Link>
-                        <Link to={ROUTES.MESSAGES}>
-                            <button> Meldinger</button>
-                        </Link>
-                        {authUser.role === ROLES.ADMIN &&
-                        <Link to={ROUTES.ADMIN}>
-                            <button> Admin </button>
-                        </Link>
-                        }
-                        {authUser.role === ROLES.COUNSELOR &&
-                          <Link to={ROUTES.BLACKBOARD}>
-                              <button> Veiledertavle </button>
-                          </Link>
-                        }
-                        {authUser.role!==ROLES.USER&&
-                        <Link to={ROUTES.INTERESTMANAGER}>
-                            <button> Interessebehandling </button>
-                        </Link>}
-                        {authUser.role === ROLES.ADMIN &&
-                          <Link to={ROUTES.BLACKBOARD}>
-                              <button> Vedlikeholdstavle </button>
-                          </Link>
-                        }
-                        {authUser.role === ROLES.USER &&
-                            <Link to={ROUTES.NEWMESSAGE}>
-                                <button>Kontakt veileder</button>
-                            </Link>
-                        }
-                        <Link to={ROUTES.ACCOUNT}>
-                            <button>Brukerinnstillinger</button>
-                        </Link>
-                        <Link to={ROUTES.ABOUT}>
-                            <button> Om oss</button>
-                        </Link>
-                        <p className="loggetinn">Logget inn som: {authUser.email}</p>
-                        <SignOut className="signout"/>
+                <Link to={ROUTES.LANDING}>
+                    <button> Hjem</button>
+                </Link>
+                <Link to={ROUTES.MESSAGES}>
+                    <button> Meldinger</button>
+                </Link>
+                {authUser.role === ROLES.ADMIN &&
+                <Link to={ROUTES.ADMIN}>
+                    <button> Admin </button>
+                </Link>
+                }
+                {authUser.role === ROLES.COUNSELOR &&
+                <Link to={ROUTES.BLACKBOARD}>
+                    <button> Veiledertavle </button>
+                </Link>
+                }
+                {authUser.role!==ROLES.USER&&
+                <Link to={ROUTES.INTERESTMANAGER}>
+                    <button> Interessebehandling </button>
+                </Link>}
+                {authUser.role === ROLES.ADMIN &&
+                <Link to={ROUTES.BLACKBOARD}>
+                    <button> Vedlikeholdstavle </button>
+                </Link>
+                }
+                {authUser.role === ROLES.USER &&
+                <Link to={ROUTES.NEWMESSAGE}>
+                    <button>Kontakt veileder</button>
+                </Link>
+                }
+                <Link to={ROUTES.ACCOUNT}>
+                    <button>Brukerinnstillinger</button>
+                </Link>
+                <Link to={ROUTES.ABOUT}>
+                    <button> Om oss</button>
+                </Link>
+                <SignOut className="signout"/>
+                <p className="loggetinn">Logget inn som: <br/>{authUser.email}</p>
 
-                    </Toolbar>
-                </AppBar>
             </div>
         );
 
 
 const NavigationNonAuth = () => (
     <div className="header">
-        <AppBar position="static">
-            <Toolbar className="NavButtons">
             <Link to={ROUTES.LANDING}>
                 <button>Hjem</button>
             </Link>
@@ -92,8 +86,6 @@ const NavigationNonAuth = () => (
                 <Link to={ROUTES.SIGNIN}>
                     <button className="signin">Logg inn</button>
                 </Link>
-            </Toolbar>
-        </AppBar>
     </div>
 );
 

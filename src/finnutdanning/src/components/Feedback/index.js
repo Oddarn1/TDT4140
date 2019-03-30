@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   from: "",
   content: ""
 
-}
+};
 
 class Feedback extends Component{
   constructor(props){
@@ -30,24 +30,25 @@ class Feedback extends Component{
          let {content, to, from} = this.state;
          to=ROLES.ADMIN;
          from = this.props.firebase.auth.currentUser?this.props.firebase.auth.currentUser.uid:from;
+         let sender;
          if (from === ''){
-           var sender = 'Anonym';
+           sender = 'Anonym';
          } else {
-           var sender = from;
+           sender = from;
          }
          const senderid = sender;
          const read = 0;
          const first = true;
          const recpid = to;
-         const messageID = this.props.firebase.messages().push({senderid, recpid, content, read, first})
+         this.props.firebase.messages().push({senderid, recpid, content, read, first})
          .then(() => {
            this.setState({...INITIAL_STATE});
          }).catch(error=>console.log(error));
-       }
+       };
 
   render() {
 
-      const {to, from, content} = this.state;
+      const {from, content} = this.state;
       const isInvalid = content === '';
 
 
@@ -87,15 +88,8 @@ class Feedback extends Component{
 
       </form>
       </div>
-
-
     )
-
   }
-
-
 }
-
-
 
 export default compose(withAuthentication,withFirebase)(Feedback);

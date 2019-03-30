@@ -5,6 +5,9 @@ import {compose} from 'recompose';
 import {withAuthentication} from '../Session';
 import RecentSearches from "./recentSearches";
 import './index.css';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class Landing extends Component {
     constructor(props){
@@ -102,7 +105,10 @@ class Landing extends Component {
         return(
             <div>
                 {selected.map((sel,index)=>(
-                    <button value={index} onClick={this.unselect} style={{backgroundColor:"lightgreen"}}>{sel.interestid+(" \u24E7".toUpperCase())}</button>
+                    <Button value={index} onClick={this.unselect}
+                            variant="contained" style={{padding:15, margin:10,backgroundColor:"lightgreen"}}>
+                        {sel.interestid+(" \u24E7".toUpperCase())}
+                    </Button>
                 ))}
             </div>
         )
@@ -113,7 +119,8 @@ class Landing extends Component {
         return(
             <div>
                 {unselected.map((unsel,index)=>(
-                    <button value={index} onClick={this.select}>{unsel.interestid}</button>
+                    <Button value={index} onClick={this.select} variant="contained"
+                            style={{padding:15, margin:10,width: 150}}>{unsel.interestid}</Button>
                 ))}
             </div>
         )
@@ -163,19 +170,24 @@ class Landing extends Component {
                     {this.props.firebase.auth.currentUser ? null:
                         <p> For å få tilgang til flere funksjoner på nettsiden må du være <Link to={ROUTES.SIGNIN}> logget inn</Link>.</p>}
 
-                    <input type="text" onChange={this.intersearch} value={this.state.search} placeholder="Søk på interesser"/>
-                    <br/>
-
-                    <p>Valgte interesser:</p>
-                    {!loading&&selectedList}
+                    <div className="selectedInterests">
+                        <Button className="finnutdanning" style={{fontWeight:'bold',padding:15, margin:10,backgroundColor:"white"}} onClick={this.submit}>Finn Utdanning!</Button>
+                        <Typography variant="display1" gutterBottom style={{padding:20}}>Valgte interesser: </Typography>
+                        {!loading&&selectedList}
+                    </div>
                     <br/><br/>
-                    <button style={{fontWeight:'bold'}} onClick={this.submit}>Finn Utdanning!</button>
-
-
-                    <p>Liste over interesser: </p>
+                    <div className="unselectedInterests">
+                        <TextField
+                            label={"Søk på interesser"}
+                            style={{width:"75%",textAlign:"center",color:"#3F51B5",borderWidth:"1px",borderColor:"#3F51B5"}}
+                            variant={"outlined"} className="inputField" onChange={this.intersearch} value={this.state.search}
+                            placeholder="Søkeord"/>
+                        <br/>
+                        <Typography variant="display1" gutterBottom style={{padding:20}}>Liste over interesser: </Typography>
                     {!loading&&unselectedList}
+                        <RecentSearches/>
+                    </div>
                 </div>
-                <RecentSearches/>
             </div>
             );
     }
