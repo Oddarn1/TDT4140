@@ -3,6 +3,10 @@ import {withFirebase} from "../Firebase";
 import * as ROLES from '../../constants/roles';
 import {compose} from 'recompose';
 import {withAuthentication} from '../Session';
+import * as ROUTES from "../../constants/routes";
+import Fab from "@material-ui/core/Fab/Fab";
+import {Link} from "react-router-dom";
+import './index.css';
 
 
 const INITIAL_STATE = {
@@ -92,4 +96,14 @@ class Feedback extends Component{
   }
 }
 
+const FeedbackButton=()=>(
+    <Link className="feilmelding" to={ROUTES.FEEDBACK}>
+        <Fab style={{backgroundColor:"#3F51B5",color:"white"}}>
+            Meld feil
+        </Fab>
+    </Link>
+);
+
 export default compose(withAuthentication,withFirebase)(Feedback);
+
+export {FeedbackButton};

@@ -32,6 +32,10 @@
     width: 100%;
 }
 
+.showInterests{
+    top:-5%;
+}
+
 .recentSearches {
     width: 60%;
     display: inline-block;

@@ -20,7 +20,7 @@ class InterestManager extends Component{
     //Funksjon for å velge hva som skal vises
     selectAction(event){
         event.preventDefault();
-        this.setState({selectedAction:event.target.value===this.state.selectedAction?null:event.target.value,});
+        this.setState({selectedAction:event.currentTarget.value===this.state.selectedAction?null:event.currentTarget.value,});
     }
 
     render(){

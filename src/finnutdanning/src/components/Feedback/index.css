@@ -1,0 +1,7 @@
+.feilmelding{
+    z-index:99;
+    text-decoration: none;
+    top:90%;
+    left:95%;
+    position: fixed;
+}

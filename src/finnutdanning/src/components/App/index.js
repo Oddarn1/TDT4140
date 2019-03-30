@@ -17,7 +17,7 @@ import './index.css';
 import NewMessage from '../NewMessage';
 import Blackboard from '../Blackboard';
 import InterestManager from '../InterestManager';
-import Feedback from '../Feedback';
+import Feedback, {FeedbackButton} from '../Feedback';
 
 import * as ROUTES from '../../constants/routes';
 import withAuthentication from "../Session/withAuthentication";
@@ -49,8 +49,8 @@ const App =()=>(
                 <Route path={ROUTES.FEEDBACK} component={Feedback}/>
                 {/*Dersom ingen av routes over er gjenkjent blir man omdirigert til 404 Not Found*/}
                 <Route component={NotFound}/>
-
             </Switch>
+            <FeedbackButton/>
             </div>
         </div>
     </Router>

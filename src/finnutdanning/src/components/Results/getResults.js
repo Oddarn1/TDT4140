@@ -5,6 +5,7 @@ import {compose} from 'recompose';
 import * as ROUTES from '../../constants/routes';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
+import Button from '@material-ui/core/Button';
 import './index.css';
 
 class GetResults extends Component {
@@ -204,10 +205,10 @@ class GetResults extends Component {
             }
       };
 
-        newSearch(event){
+        newSearch(){
             this.props.history.push({
                 pathname:ROUTES.LANDING,
-                state:{query:event.target.value.split(", "),
+                state:{query:this.props.query.split(", "),
                 newsearch:true}
             })
         }
@@ -220,7 +221,9 @@ class GetResults extends Component {
       return(
         <div>
             <Typography component="h4" variant = "h7" style={{padding:5}}>{this.props.recent?"Du søkte på: ":"Ditt søk: " }{this.props.query}</Typography>
-                <button value={this.props.query} onClick={this.newSearch}>Bruk i nytt søk</button>
+                <Button variant="contained"
+                        style={{padding:15, margin:10}}
+                        value={this.props.query} onClick={this.newSearch}>Bruk i nytt søk</Button>
             {loading && <div>Loading ...</div>}
             {!loading && <Typography component="h2" variant = "h4" style = {{padding: 15}}>Resultat</Typography>}
             <List className="studylist">
