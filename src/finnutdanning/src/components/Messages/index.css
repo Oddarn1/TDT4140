@@ -11,6 +11,10 @@
     height: 400px;
     float:left;
     position: relative;
+    border:2px;
+    border-color: #1c80e5;
+    border-style: solid solid solid none;
+    margin-bottom: 5%;
 }
 
 .messagesOnly{
@@ -39,7 +43,6 @@
 
 .answerBox{
     display:inline-block;
-    background-color: #00FF00;
     bottom:0;
     position: absolute;
     left:0;
@@ -69,21 +72,16 @@
     background-color: #cccccc;
 }
 
-.toggleMessage{
-    width:32.5%;
-    height:100%;
-}
-
-.messageToggleDiv{
-    height:50px;
-}
 
 .inboxContent{
     width:20%;
     margin-left:17.5%;
     height: 400px;
-    overflow:scroll;
+    overflow: hidden scroll;
     float:left;
+    border:2px;
+    border-color: #1c80e5;
+    border-style: solid none solid solid ;
 }
 
 .answerField{

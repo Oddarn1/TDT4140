@@ -47,6 +47,8 @@ class Messages extends Component {
     }
 
     //Leser inn navn og endrer message-objektet så navn kan displayes
+
+    //TODO: Kontrollere at innlesing fra firebase ikke er for tregt, gjør at anonym og epost kommer på feil melding
     getNames(){
         const {messages}=this.state;
         console.log(messages);
@@ -192,10 +194,9 @@ class Messages extends Component {
     }
 
     //Endrer state som sier noe om hva som skal synes av systemmeldinger og samtaler
-    messageView(event){
-        event.preventDefault();
+    messageView(){
         this.setState({
-            messageToggle: event.target.value,
+            messageToggle: !this.state.messageToggle,
             renderCount:this.state.renderCount+1,
         })
     }
@@ -210,29 +211,29 @@ class Messages extends Component {
                     Mine meldinger
                 </Typography>
                 <div className="messageToggleDiv" key={this.state.renderCount}>
-                    <button onClick={this.messageView} id={"samtaler"} value={false}
-                            className="toggleMessage" style={{backgroundColor: !this.state.messageToggle?"white":"lightblue"}}>Mine Samtaler</button>
-                    <button onClick={this.messageView} id={"system"} value={true}
-                            className="toggleMessage" style={{backgroundColor: this.state.messageToggle?"white":"lightblue"}}>Systemmeldinger</button>
+                    <Button variant="contained" onClick={this.messageView} id={"samtaler"}
+                            className="toggleMessage" style={{padding:15,margin:25}}>
+                        {this.state.messageToggle?"Gå til samtaler":"Gå til systemmeldinger"}
+                    </Button>
                 </div>
                 <div>
-                    {!loading && conversationList}
+                    {this.state.messageToggle&&<AdminMessage/>}
+                    {!loading && !this.state.messageToggle && conversationList}
                 </div>
+                {!this.state.messageToggle &&
                 <div className="messageWindow">
-                {this.state.activeMessages?
-                        <Inbox updateParent={this.update} key={this.state.renderCount} conversation={this.state.activeMessages}/>
-                        :null
-                }
+                    {this.state.activeMessages ?
+                        <Inbox updateParent={this.update} key={this.state.renderCount}
+                               conversation={this.state.activeMessages}/>
+                        : null
+                    }
                 </div>
+                }
                 <br/>
-                <Link to={ROUTES.NEWMESSAGE}>
-                    <button>Ny melding</button>
+                <Link to={ROUTES.NEWMESSAGE} style={{textDecoration:"none"}}>
+                    <Button variant="contained" style={{padding:15,margin:25}}>Ny melding</Button>
                 </Link>
                 <br/>
-                    <Typography component="h5" variant="h5" gutterBottom style={{padding:20}}>
-                        Systemmeldinger
-                    </Typography>
-                <AdminMessage/>
             </div>
         )
     }
