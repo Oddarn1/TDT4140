@@ -4,6 +4,8 @@ import withAuthorization from "../Session/withAuthorization";
 import {withFirebase} from "../Firebase";
 import {compose} from 'recompose';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import './index.css';
 
 const INITIAL_STATE = {
@@ -136,22 +138,22 @@ class NewMessage extends Component{
 //Lister brukere i databasen
 UserList ({users}) {
     return (
-        <ul>
+        <div>
             {users.map(user => (
-                <li key={user.uid}>
-                    <span>
+                    <span key={user.uid}>
                         <Typography variant="body1" gutterBottom style={{padding:4}}>
-                            E-post {user.email}
+                            <strong> E-post:</strong> {user.email}
                         </Typography>
                         <Typography variant="body1" gutterBottom style={{padding:4}}>
-                            Fullt navn: {user.fullName}
-                        </Typography><Typography variant="body1" gutterBottom style={{padding:4}}>
-                            rolle: {user.role}
+                            <strong>Fullt navn:</strong> {user.fullName}
                         </Typography>
+                        <Typography variant="body1" gutterBottom style={{padding:4}}>
+                            <strong>Rolle:</strong> {user.role}
+                        </Typography>
+                        <br/>
                     </span>
-                </li>
             ))}
-        </ul>
+        </div>
     );
 }
 
@@ -168,28 +170,34 @@ UserList ({users}) {
           <div>
             {role === ROLES.USER?null: <Typography variant="body1" gutterBottom style={{padding:15}}>Brukersøk (NB: Case-sensitiv)</Typography>}
           </div>
-          <label>Til</label>
-
-                <input value={role===ROLES.USER?ROLES.COUNSELOR:search}
-                   placeholder={role===ROLES.USER?"Veileder":"Epost til mottaker"}
+                <TextField value={role===ROLES.USER?ROLES.COUNSELOR:search}
+                           className="recieverField"
+                   label={role===ROLES.USER?"Veileder":"Epost til mottaker"}
                    onChange={this.onSearch}
                    name="to"
                    type="text"
                    disabled={role===ROLES.USER}
+                           style={{color:"#3F51B5",margin:10,width: "30%"}}
+                           variant="outlined"
             />
             <br/>
-
-                <textarea value={content}
-                       placeholder="Skriv din melding her"
+                <TextField value={content}
+                           className="newMessageArea"
+                       label="Skriv din melding her"
+                           multiline
+                           rows="3"
+                           autoComplete={"off"}
                        onChange={this.onContent}
                        name="content"
+                           style={{color:"#3F51B5",margin:10,width: "30%"}}
+                           variant="outlined"
                        />
                        <br/>
-                       <button disabled={isInvalid} type="submit">Send </button>
+                       <Button variant="contained" style={{padding:15,marginTop:25}} disabled={isInvalid} type="submit">Send </Button>
         </form>
-          {role === ROLES.USER?<p>Du kan kun sende melding til {ROLES.COUNSELOR}</p>:
+          {role === ROLES.USER?<Typography variant="body1" gutterBottom>Du kan kun sende melding til {ROLES.COUNSELOR}</Typography>:
           (<div>
-              {!loading && <div ref="ListUsers"><br/><p>Du kan sende til disse brukerne:</p><br/>{userList}</div>}
+              {!loading && <div ref="ListUsers"><br/><Typography variant="body1" gutterBottom>Du kan sende til disse brukerne:</Typography><br/>{userList}</div>}
             {this.state.error}
           </div>)}
         </div>

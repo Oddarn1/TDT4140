@@ -51,6 +51,7 @@ class Answer extends Component{
                 <TextField
                     variant="outlined"
                     className="answerField"
+                    autoComplete={"off"}
                     style={{backgroundColor:"white"}}
                     disabled={this.props.conversation.participant1==="Anonym"||
                 this.props.conversation.participant1.includes("@")}

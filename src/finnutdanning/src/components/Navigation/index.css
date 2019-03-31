@@ -46,6 +46,11 @@
     background-color: #1c80e5;
 }
 
+.logo{
+    height:65px;
+    float: left;
+}
+
 .loggetinn{
     margin-top:1.5%;
     margin-right: 10px;

@@ -5,6 +5,9 @@ import {compose} from 'recompose';
 import {withAuthentication} from '../Session';
 import * as ROUTES from "../../constants/routes";
 import Fab from "@material-ui/core/Fab/Fab";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import {Link} from "react-router-dom";
 import './index.css';
 
@@ -60,34 +63,39 @@ class Feedback extends Component{
       <div className="feedbackContent">
       <form onSubmit={this.onSubmit}>
 
-      <label>Til </label>
-          <input value={ROLES.ADMIN}
+          <TextField value={ROLES.ADMIN}
               name="to"
               disabled
+                     label="Til"
+                     style={{color:"#3F51B5",margin:10,width: "30%"}}
+                     variant="outlined"
               />
               <br/>
-
-
-
-
-      <label>Fra </label>
-          <input value={this.props.firebase.auth.currentUser ? this.props.firebase.auth.currentUser.email:from}
-              placeholder="Din epost"
+          <TextField value={this.props.firebase.auth.currentUser ? this.props.firebase.auth.currentUser.email:from}
+              label="Din epost"
               onChange={this.onChange}
               name="from"
+                     style={{color:"#3F51B5",margin:10,width: "30%"}}
+                     variant="outlined"
               />
               {this.props.firebase.auth.currentUser ? null:
-                  <label> Fyll inn eposten din dersom du ønsker å bli kontaktet angående feilen du melder</label>}
+                  <Typography variant="body1" gutterBottom> Fyll inn eposten din dersom du ønsker å bli kontaktet angående feilen du melder, <br/>
+                  hvis ikke lar du epost-feltet stå tomt.</Typography>}
               <br/>
 
-          <textarea value={content}
-                placeholder="Tilbakemelding"
+          <TextField value={content}
+                label="Tilbakemelding"
+                     multiline
+                     rows="3"
                 onChange={this.onChange}
                 name="content"
+                     autoComplete={"off"}
+                     style={{color:"#3F51B5",margin:10,width: "30%"}}
+                     variant="outlined"
                 />
                 <br/>
 
-                <button disabled={isInvalid} type="submit">Send </button>
+                <Button variant="contained" style={{padding:15,marginTop:25}} disabled={isInvalid} type="submit">Send </Button>
       </form>
       </div>
     )

@@ -225,7 +225,7 @@ class Messages extends Component {
                     {this.state.activeMessages ?
                         <Inbox updateParent={this.update} key={this.state.renderCount}
                                conversation={this.state.activeMessages}/>
-                        : null
+                        : <Typography variant="body1" gutterBottom> Velg en samtale fra listen til venstre for å åpne hele meldingsloggen.</Typography>
                     }
                 </div>
                 }

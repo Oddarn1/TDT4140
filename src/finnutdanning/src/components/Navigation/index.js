@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import img from "./finnutdanning.png";
 
 
 
@@ -28,6 +29,7 @@ TabContainer.propTypes = {
 
 const NavigationAuth = ({authUser}) => (
             <div className="header">
+                <img className="logo" src={img}/>
                 <Link to={ROUTES.LANDING}>
                     <button> Hjem</button>
                 </Link>
@@ -73,6 +75,7 @@ const NavigationAuth = ({authUser}) => (
 
 const NavigationNonAuth = () => (
     <div className="header">
+        <img className="logo" src={img}/>
             <Link to={ROUTES.LANDING}>
                 <button>Hjem</button>
             </Link>
