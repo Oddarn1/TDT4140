@@ -180,7 +180,7 @@ class Landing extends Component {
                         <Typography variant="body1" gutterBottom style={{padding:20}}> For å få tilgang til flere funksjoner på nettsiden må du være <Link to={ROUTES.SIGNIN}> logget inn</Link>.</Typography>}
 
                     <div className="selectedInterests">
-                        <Button className="finnutdanning" style={{fontWeight:'bold',padding:15, margin:10,backgroundColor:"white"}} onClick={this.submit}>Finn Utdanning! &#8594;</Button>
+                        <Button disabled={this.state.selectedInterests.length===0} className="finnutdanning" style={{fontWeight:'bold',padding:15, margin:10,backgroundColor:"white"}} onClick={this.submit}>Finn Utdanning! &#8594;</Button>
                         <Typography variant="display1" gutterBottom style={{padding:20}}>Valgte interesser: </Typography>
                         {!loading&&selectedList}
                     </div>

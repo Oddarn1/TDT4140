@@ -1,8 +1,72 @@
-.inbox {
+.messageContent{
+    width:100%;
+    margin-top:65px;
+    text-align: center;
     display: inline-block;
-    padding: 0 20px;
 }
 
-.messageContent{
-    margin-top:65px;
+.messageWindow{
+    background-color: #cccccc;
+    width:45%;
+    height: 400px;
+    overflow: hidden scroll;
+    float:left;
+}
+
+.singleMessage{
+    margin-top:10px;
+    height: max-content;
+}
+
+.placeLeft{
+    margin-left: 2%;
+    text-align: left;
+    width: 45%;
+}
+
+.placeRight{
+    text-align: left;
+    width: 45%;
+    margin-left: 51%;
+}
+
+.textAnswer{
+    text-align:left;
+    height: 25px;
+    width: 80%;
+    display: inline-block;
+}
+
+.inboxContent button{
+    text-align: left;
+    width:100%;
+    background-color: white;
+    height: 65px;
+    font-size: 16px;
+    outline:2px black;
+}
+
+.messageText{
+    font-size:13px;
+}
+
+.inboxContent button:hover{
+    background-color: #cccccc;
+}
+
+.toggleMessage{
+    width:32.5%;
+    height:100%;
+}
+
+.messageToggleDiv{
+    height:50px;
+}
+
+.inboxContent{
+    width:20%;
+    margin-left:17.5%;
+    height: 400px;
+    overflow:scroll;
+    float:left;
 }

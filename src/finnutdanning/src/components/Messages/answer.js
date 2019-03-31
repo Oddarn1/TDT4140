@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import withAuthorization from "../Session/withAuthorization";
+import './index.css';
 
 
 class Answer extends Component{
@@ -43,7 +44,7 @@ class Answer extends Component{
         const {answerText}=this.state;
         const isInvalid=answerText==="";
         return(
-            <div>
+            <div className="textAnswer">
                 <form onSubmit={this.submit}>
                 <textarea
                     disabled={this.props.conversation.participant1==="Anonym"||
@@ -54,7 +55,7 @@ class Answer extends Component{
                               "Skriv ditt svar her"}
                           onChange={this.onChange}
                           value={this.state.answerText}/>
-                <button type="submit" disabled={isInvalid}>Send</button>
+                <button className="sendAnswer" type="submit" disabled={isInvalid}>Send</button>
                 </form>
             </div>
         )

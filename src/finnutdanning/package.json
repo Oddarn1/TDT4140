@@ -1,8 +1,9 @@
 {
   "name": "finnutdanning",
   "version": "0.1.0",
-  "homepage": "http://folk.ntnu.no/oddaow/",
-  "private": true,
+  "homepage": "https://finnutdanning.firebaseapp.com",
+  "private": false,
+  "main":"index.js",
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
