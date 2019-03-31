@@ -9,8 +9,15 @@
     background-color: #cccccc;
     width:45%;
     height: 400px;
-    overflow: hidden scroll;
     float:left;
+    position: relative;
+}
+
+.messagesOnly{
+    height: 332px;
+    width:100%;
+    overflow: hidden scroll;
+    padding-bottom: 10px;
 }
 
 .singleMessage{
@@ -30,11 +37,19 @@
     margin-left: 51%;
 }
 
-.textAnswer{
-    text-align:left;
-    height: 25px;
-    width: 80%;
-    display: inline-block;
+.answerBox{
+    display:inline-block;
+    background-color: #00FF00;
+    bottom:0;
+    position: absolute;
+    left:0;
+    width: 100%;
+}
+
+.sendAnswer{
+    height: 56px;
+    width:25%;
+    background-color: #1c80e5;
 }
 
 .inboxContent button{
@@ -68,5 +83,10 @@
     margin-left:17.5%;
     height: 400px;
     overflow:scroll;
+    float:left;
+}
+
+.answerField{
+    width:75%;
     float:left;
 }

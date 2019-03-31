@@ -63,7 +63,7 @@ class Inbox extends Component{
         messages.map(message=>{
             try{
                 this.props.firebase.user(message.senderid).once('value',snapshot=>{
-                    if(this.props.firebase.user(message.senderid) !== null){
+                    if(snapshot.val() !== null){
                         message['senderid']=snapshot.val()['fullName'];
                 }}).then(()=>
                     this.setState({messages})
@@ -78,7 +78,7 @@ class Inbox extends Component{
     //Mapper meldinger til en liste for å displaye i innboks.
     ConvList(){
         return (
-            <div className="inbox">
+            <div className="messagesOnly">
                 {this.state.messages.map(message=>(
                         <div className="singleMessage">
                             <Paper className={this.props.authUser.uid===message.recpid?
@@ -102,9 +102,14 @@ class Inbox extends Component{
         return(
             <div className="inbox">
                 {!loading &&
-                <div className="inbox">{ConvList}
-                    <Answer update={this.props.updateParent} conversation={this.props.conversation}/>
+                <div className="inbox">
+                    {ConvList}
                 </div>}
+                {!loading&&
+                <div className="answerBox">
+                    <Answer update={this.props.updateParent} conversation={this.props.conversation}/>
+                </div>
+                }
             </div>
         )
     }

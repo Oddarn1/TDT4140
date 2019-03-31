@@ -50,18 +50,30 @@ class Messages extends Component {
     getNames(){
         const {messages}=this.state;
         console.log(messages);
-        const userpromises=messages.map(message=>{
+        messages.map(message=>{
             const uid=message.senderid===this.props.authUser.uid?message.recpid:message.senderid;
-            return this.props.firebase.user(uid).once('value',s=>s);
-        });
-        Promise.all(userpromises)
+            if (message.senderid==="Anonym"||message.senderid.includes("@")){
+                this.setState(prevState=>({
+                    names: [...prevState.names,message.senderid]
+                    })
+                )
+            }else{
+                this.props.firebase.user(uid).once('value', s => {
+                    const obj=s.val();
+                    this.setState(prevState=>({
+                        names:[...prevState.names,obj['fullName']]
+                    }))
+                }).catch(error=>console.log(error));
+        }});
+        //IKKE BRUK DENNE: IKKE KOMPATIBEL MED ANONYM OG EPOST-FEILMELDING
+        /*Promise.all(userpromises)
             .then(userList=>
                 userList.map(snapshot=>{
                     this.setState(prevState=>({
                     names:[...prevState.names,snapshot.val()['fullName']]
                 }))
                 })
-            ).catch(error=>console.log(error))
+            ).catch(error=>console.log(error))*/
     }
 
     getMessageFromID(){

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import withAuthorization from "../Session/withAuthorization";
 import './index.css';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 
 class Answer extends Component{
@@ -44,18 +46,24 @@ class Answer extends Component{
         const {answerText}=this.state;
         const isInvalid=answerText==="";
         return(
-            <div className="textAnswer">
+            <div className="answerBox">
                 <form onSubmit={this.submit}>
-                <textarea
+                <TextField
+                    variant="outlined"
+                    className="answerField"
+                    style={{backgroundColor:"white"}}
                     disabled={this.props.conversation.participant1==="Anonym"||
                 this.props.conversation.participant1.includes("@")}
                           name="answerText"
-                          placeholder={this.props.conversation.participant1==="Anonym"||
+                          label={this.props.conversation.participant1==="Anonym"||
                 this.props.conversation.participant1.includes("@")?"Du kan ikke svare direkte på denne":
                               "Skriv ditt svar her"}
                           onChange={this.onChange}
                           value={this.state.answerText}/>
-                <button className="sendAnswer" type="submit" disabled={isInvalid}>Send</button>
+                <Button style={{backgroundColor:"#1c80e5",
+                color: "white",
+                height: "available"}}
+                    className="sendAnswer" type="submit" disabled={isInvalid}>Send</Button>
                 </form>
             </div>
         )
