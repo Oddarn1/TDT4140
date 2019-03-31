@@ -4,6 +4,7 @@ import withAuthorization from "../Session/withAuthorization";
 import {withFirebase} from "../Firebase";
 import {compose} from 'recompose';
 import Typography from '@material-ui/core/Typography';
+import './index.css';
 
 const INITIAL_STATE = {
        to: "",
@@ -162,7 +163,7 @@ UserList ({users}) {
        const userList=this.UserList({users});
 
       return (
-        <div>
+        <div className="newMessageContent">
         <form onSubmit={this.onSubmit}>
           <div>
             {role === ROLES.USER?null: <Typography variant="body1" gutterBottom style={{padding:15}}>Brukersøk (NB: Case-sensitiv)</Typography>}

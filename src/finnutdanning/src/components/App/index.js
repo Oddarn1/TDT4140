@@ -35,6 +35,7 @@ const App =()=>(
             <Switch>
                 {/*Redirigeres til landing-siden når man åpner siden*/}
                 <Route exact path={ROUTES.LANDING} component={Landing}/>
+                <Route path={'/oddaow'} component={Landing}/> {/*Workaround for publisering på folk.ntnu.no/oddaow*/}
                 <Route path={ROUTES.ADMIN} component={Admin}/>
                 <Route path={ROUTES.ABOUT} component={About}/>
                 <Route path={ROUTES.MESSAGES} component={Messages}/>

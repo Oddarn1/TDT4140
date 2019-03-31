@@ -5,3 +5,11 @@
     left:95%;
     position: fixed;
 }
+
+.feilmelding:hover{
+    opacity:0.7;
+}
+
+.feedbackContent{
+    margin-top:65px;
+}

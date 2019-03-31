@@ -2,19 +2,23 @@ import React, {Component} from 'react';
 import {Link,withRouter} from 'react-router-dom';
 import {withFirebase} from '../Firebase';
 import {compose} from 'recompose';
+import Typography from '@material-ui/core/Typography';
 
 import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
+import './index.css';
+import TextField from "@material-ui/core/TextField/TextField";
+import Button from "@material-ui/core/Button/Button";
 
 /*For SignIn, SignOut, SignUp, PasswordForget, Session, Firebase, Account har vi fulgt tutorial på:
 * https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/ */
 
 //Lager en ny komponent med andre Komponenter for å holde registreringssiden slik vi ønsker
 const SignUpPage= () => (
-    <div>
-        <h1>Registrer deg</h1>
+    <div className="registerPage">
+        <Typography variant="h4" gutterBottom style={{padding:15}}>Registrer deg</Typography>
         <SignUpForm/>
-        <p>Har du allerede bruker? <Link to={ROUTES.SIGNIN}> Logg inn</Link></p>
+        <Typography variant="body1" gutterBottom>Har du allerede bruker? <Link to={ROUTES.SIGNIN}> Logg inn</Link></Typography>
     </div>
 );
 
@@ -86,41 +90,53 @@ class SignUpFormBase extends Component {
 
         return (
             <form onSubmit={this.onSubmit}>
-                <label>Fullt navn</label><br/>
-                <input
+                <TextField
+                    label={"Fullt navn"}
+                    style={{color:"#3F51B5",margin:10,width: "30%"}}
+                    variant={"outlined"}
+                    className="fullName"
                     name="fullName"
                     value={fullName}
                     onChange={this.onChange}
                     type="text"
-                    placeholder="Fullt navn"
                 /><br/>
-                <label>Epost</label><br/>
-                <input
+                <TextField
+                    label={"Epost-adresse"}
+                    style={{color:"#3F51B5",margin:10,width: "30%"}}
+                    variant={"outlined"}
+                    className="email"
                     name="email"
                     value={email}
                     onChange={this.onChange}
                     type="text"
-                    placeholder="Epost-adresse"
                 /><br/>
-                <label>Passord</label><br/>
-                <input
+                <TextField
+                    label={"Passord"}
+                    style={{color:"#3F51B5",margin:10,width: "30%"}}
+                    variant={"outlined"}
+                    className="password"
                     name="passwordOne"
                     value={passwordOne}
                     onChange={this.onChange}
                     type="password"
-                    placeholder="Passord"
                 /><br/>
                 <label>Passord må bestå av minimum 6 tegn.</label><br/><br/>
-                <label>Gjenta passord</label><br/>
-                <input
+                <TextField
+                    label={"Bekreft passord"}
+                    style={{color:"#3F51B5",margin:10,width: "30%"}}
+                    variant={"outlined"}
+                    className="password"
                     name="passwordTwo"
                     value={passwordTwo}
                     onChange={this.onChange}
                     type="password"
-                    placeholder="Bekreft Passord"
                 /><br/>
 
-                <button type="submit" disabled={isInvalid}>Registrer deg</button><br/>
+                <Button  className="loggInn" variant="contained" style={{padding:15,marginTop:25}}
+                         onClick={this.showAll}
+                         type="submit" disabled={isInvalid}>
+                    Registrer deg
+                </Button>
 
                 {error && <p>{error.message}</p>}
             </form>
@@ -130,9 +146,9 @@ class SignUpFormBase extends Component {
 
 //Oppretter en link som brukes på logg inn-siden for å linke til registrering
 const SignUpLink = () => (
-    <p>
+    <Typography variant="body1" gutterBottom>
         Har du ikke bruker? <Link to={ROUTES.SIGNUP}>Registrer deg</Link>
-    </p>
+    </Typography>
 );
 
 const SignUpForm=compose(

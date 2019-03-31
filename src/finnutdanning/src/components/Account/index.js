@@ -3,6 +3,7 @@ import React from 'react';
 import PasswordChangeForm from '../PasswordChange';
 import {AuthUserContext, withAuthorization } from '../Session';
 import Typography from '@material-ui/core/Typography';
+import './index.css';
 
 /*For SignIn, SignOut, SignUp, PasswordForget, Session, Firebase, Account har vi fulgt tutorial på:
 * https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/ */
@@ -12,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 const Account = () => (
     <AuthUserContext.Consumer>
         {authUser=> (
-            <div>
+            <div className="Account">
                 <Typography variant="h6" gutterBottom style={{padding:15}}>
                     Bruker: {authUser.email}
                 </Typography>

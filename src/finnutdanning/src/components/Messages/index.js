@@ -148,7 +148,7 @@ class Messages extends Component {
         const {loading, messages}=this.state;
         const conversationList = this.ConversationList({messages});
         return(
-            <div>
+            <div className="messageContent">
                 <Typography component="h5" variant="h5" gutterBottom style={{padding:20}}>
                     Mine meldinger
                 </Typography>

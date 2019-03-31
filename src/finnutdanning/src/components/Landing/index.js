@@ -193,7 +193,7 @@ class Landing extends Component {
                             style={{width:"75%",textAlign:"center",color:"#3F51B5"}}
                             variant={"outlined"} className="inputField" onChange={this.intersearch} value={this.state.search}
                             placeholder="Søkeord"/>
-                        <Button  className="showInterests" variant="contained" style={{width:140,padding:15, backgroundColor:this.state.showMenu?"#039be5":null}}
+                        <Button  className="showInterests" variant="contained" style={{width:140,padding:15, backgroundColor:this.state.showMenu?"#1c80e5":null, color:this.state.showMenu?"white":null}}
                                  onClick={this.showAll}>{this.state.showMenu?"Vis færre":"Vis Alle"}</Button>
                         <br/>
                         <Typography variant="display1" gutterBottom style={{padding:10}}>Interesser som matcher ditt søk: </Typography>

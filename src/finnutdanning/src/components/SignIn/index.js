@@ -79,7 +79,6 @@ class SignInFormBase extends Component {
                     value={email}
                     onChange={this.onChange}
                     type="text"
-                    placeholder="Epost-adresse"
                 />
                 <br/>
                 <TextField
@@ -90,11 +89,9 @@ class SignInFormBase extends Component {
                     value={password}
                     onChange={this.onChange}
                     type="password"
-                    placeholder="Passord"
                 />
                 <br/>
-                <Button  className="loggInn" variant="contained" style={{padding:15}}
-                         onClick={this.showAll}
+                <Button  className="loggInn" variant="contained" style={{padding:15,marginTop:25}}
                          type="submit" disabled={isInvalid}>
                     Logg inn
                 </Button>

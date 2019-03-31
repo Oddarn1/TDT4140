@@ -57,7 +57,7 @@ class Feedback extends Component{
 
 
     return (
-      <div>
+      <div className="feedbackContent">
       <form onSubmit={this.onSubmit}>
 
       <label>Til </label>
@@ -88,8 +88,6 @@ class Feedback extends Component{
                 <br/>
 
                 <button disabled={isInvalid} type="submit">Send </button>
-
-
       </form>
       </div>
     )

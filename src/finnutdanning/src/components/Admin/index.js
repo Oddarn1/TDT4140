@@ -7,6 +7,7 @@ import withAuthorization from "../Session/withAuthorization";
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import ThemeChanger from './changeTheme'
+import './index.css';
 
 class Admin extends Component {
     constructor(props) {
@@ -212,7 +213,7 @@ class Admin extends Component {
 
 
         return (
-            <div>
+            <div className="admincontent">
                 <ThemeChanger/>
                 {/*Komponent for å registrere bruker i admin-verktøyet*/}
                 <Register registered={users}/>
