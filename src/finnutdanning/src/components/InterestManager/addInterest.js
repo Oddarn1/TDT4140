@@ -1,8 +1,5 @@
 import React,{Component} from 'react';
 import {withAuthorization} from '../Session';
-import * as ROLES from '../../constants/roles';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 
 const INITIAL_STATE={
     interest:"",
@@ -21,6 +18,7 @@ class AddInterest extends Component{
         this.mapChange=this.mapChange.bind(this);
     }
 
+    //Fjerner tomme elementer fra listen og skriver til firebase
     submit(event){
         const {mapping}=this.state;
         var mappingfilter=mapping.filter(elem=>elem!=="");
@@ -32,16 +30,19 @@ class AddInterest extends Component{
             .catch(error=>console.log(error))
     }
 
+    //Lagrer verdi i inputfelt for navn på interesse
     interestChange(event){
         this.setState({[event.target.name]:event.target.value});
     }
 
+    //Lagrer verdi i inputfelt for studieretning
     mapChange(event,index){
         const mapping=[...this.state.mapping];
         mapping[index]=event.target.value;
         this.setState({mapping});
     }
 
+    //Mapper arrays i state og gir input-felt for disse som fylles ut.
     InputMap(mapping){
         return(
             <div className="interestMappings">
@@ -70,5 +71,4 @@ class AddInterest extends Component{
 }
 
 const condition=authUser=>! !authUser; {/*authUser.role===ROLES.COUNSELOR||authUser.role===ROLES.EMPLOYEE;*/}
-
 export default withAuthorization(condition)(AddInterest);

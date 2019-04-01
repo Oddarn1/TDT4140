@@ -5,6 +5,7 @@ import './index.css';
 
 class Results extends Component {
 
+    //Results-klassen samler i hovedsak bare komponentene og dytter props videre dit de skal
   render(){
       let query;
       try {

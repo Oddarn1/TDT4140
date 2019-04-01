@@ -1,33 +1,60 @@
-.NavButtons button {
-    padding: 24px 32px;
-    font-size: 17px;
+.header{
+    width:100%;
+    display: inline-block;
+    height: 65px;
+    background-color:#3F51B5;
+    top: 0;
+    position: fixed;
+    z-index:99;
+}
+
+.header Link{
+    clear:right;
+}
+
+.header button {
+    padding:24px;
+    font-size: 15px;
     background-color: #3F51B5;
     color: white;
+    float:left;
+    border: none;
+    outline: none;
+}
+
+.header .signout{
+    padding: 24px;
+    font-size: 15px;
+    background-color: #3F51B5;
+    color: white;
+    float:right;
+    border: none;
+    outline: none;
+}
+
+.header .signin{
+    padding: 24px 32px;
+    font-size: 15px;
+    background-color: #3F51B5;
+    color: white;
+    float: right;
+    border: none;
+    outline: none;
+}
+
+.header button:hover{
+    background-color: #1c80e5;
+}
+
+.logo{
+    height:65px;
     float: left;
-    border: none;
-    outline: none;
 }
 
-.NavButtons.signout{
-    padding: 24px 32px;
-    font-size: 17px;
-    background-color: #3F51B5;
+.loggetinn{
+    margin-top:1.5%;
+    margin-right: 10px;
+    font-size: 10px;
+    float:right;
     color: white;
-    float: right;
-    border: none;
-    outline: none;
-}
-
-.NavButtons .signin{
-    padding: 24px 32px;
-    font-size: 17px;
-    background-color: #3F51B5;
-    color: white;
-    float: right;
-    border: none;
-    outline: none;
-}
-
-.NavButtons button:hover{
-    background-color: #039be5;
 }

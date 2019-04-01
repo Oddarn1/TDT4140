@@ -21,7 +21,7 @@ class AdminMessage extends Component{
                 ...obj[key],
                 msgid:key
             }));
-            this.setState({messages: messages})
+            this.setState({messages: messages.reverse()})
         }).catch(error=>console.log(error))
     }
 
@@ -36,11 +36,11 @@ class AdminMessage extends Component{
 
     MessageList({messages}){
         return(
-            <ul>
+            <div>
                 {messages.map((message,index)=>
-                    <li key={message.msgid}><button value={index} onClick={this.showMessage}>{message.content.length>=50?message.content.substr(0,50)+"...":message.content}</button> </li>
+                    <button value={index} onClick={this.showMessage}>{message.content.length>=50?message.content.substr(0,50)+"...":message.content}</button>
                 )}
-            </ul>
+            </div>
         )
     }
 

@@ -1,4 +1,90 @@
-.inbox {
+.messageContent{
+    width:100%;
+    margin-top:65px;
+    text-align: center;
     display: inline-block;
-    padding: 0 20px;
+}
+
+.messageWindow{
+    background-color: #cccccc;
+    width:45%;
+    height: 400px;
+    float:left;
+    position: relative;
+    border:2px;
+    border-color: #1c80e5;
+    border-style: solid solid solid none;
+    margin-bottom: 5%;
+}
+
+.messagesOnly{
+    height: 332px;
+    width:100%;
+    overflow: hidden scroll;
+    padding-bottom: 10px;
+}
+
+.singleMessage{
+    margin-top:10px;
+    height: max-content;
+}
+
+.placeLeft{
+    margin-left: 2%;
+    text-align: left;
+    width: 45%;
+}
+
+.placeRight{
+    text-align: left;
+    width: 45%;
+    margin-left: 51%;
+}
+
+.answerBox{
+    display:inline-block;
+    bottom:0;
+    position: absolute;
+    left:0;
+    width: 100%;
+}
+
+.sendAnswer{
+    height: 56px;
+    width:25%;
+    background-color: #1c80e5;
+}
+
+.inboxContent button{
+    text-align: left;
+    width:100%;
+    background-color: white;
+    height: 65px;
+    font-size: 16px;
+    outline:2px black;
+}
+
+.messageText{
+    font-size:13px;
+}
+
+.inboxContent button:hover{
+    background-color: #cccccc;
+}
+
+
+.inboxContent{
+    width:20%;
+    margin-left:17.5%;
+    height: 400px;
+    overflow: hidden scroll;
+    float:left;
+    border:2px;
+    border-color: #1c80e5;
+    border-style: solid none solid solid ;
+}
+
+.answerField{
+    width:75%;
+    float:left;
 }

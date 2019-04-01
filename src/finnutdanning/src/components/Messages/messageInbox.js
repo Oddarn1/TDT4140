@@ -1,12 +1,10 @@
-/*Midlertidig lagring av kall til firebase for å hente ut meldinger. Vil bli brukt til å hente meldinger fra samtale
-som blir valgt i index
- */
 import React,{Component} from "react";
 import {withFirebase} from "../Firebase";
 import './index.css';
 import Answer from './answer';
 import withAuthorization from "../Session/withAuthorization";
 import {compose} from 'recompose';
+import Paper from '@material-ui/core/Paper';
 
 class Inbox extends Component{
     constructor(props){
@@ -59,28 +57,39 @@ class Inbox extends Component{
     }
 
     //Leser inn meldingslisten fra state, endrer senderid til navnet på avsender. Benytter også promises.
-    //Tar utgangspunkt i at å svare på en melding henter inn participant1 eller participant2 som mottager.
+    //Tar utgangspunkt i å svare på en melding henter inn participant1 eller participant2 som mottaker.
     userFromUid(){
         let {messages}=this.state;
         messages.map(message=>{
-            this.props.firebase.user(message.senderid).once('value',snapshot=>{
-                message['senderid']=snapshot.val()['fullName'];
-            }).then(()=>
-                this.setState({messages})
-            ).catch(error=>
-            console.log(error))
-        })
+            try{
+                this.props.firebase.user(message.senderid).once('value',snapshot=>{
+                    if(snapshot.val() !== null){
+                        message['senderid']=snapshot.val()['fullName'];
+                }}).then(()=>
+                    this.setState({messages})
+                ).catch(error=>
+                console.log(error))
+            }catch(error){
+                console.log(error);
+            }})
     }
 
 
     //Mapper meldinger til en liste for å displaye i innboks.
     ConvList(){
         return (
-            <div className="inbox">
+            <div className="messagesOnly">
                 {this.state.messages.map(message=>(
-                        <div>
-                        <span><label> Fra: </label><br/><input disabled value={message.senderid}/></span><br/>
-                        <span><label> Innhold: </label><br/><textarea value={message.content} disabled/></span>
+                        <div className="singleMessage">
+                            <Paper className={this.props.authUser.uid===message.recpid?
+                            "placeLeft":"placeRight"}
+                            style={{backgroundColor:this.props.authUser.uid===message.recpid?
+                            "":"#1c80e5",
+                            color:this.props.authUser.uid===message.recpid?
+                                "":"white",
+                            padding:5}}>
+                                {message.content}
+                                </Paper>
                         </div>
                 ))}
             </div>
@@ -93,7 +102,14 @@ class Inbox extends Component{
         return(
             <div className="inbox">
                 {!loading &&
-                <div>{ConvList}<Answer update={this.props.updateParent} conversation={this.props.conversation}/></div>}
+                <div className="inbox">
+                    {ConvList}
+                </div>}
+                {!loading&&
+                <div className="answerBox">
+                    <Answer update={this.props.updateParent} conversation={this.props.conversation}/>
+                </div>
+                }
             </div>
         )
     }

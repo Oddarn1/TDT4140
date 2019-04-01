@@ -23,6 +23,7 @@ class ChangeInterest extends Component{
         this.submit=this.submit.bind(this);
     }
 
+    //Leser inn alle interesser i databasen når komponenten mountes
     componentDidMount(){
         this.setState({loading:false});
         this.props.firebase.interests().on('value',snapshot=>{
@@ -37,26 +38,32 @@ class ChangeInterest extends Component{
         )
     }
 
+    //Fjerner lytter til database for å unngå memory leaks
     componentWillUnmount(){
         this.props.firebase.interests().off();
     }
 
+    //Åpner valgt interesse og setter state deretter for bruk i visning av interessen
     openMapping(event){
         event.preventDefault();
         this.setState({mapping:this.state.interests[event.target.value]['studies'],
         selectedInterest:this.state.interests[event.target.value]});
     }
 
+    //Oppdaterer studieretningene som tilhører interessen som er valgt
     mapChange(event,index){
         const mapping=[...this.state.mapping];
         mapping[index]=event.target.value;
         this.setState({mapping});
     }
 
+    //Når pluss-knappen trykkes åpnes et nytt tekstfelt som kan fylles ut
     addMapping(event){
         event.preventDefault();
         this.setState(prevState=>({mapping:[...prevState.mapping,""]}))
     }
+
+    //Filtrerer ut tomme feltet i mapping-arrayet og skriver til firebase med ny mapping
     submit(event){
         const {mapping}=this.state;
         var mappingfilter=mapping.filter(elem=>elem!=="");
@@ -68,6 +75,7 @@ class ChangeInterest extends Component{
             .catch(error=>console.log(error))
     }
 
+    //Mapper interesser til knapper som kan trykkes.
     InterestList({interests}){
         return(
         <div className="interestChange">
@@ -77,6 +85,7 @@ class ChangeInterest extends Component{
         </div>)
     }
 
+    //Mapper interesse med tilhørende studieretning til tekstfelter som kan endres
     MappingList(mapping){
         return (
             <div>
@@ -109,6 +118,6 @@ class ChangeInterest extends Component{
 
 }
 
-const condition=authUser=>! !authUser; {/*authUser.role===ROLES.COUNSELOR||authUser.role===ROLES.EMPLOYEE;*/}
+const condition=authUser=>authUser&&(authUser.role===ROLES.COUNSELOR||authUser.role===ROLES.ADMIN);
 
 export default withAuthorization(condition)(ChangeInterest);

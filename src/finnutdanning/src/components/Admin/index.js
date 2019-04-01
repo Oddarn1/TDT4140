@@ -7,6 +7,7 @@ import withAuthorization from "../Session/withAuthorization";
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import ThemeChanger from './changeTheme'
+import './index.css';
 
 class Admin extends Component {
     constructor(props) {
@@ -15,8 +16,11 @@ class Admin extends Component {
             loading: false,
             error:null,
             search:"",
-            selectedRole: ROLES.ADMIN,};
+            selectedRole: ROLES.ADMIN,
+        };
+        //userStates inneholder et array med roller for alle brukere som er lastet som brukes til checkboxene i admin-verktøyet
         this.userStates=[[],[],[],[]];
+        //stateList inneholder roller på index tilsvarende userStates-arrayet for enkel aksessering i rolleendringen
         this.stateList=[ROLES.USER,ROLES.COUNSELOR,ROLES.EMPLOYEE,ROLES.ADMIN];
         this.onSubmit=this.onSubmit.bind(this);
         this.nameSearch=this.nameSearch.bind(this);
@@ -24,7 +28,8 @@ class Admin extends Component {
     }
 
 
-    //Ved render lastes databasen inn i users. Vises på siden.
+    //Livstidsfunksjon, når komponenten mountes (kalles av annen komponent) blir denne funksjonen kjørt.
+    //Her lastes alle brukere i databasen inn i adminverktøyet.
     componentDidMount(){
         this.setState({ loading: true });
 
@@ -32,15 +37,19 @@ class Admin extends Component {
         this.props.firebase.users().on('value', snapshot => {
             const usersObject = snapshot.val();
 
+            //Hvis listen er tom: behold state som den er
             if (usersObject===null){
                 return;
             }
 
+            //Verdien vi får et er et objekt av objekter, dette parses til en liste av objekter på nøklene i usersObject.
+            //usersList blir nå en liste med bruker-objekter, hvor uid er nøkkel.
             const usersList = Object.keys(usersObject).map(key => ({
                 ...usersObject[key],
                 uid: key,
             }));
 
+            //Setter state for å ha tilgang utenfor funksjonen
             this.setState({
                 users: usersList,
                 loading: false,
@@ -48,11 +57,14 @@ class Admin extends Component {
         })
     }
 
+    //Skru av lytter på database for å unngå memory-leaks.
     componentWillUnmount(){
         this.props.firebase.users().off();
     }
 
 
+    /*Samme prinsipp som componentdidmount, men med uthenting på navn på brukere.
+    * "\uf8ff" er en UTF-karakter som markerer hva som helst i etterfølging. Dvs. søk på Mar vil gi Markus, Marius, Maren osv*/
     nameSearch(event){
         this.props.firebase.db.ref("users").orderByChild("fullName").startAt(event.target.value)
             .endAt(event.target.value+"\uf8ff").on('value', snapshot => {
@@ -76,10 +88,13 @@ class Admin extends Component {
             })
 
         });
+        //Oppdaterer state etter uthenting fra database for å holde søket synkront med input
         this.setState({search:event.target.value,});
         event.preventDefault();
     }
 
+    /*Samme prinsipp som namesearch, men velger ut rollene som velges i dropdown-menyen. Måtte benytte startAt og endAt av
+    * en eller merkelig grunn, heller enn equalTo..*/
     roleSearch(event){
         this.props.firebase.db.ref("users").orderByChild("role").startAt(event.target.value).endAt(event.target.value+"\uf8ff")
             .on('value', snapshot => {
@@ -107,6 +122,8 @@ class Admin extends Component {
         event.preventDefault();
     }
 
+    /*Går gjennom listen med brukere som er synlige (de som er søkt opp, evt. alle) og tar checkboxene for hver enkelt bruker
+    * og oppdaterer rolle-verdien i firebase deretter. */
     onSubmit(){
         const {users}=this.state;
         for(var i=0;i<users.length;i++){
@@ -120,6 +137,7 @@ class Admin extends Component {
                 this.setState({error:"User "+users[i].uid+" must have a role!"});
                 return;
             }
+            //Skriver til firebase
             this.props.firebase.users().ref.child(users[i].uid).update({
                 role
             })
@@ -129,7 +147,7 @@ class Admin extends Component {
         }
     }
 
-    //Lister brukere i admin
+    //Lister alle innleste brukere.
     UserList ({users}) {
         return (
             <ul>
@@ -195,8 +213,9 @@ class Admin extends Component {
 
 
         return (
-            <div>
+            <div className="admincontent">
                 <ThemeChanger/>
+                {/*Komponent for å registrere bruker i admin-verktøyet*/}
                 <Register registered={users}/>
                     <Typography component="h5" variant="h5" gutterBottom style={{padding:20}}>
                         Brukere:
@@ -223,7 +242,11 @@ const condition = authUser =>
     authUser && (authUser.role===ROLES.ADMIN);
 
 
-//Eksporteres på denne måten for å kunne gjøre kallet this.props.firebase...
+/*withAuthorization er en Higher Order Component som "wrapper" den eksporterte klassen med en condition som definert over.
+* Condition bestemmer hvilke sider en bruker har tilgang på, authUser=>authUser && authUser.role===ROLES.ADMIN
+ * vil si at bruker må være logget inn og være admin-bruker for å kunne se siden
+* withFirebase er en Higher Order Component som "wrapper" klassen med funksonalitet for aksess til firebase på f.eks. formen
+* this.props.firebase...*/
 export default compose(
     withFirebase,
     withAuthorization(condition),)(Admin);

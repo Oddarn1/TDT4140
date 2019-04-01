@@ -1,10 +1,7 @@
 import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import {withFirebase} from '../Firebase';
-
-import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 
 class InterestCloud extends React.Component {
 
@@ -35,7 +32,7 @@ class InterestCloud extends React.Component {
 
   render() {
 
-    const {interests, loading}=this.state;
+    const {interests}=this.state;
 
 
     var interestList = [];
@@ -48,20 +45,16 @@ class InterestCloud extends React.Component {
           value: interests[key]["hits"]
         });
       });
-    };
+    }
 
     // Beregning av størrelse ut i fra verdiene.
     //const fontSizeMapper = word => Math.log2(word.value) * 5;
     const fontSizeMapper = word => word.value;
 
-    // Vet ikke enda hva denne er for
-    document.getElementById('root')
+    // Skriver til det ene elementet vi har i HTML-filen vår :)
+    document.getElementById('root');
 
     return(
-      <div>
-      {loading && <div>Loading ...</div>}
-      {!loading && <Typography component="h2" variant = "h4" gutterBottom style = {{padding: 24}}>Resultat: </Typography>}
-      </div>,
       <div>
           <Typography component="h2" variant = "h4" gutterBottom style = {{padding: 15}}>
                 Mest valgte interesser
@@ -74,6 +67,6 @@ class InterestCloud extends React.Component {
       </div>
     );
   };
-};
+}
 
 export default withFirebase(InterestCloud);

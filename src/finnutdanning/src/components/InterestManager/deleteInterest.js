@@ -1,18 +1,8 @@
 import React, {Component} from 'react';
 import {withAuthorization} from '../Session';
 import Typography from '@material-ui/core/Typography';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-});
 
 class DeleteInterest extends Component{
     constructor(props){
@@ -27,6 +17,7 @@ class DeleteInterest extends Component{
         this.deleteConfirm=this.deleteConfirm.bind(this);
     }
 
+    //Leser inn alle interesser i databasen når komponenten mountes
     componentDidMount(){
         this.setState({loading:false});
         this.props.firebase.interests().on('value',snapshot=>{
@@ -41,19 +32,23 @@ class DeleteInterest extends Component{
         )
     }
 
+    //Avbryter sletting
     cancel(event){
         event.preventDefault();
         this.setState({selectedInterest:null});
     }
 
+    //Fjerner lytter på databasen ved unmount for å unngå memory-leaks
     componentWillUnmount(){
         this.props.firebase.interests().off();
     }
 
+    //Setter valgt interesse til state, får prompt om "Vil du virkelig slette.."
     deleteInterest(event){
         this.setState({selectedInterest:this.state.interests[event.target.value]});
     }
 
+    //Bekrefter sletting, fjerner denne fra databasen og nullstiller valget av interesse.
     deleteConfirm(event){
         event.preventDefault();
         this.props.firebase.interest(this.state.selectedInterest.interestName).remove()
@@ -61,6 +56,7 @@ class DeleteInterest extends Component{
             .catch(error=>console.log(error))
     }
 
+    //Mapper interesser til knapper som kan velges
     InterestList({interests}){
         return(
             <div className="interestChange">
@@ -98,7 +94,5 @@ class DeleteInterest extends Component{
 }
 
 const condition=authUser=>! !authUser;
-
-
 
 export default withAuthorization(condition)(DeleteInterest);
