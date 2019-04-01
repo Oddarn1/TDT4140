@@ -31,7 +31,7 @@ Naviger som tidligere inn i /src/finnutdanning/ og kjør så kommandoen `npm run
 
 Du vil nå kjøre koden igjen lokalt på http://localhost:3000/ .
 
-##Deploy til hjemmeside
+## Deploy til hjemmeside
 
 Nettsiden kjøres på Google sine firebase-servere. Firebase har også en realtime-database som vi benytter i programvaren.
 Dette gjør at integrasjonen mellom autorisering, database og hosting av nettside går sømløst. 
