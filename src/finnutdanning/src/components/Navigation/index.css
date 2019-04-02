@@ -13,8 +13,10 @@
 }
 
 .header button {
-    padding:24px;
+    height:65px;
     font-size: 15px;
+    padding-right: 20px;
+    padding-left:20px;
     background-color: #3F51B5;
     color: white;
     float:left;
@@ -47,7 +49,7 @@
 }
 
 .logo{
-    height:65px;
+    height: 65px;
     float: left;
 }
 
@@ -57,4 +59,8 @@
     font-size: 10px;
     float:right;
     color: white;
+}
+
+.account{
+    float:right;
 }

@@ -14,13 +14,13 @@ const Account = () => (
     <AuthUserContext.Consumer>
         {authUser=> (
             <div className="Account">
-                <Typography variant="h6" gutterBottom style={{padding:15}}>
+                <Typography variant="h6" gutterBottom style={{paddingTop:15}}>
                     Bruker: {authUser.email}
                 </Typography>
-                <Typography variant="h6" gutterBottom style={{padding:15}}>
+                <Typography variant="h6" gutterBottom style={{paddingTop:15}}>
                     Rolle: {authUser.role}
                 </Typography>
-                <Typography variant="h6" gutterBottom style={{padding:15}}>
+                <Typography variant="h6" gutterBottom style={{paddingTop:15}}>
                     Endre Passord:
                 </Typography>
                 <PasswordChangeForm />

@@ -19,15 +19,27 @@ Dette legger til alle dependencies som er listet i package.json.
 
 Etter at alle dependencies er installert er veien til å kjøre programmet lokalt kort.
 
-For å ha en localhost med nettsiden kjørende: Bruk kommandoen `npm run start`
+For å ha en localhost med nettsiden kjørende: Bruk kommandoen `npm run-script start`
 
 Etter dette vil du da ha en localhost på port 3000 (kan variere) (http://localhost:3000/) kjørende med live-updates fra endringer i koden. 
+
+## Kjøre tester
+
+Kort tid etter prosjektet begynte ble vi enige om et større fokus på akseptansetester. I vår gruppes tilpasning av Scrum-prossessen
+hadde vi ikke mulighet til å legge til rette for unit-testing av ønsket funksjonalitet inniblant en travel studenthverdag. Vi 
+jobbet heller ikke i samarbeid med produkteier om testhistorier, men fikk heller disse bekreftet/avkreftet som ønsket funksjonalitet
+etter fortløpende møter med produkteier. Dette gjorde det vanskelig å spesifisere hva vi nøyaktig ville teste på underveis.
+
+Vi har nå ønsket funksjonalitet som er stabil, så neste steg vil naturligvis være å utvikle tester som vil bevare denne funksjonaliteten
+videre i programvarens levetid. 
+
+Med andre ord er det enkelt å kjøre testene: Det er for øyeblikket ingen å kjøre.
 
 ## Kjøre koden ved senere anledning
 
 Såfremt alle dependencies er installert i prosjektmappen er det kort vei til å kjøre koden på localhost.
 
-Naviger som tidligere inn i /src/finnutdanning/ og kjør så kommandoen `npm run start`
+Naviger som tidligere inn i /src/finnutdanning/ og kjør så kommandoen `npm run-script start`
 
 Du vil nå kjøre koden igjen lokalt på http://localhost:3000/ .
 
@@ -42,7 +54,7 @@ Dette gir også tilgang til databasen i prosjektet, og er i hovedsak forbeholdt 
 
 Etter du har fått tilgang til prosjektet vil du nå kunne deploye nye versjoner av programvaren på få minutter.
 
-Naviger som vanlig til /src/finnutdanning/, og kjør kommandoen `npm run build`
+Naviger som vanlig til /src/finnutdanning/, og kjør kommandoen `npm run-script build`
 
 Dette lager en statisk build av programvaren som er klar til å lastes opp på en nettside. 
 
@@ -56,3 +68,16 @@ https://finnutdanning.firebaseapp.com/ og oppdateres etter ca. 1 minutt.
 
 I firebase-konsollen er det mulig å rulle tilbake til en av de siste 3 (kan endres) releasene om nødvendig. Dette gjøres ved å gå inn
 på "Hosting" i konsollen, og bla til du finner "finnutdanning release history". Her kan du velge releases, og enten slette eller rulle tilbake til en tidligere release.
+
+## Ekstern API
+
+Vi har hentet en .xml-fil fra https://data.norge.no/ som inneholder en oversikt
+over studieprogrammer og yrker tilgjengelig i Norge.
+
+I firebase-konsollen er det egen funksjonalitet for å importere .json-filer, samt eksportere for å ta backup av databasen. 
+
+Under feltet "studyprogrammes" ligger listen over studieretninger, den er gjort tilgjengelig for veiledere og admins ved Finn Utdanning som
+kan sette en kobling til en interesse som vil dukke opp for brukere som vil søke på interesser. 
+
+Det er viktig at man velger "studyprogrammes" i databasen før man går til "import JSON-file", hvis ikke vil hele databasen bli overskrevet av importeringen.
+Det anbefales å ta en "export JSON-file" på hele databasen før dette gjøres, som et sikkerhetstiltak.

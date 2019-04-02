@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {withAuthorization} from '../Session';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 class RemoveStudies extends Component{
     constructor(props) {
@@ -50,7 +52,7 @@ class RemoveStudies extends Component{
 
     //Velger studie som skal fjernes, får prompt om å bekrefte valget
     removeStudy(event){
-        this.setState({selectedStudy:event.target.value});
+        this.setState({selectedStudy:event.currentTarget.value});
     }
 
     //Avbryter valget av studie
@@ -89,7 +91,7 @@ class RemoveStudies extends Component{
         return(
             <div>
                 {studylist.map(study=>(
-                    <button key={study} value={study} onClick={this.removeStudy}>{study}</button>
+                    <Button variant="contained" style={{padding:15,margin:10,width:250}} key={study} value={study} onClick={this.removeStudy}>{study}</Button>
                 ))}
             </div>
         )
@@ -100,14 +102,14 @@ class RemoveStudies extends Component{
         const studyList=this.StudiesList(studiesList);
         return(
             <div>
-                <p>Dersom du sletter en studieretning som eksisterer alene i en interesse, vil interessen slettes.</p>
-            {!loading&&studyList}
+                <Typography variant="body1" gutterBottom style={{marginLeft:10}}>Dersom du sletter en studieretning som eksisterer alene i en interesse, vil interessen slettes.</Typography>
                 {this.state.selectedStudy &&<div>
-                <h3 style={{color: "red"}}>Er du sikker på at du ønsker å slette {this.state.selectedStudy}</h3>
-                < button onClick={this.removeConfirm}>Bekreft</button>
-                    &nbsp;<button onClick={this.cancel}>Avbryt</button>
+                    <Typography variant="h5" gutterBottom style={{color: "red",marginLeft:10}}>Er du sikker på at du ønsker å slette {this.state.selectedStudy}</Typography>
+                    <Button variant="contained" style={{padding:15,margin:10}} onClick={this.removeConfirm}>Bekreft</Button>
+                    &nbsp;<Button variant="contained" style={{padding:15,margin:10}} onClick={this.cancel}>Avbryt</Button>
                 </div>
                 }
+            {!loading&&studyList}
             </div>
         )
     }

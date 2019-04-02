@@ -50,7 +50,7 @@ class InterestManager extends Component{
                 {this.state.selectedAction==="0"&&
                 <div>
                     <Typography variant="h6" gutterBottom style={{padding:20}}>
-                        Legg til interesser med mapping:
+                        Legg til interesse:
                     </Typography><br/>
                     <AddInterest/><br/>
                 </div>}
@@ -58,7 +58,7 @@ class InterestManager extends Component{
                 {this.state.selectedAction==="1"&&
                 <div>
                     <Typography variant="h6" gutterBottom style={{padding:20}}>
-                        Endre interessemapping:
+                        Endre interessekobling:
                     </Typography>
                     <ChangeInterest/><br/>
                 </div>}
@@ -66,7 +66,7 @@ class InterestManager extends Component{
                 {this.state.selectedAction==="2"&&
                 <div>
                     <Typography variant="h6" gutterBottom style={{padding:20}}>
-                        Slette interesse:
+                        Slett interesse:
                     </Typography><br/>
                     <DeleteInterest/>
                 </div>}
@@ -74,7 +74,7 @@ class InterestManager extends Component{
                 {this.state.selectedAction==="3"&&
                 <div>
                     <Typography variant="h6" gutterBottom style={{padding:20}}>
-                        Slette studieretning:
+                        Slett studieretning:
                     </Typography><br/>
                     <RemoveStudies/>
                 </div>}
@@ -82,7 +82,7 @@ class InterestManager extends Component{
                 {this.state.selectedAction==="4"&&
                 <div>
                     <Typography variant="h6" gutterBottom style={{padding:20}}>
-                        Sette kobling på studieretninger:
+                        Sett kobling på studieretninger:
                     </Typography><br/>
                     <MappingManager/>
                 </div>}
