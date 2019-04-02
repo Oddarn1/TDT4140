@@ -71,8 +71,18 @@ på "Hosting" i konsollen, og bla til du finner "finnutdanning release history".
 
 ## Ekstern API
 
-Vi har hentet en .xml-fil fra https://data.norge.no/ som inneholder en oversikt
-over studieprogrammer og yrker tilgjengelig i Norge.
+Vi har hentet et datasett fra https://data.norge.no/ som inneholder en beskrivelse av over 350 ulike utdanninger. Utdanningene er skrevet av redaksjonen hos utdanning.no.
+Datasettet er en .xml-fil og lister alle studieretningene i Atom-format.
+
+En direkte link til ressursen: https://utdanning.no/data/atom/utdanningsbeskrivelse
+
+Metode for å hente ut studieretningene:
+1. Finn en xml-viwer (F.eks. https://countwordsfree.com/xmlviewer) (Dokumentet er stort, så en side som er effektiv vil være nyttig).
+2. Legg inn linken for dataen til utdanning.no
+3. Gjør om xml-daten til json-data. (Ligger inne på de fleste nettsider med xml-viewer)
+4. Lagre dataen og importer (copy/paste) de inn i en side for json-queries (F.eks. http://www.jsonquerytool.com/)
+5. Spørringen for å hente ut en liste med alle studieretninger: $.feed.entry.[*].title.__text
+6. Du vil så få ut en ny liste med data som skal være alle studieretningene fra datasettet til utdanning.no.
 
 I firebase-konsollen er det egen funksjonalitet for å importere .json-filer, samt eksportere for å ta backup av databasen. 
 
@@ -80,4 +90,4 @@ Under feltet "studyprogrammes" ligger listen over studieretninger, den er gjort 
 kan sette en kobling til en interesse som vil dukke opp for brukere som vil søke på interesser. 
 
 Det er viktig at man velger "studyprogrammes" i databasen før man går til "import JSON-file", hvis ikke vil hele databasen bli overskrevet av importeringen.
-Det anbefales å ta en "export JSON-file" på hele databasen før dette gjøres, som et sikkerhetstiltak.
+Det anbefales å ta en "export JSON-file" på hele databasen før dette gjøres, som et sikkerhetstiltak for å ha en backup.
