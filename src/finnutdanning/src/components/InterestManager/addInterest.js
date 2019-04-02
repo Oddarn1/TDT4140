@@ -1,5 +1,8 @@
 import React,{Component} from 'react';
 import {withAuthorization} from '../Session';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 
 const INITIAL_STATE={
     interest:"",
@@ -47,7 +50,9 @@ class AddInterest extends Component{
         return(
             <div className="interestMappings">
         {mapping.map((mapp,index)=>
-            <input name="mapping" type="text" onChange={(event)=>this.mapChange(event,index)} value={this.state.mapping[index]} placeholder="Studieretning"/>
+            <TextField name="mapping" type="text" onChange={(event)=>this.mapChange(event,index)}
+                       value={this.state.mapping[index]} label={"Studieretning "+(index+1)}
+                       variant={"outlined"} style={{marginRight:10}}/>
         )}
             </div>)
     }
@@ -59,11 +64,12 @@ class AddInterest extends Component{
         return(
             <div className="addInterestFields">
                 <form onSubmit={this.submit}>
-                    <label>Interesse:</label><br/>
-                    <input name="interest" type="text" onChange={this.interestChange} value={this.state.interest} placeholder="Interesse"/><br/>
-                    <label>Studieretninger: </label><br/>
+                    <Typography variant="display1" gutterBottom>Interesse:</Typography>
+                    <TextField label="Interesse"
+                               variant={"outlined"} name="interest" type="text" onChange={this.interestChange} value={this.state.interest} placeholder="Interesse"/><br/>
+                    <Typography variant="display1" gutterBottom style={{paddingTop:10}}>Studieretninger: </Typography>
                     {inputMap}
-                    <button disabled={!isValid}>Legg til</button>
+                    <Button variant="contained" style={{padding:15,marginTop:10}} disabled={!isValid}>Legg til</Button>
                 </form>
             </div>
         )

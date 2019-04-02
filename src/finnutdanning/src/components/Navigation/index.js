@@ -5,31 +5,14 @@ import "./index.css";
 import {AuthUserContext} from '../Session';
 import * as ROLES from '../../constants/roles';
 import SignOut from "../SignOut";
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import img from "./finnutdanning.png";
-
-
-
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
-
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
 
 
 const NavigationAuth = ({authUser}) => (
             <div className="header">
-                <img className="logo" src={img}/>
+                <Link to={ROUTES.LANDING}>
+                <img className="logo" src={img} alt={"Logo"}/>
+                </Link>
                 <Link to={ROUTES.LANDING}>
                     <button> Hjem</button>
                 </Link>
@@ -60,13 +43,13 @@ const NavigationAuth = ({authUser}) => (
                     <button>Kontakt veileder</button>
                 </Link>
                 }
-                <Link to={ROUTES.ACCOUNT}>
-                    <button>Brukerinnstillinger</button>
-                </Link>
                 <Link to={ROUTES.ABOUT}>
                     <button> Om oss</button>
                 </Link>
                 <SignOut className="signout"/>
+                <Link className="account" to={ROUTES.ACCOUNT}>
+                    <button>Brukerinnstillinger</button>
+                </Link>
                 <p className="loggetinn">Logget inn som: <br/>{authUser.email}</p>
 
             </div>
@@ -75,17 +58,19 @@ const NavigationAuth = ({authUser}) => (
 
 const NavigationNonAuth = () => (
     <div className="header">
-        <img className="logo" src={img}/>
+        <Link to={ROUTES.LANDING}>
+            <img className="logo" src={img} alt={"Logo"}/>
+        </Link>
             <Link to={ROUTES.LANDING}>
                 <button>Hjem</button>
-            </Link>
-            <Link to={ROUTES.ABOUT}>
-                <button>Om oss</button>
             </Link>
             <Link to={{pathname: ROUTES.SIGNIN,
             error: "Du må være logget inn for å kontakte veileder."}}>
                 <button>Kontakt veileder</button>
             </Link>
+        <Link to={ROUTES.ABOUT}>
+            <button>Om oss</button>
+        </Link>
                 <Link to={ROUTES.SIGNIN}>
                     <button className="signin">Logg inn</button>
                 </Link>

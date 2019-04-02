@@ -45,7 +45,7 @@ class DeleteInterest extends Component{
 
     //Setter valgt interesse til state, får prompt om "Vil du virkelig slette.."
     deleteInterest(event){
-        this.setState({selectedInterest:this.state.interests[event.target.value]});
+        this.setState({selectedInterest:this.state.interests[event.currentTarget.value]});
     }
 
     //Bekrefter sletting, fjerner denne fra databasen og nullstiller valget av interesse.

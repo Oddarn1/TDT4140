@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {withAuthorization} from '../Session';
 import * as ROLES from '../../constants/roles';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 
 class MappingManager extends Component{
@@ -39,7 +42,7 @@ class MappingManager extends Component{
         return(
             <div>
                 {selected.map((sel,index)=>(
-                    <button value={index} style={{backgroundColor:'lightgreen'}} onClick={this.onUnselect}>{sel+(" \u24E7".toUpperCase())}</button>
+                    <Button variant="contained" value={index} style={{backgroundColor:'lightgreen',padding:15,width:250,margin:15}} onClick={this.onUnselect}>{sel+(" \u24E7".toUpperCase())}</Button>
                 ))}
             </div>
         )
@@ -50,7 +53,7 @@ class MappingManager extends Component{
         return(
             <div>
                 {unselected.map((unsel,index)=>(
-                    <button value={index} onClick={this.onSelect}>{unsel}</button>
+                    <Button variant="contained" style={{padding:15,width:250,margin:15}} value={index} onClick={this.onSelect}>{unsel}</Button>
                 ))}
             </div>
         )
@@ -59,7 +62,7 @@ class MappingManager extends Component{
     //Uvalgte knapper føres til valgte
     onSelect(event){
         const unselected=[...this.state.unselectedStudies];
-        const temp = unselected.splice(event.target.value,1)[0];
+        const temp = unselected.splice(event.currentTarget.value,1)[0];
         this.setState(prevState=>({
             selectedStudies:[...prevState.selectedStudies,temp],
             unselectedStudies:unselected,
@@ -69,7 +72,7 @@ class MappingManager extends Component{
     //Valgte knapper føres til uvalgte
     onUnselect(event){
         const selected=[...this.state.selectedStudies];
-        const temp = selected.splice(event.target.value,1)[0];
+        const temp = selected.splice(event.currentTarget.value,1)[0];
         this.setState(prevState=>({
             unselectedStudies:[...prevState.unselectedStudies,temp],
             selectedStudies:selected,
@@ -102,14 +105,15 @@ class MappingManager extends Component{
         const {selectedStudies,unselectedStudies}=this.state;
         const selectedList=this.SelectedList(selectedStudies);
         const unselectedList=this.UnselectedList(unselectedStudies);
+        const disabled=selectedStudies.length===0 || this.state.interest==="";
 
-        return(<div>
-            <input type="text" onChange={this.onChange} value={this.state.interest} placeholder={"Fyll inn navn på interesse her:"}/>
-            <button onClick={this.submit}>Lagre interessemapping</button>
+        return(<div className="manage">
+            <TextField variant={"outlined"} type="text" onChange={this.onChange} value={this.state.interest} label={"Interesse"}/>
+            <Button disabled={disabled} variant="contained" style={{padding:15}} onClick={this.submit}>Lagre interessekobling</Button>
             <br/>
-            <p>Valgte studieretninger:</p>
+            <Typography variant="display1" gutterBottom>Valgte studieretninger:</Typography>
             {selectedList}
-            <p>Valgbare studieretninger:</p>
+            <Typography variant="display1" gutterBottom>Valgbare studieretninger:</Typography>
             {unselectedList}
         </div>)
     }
