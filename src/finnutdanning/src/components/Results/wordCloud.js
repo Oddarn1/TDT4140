@@ -48,8 +48,8 @@ class InterestCloud extends React.Component {
     }
 
     // Beregning av størrelse ut i fra verdiene.
-    //const fontSizeMapper = word => Math.log2(word.value) * 5;
-    const fontSizeMapper = word => word.value;
+    const fontSizeMapper = word => Math.pow((Math.log2(word.value)), 2);
+    //const fontSizeMapper = word => word.value;
 
     // Skriver til det ene elementet vi har i HTML-filen vår :)
     document.getElementById('root');
