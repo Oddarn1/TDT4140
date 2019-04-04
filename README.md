@@ -71,13 +71,37 @@ på "Hosting" i konsollen, og bla til du finner "finnutdanning release history".
 
 ## Ekstern API
 
-Vi har hentet en .xml-fil fra https://data.norge.no/ som inneholder en oversikt
-over studieprogrammer og yrker tilgjengelig i Norge.
+Vi har hentet et datasett fra https://data.norge.no/ som inneholder en beskrivelse av over 350 ulike utdanninger. Utdanningene er skrevet av redaksjonen hos utdanning.no.
+Datasettet er en .xml-fil og lister alle studieretningene i Atom-format.
+
+En direkte link til ressursen: https://utdanning.no/data/atom/utdanningsbeskrivelse
+
+**Metode for å hente ut studieretningene:**
+1. Finn en xml-viwer (F.eks. https://countwordsfree.com/xmlviewer) (Dokumentet er stort, så en side som er effektiv vil være nyttig).
+2. Legg inn linken for dataen til utdanning.no
+3. Gjør om xml-daten til json-data. (Ligger inne på de fleste nettsider med xml-viewer)
+4. Lagre dataen og importer (copy/paste) de inn i en side for json-queries (F.eks. http://www.jsonquerytool.com/)
+5. På en slik side vil du kunne skrive spørringer for å hente ut ønsket data fra dokumentet.  
+   Skriv inn følgende spørring for å få en liste med utdanningsretninger: 
+    >  $.feed.entry.[*].title.__text
+6. Du vil så få ut en ny liste med data som skal være alle studieretningene fra datasettet til utdanning.no.
+7. Kopier resultat inn i en text editor (F.eks. Notepad, https://jsoneditoronline.org)
+8. Lagre filen som en .json fil.
 
 I firebase-konsollen er det egen funksjonalitet for å importere .json-filer, samt eksportere for å ta backup av databasen. 
 
 Under feltet "studyprogrammes" ligger listen over studieretninger, den er gjort tilgjengelig for veiledere og admins ved Finn Utdanning som
 kan sette en kobling til en interesse som vil dukke opp for brukere som vil søke på interesser. 
 
-Det er viktig at man velger "studyprogrammes" i databasen før man går til "import JSON-file", hvis ikke vil hele databasen bli overskrevet av importeringen.
-Det anbefales å ta en "export JSON-file" på hele databasen før dette gjøres, som et sikkerhetstiltak.
+**Instruksjon for å laste opp utdanningsretningene til databasen:**
+
+Det **anbefales** å ta en "export JSON" på hele databasen før dette gjøres, som et sikkerhetstiltak for å ha en backup.  
+Dette valget finner du helt til høyre i menylinjen ved database-urlen.
+
+Link til databasen: [Her](https://console.firebase.google.com/project/finnutdanning/database/finnutdanning/data)
+
+1. Det er **viktig** at man velger "studyprogrammes" i databasen før man går til "import JSON", hvis ikke vil hele databasen bli overskrevet av importeringen.
+2. Du vil så komme inn i en egen del av databasen, men under "studyprogrammes". Velg "import JSON" i menylinjen.
+3. Finn filen som du lagret i punkt 8. og last opp dokumentet til databasen.
+
+Dersom alt er gjort riktig vil du nå ha opplastet tredjepartsdataen til databasen. 
