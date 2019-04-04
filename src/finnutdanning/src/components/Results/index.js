@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import GetResults from "./getResults";
 import InterestCloud from "./wordCloud";
+import './index.css';
 
 class Results extends Component {
 
+    //Results-klassen samler i hovedsak bare komponentene og dytter props videre dit de skal
   render(){
       let query;
       try {
@@ -13,14 +15,10 @@ class Results extends Component {
           query = "";
       }
     return(
-    <div>
-        {/*Sprint 2 TODO:
-        * Save queries to json-file or similar, analytics on values and create wordcloud by popularity.
-        * Sprint 3 TODO:
-        * Save results to specific users, make most recent (max 10) searches available when searching.*/}
-
-            <div>
-                <GetResults query={query}/>
+    <div className="center">
+            <div className="results">
+                <GetResults query={query} recent={this.props.location.state.recent}
+                results={this.props.location.state.results}/>
             </div>
             <div>
               <InterestCloud/>

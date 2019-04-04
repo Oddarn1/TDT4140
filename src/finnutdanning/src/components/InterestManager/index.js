@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import {withAuthorization} from '../Session';
-import * as ROLES from '../../constants/roles';
 import AddInterest from './addInterest';
 import ChangeInterest from './changeInterest';
 import DeleteInterest from "./deleteInterest";
+import RemoveStudies from "./removeStudies";
+import MappingManager from "./manageMapping";
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import './index.css';
 
 class InterestManager extends Component{
     constructor(props){
@@ -14,33 +18,73 @@ class InterestManager extends Component{
         this.selectAction=this.selectAction.bind(this);
     }
 
+    //Funksjon for å velge hva som skal vises
     selectAction(event){
         event.preventDefault();
-        this.setState({selectedAction:event.target.value===this.state.selectedAction?null:event.target.value,});
+        this.setState({selectedAction:event.currentTarget.value===this.state.selectedAction?null:event.currentTarget.value,});
     }
 
     render(){
         return(
-            <div>
+            <div className="interestManager">
                 {console.log(this.state.selectedAction)}
-                <h3>Hva ønsker du å gjøre?</h3>
-                <button value={0} onClick={this.selectAction}> Legge til interesse </button>
-                <button value={1} onClick={this.selectAction}> Endre på interessemapping </button>
-                <button value={2} onClick={this.selectAction}> Slette interesse </button>
+                <Typography variant="h4" gutterBottom style={{padding:20}}>
+                    Hva ønsker du å gjøre?
+                </Typography>
+                <Button value={0} onClick={this.selectAction} variant="contained" style={{padding:15, margin:10}}>
+                    Legg til interesse
+                </Button>
+                <Button value={1} onClick={this.selectAction} variant="contained" style={{padding:15, margin:10}}>
+                    Endre på interessemapping
+                </Button>
+                <Button value={2} onClick={this.selectAction} variant="contained" style={{padding:15, margin:10}}>
+                    Slett interesse
+                </Button>
+                <Button value={3} onClick={this.selectAction} variant="contained" style={{padding:15, margin:10}}>
+                    Slett studieretning
+                </Button>
+                <Button value={4} onClick={this.selectAction} variant="contained" style={{padding:15, margin:10}} >
+                    Sett kobling på studieretninger
+                </Button>
+
                 {this.state.selectedAction==="0"&&
                 <div>
-                    <h3>Legg til interesser med mapping:</h3> <br/>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Legg til interesse:
+                    </Typography><br/>
                     <AddInterest/><br/>
                 </div>}
+
                 {this.state.selectedAction==="1"&&
                 <div>
-                    <h3> Endre interesser med mapping:</h3> <br/>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Endre interessekobling:
+                    </Typography>
                     <ChangeInterest/><br/>
                 </div>}
+
                 {this.state.selectedAction==="2"&&
                 <div>
-                    <h3>Slette interesser:</h3>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Slett interesse:
+                    </Typography><br/>
                     <DeleteInterest/>
+                </div>}
+
+                {this.state.selectedAction==="3"&&
+                <div>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Slett studieretning:
+                    </Typography><br/>
+                    <RemoveStudies/>
+                </div>}
+
+                {this.state.selectedAction==="4"&&
+                <div>
+                    <Typography variant="h6" gutterBottom style={{padding:20}}>
+                        Sett kobling på studieretninger:
+                    </Typography><br/>
+                    <MappingManager/>
                 </div>}
             </div>
         )

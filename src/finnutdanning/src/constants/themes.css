@@ -1,0 +1,30 @@
+const theme = {
+  button: {
+    backgroundColor: ‘white’,
+    borderColor: ‘red’,
+    color: ‘blue’,
+  },
+}
+
+const buttonStyle = {
+  borderWidth: ‘2px’,
+  borderStyle: ‘solid’,
+  padding: ‘10px’,
+  fontSize: ‘24px’,
+};
+
+const createButtonStyleFromTheme = ({button}) => ({
+  borderColor: button.borderColor,
+  backgroundColor: button.backgroundColor,
+  color: button.color,
+  borderWidth: ‘2px’,
+  borderStyle: ‘solid’,
+  padding: ‘10px’,
+  fontSize: ‘24px’,
+})
+
+const buttonStyle = createButtonStyleFromTheme(theme)
+
+export const Button = (props) => (
+ <button style={buttonStyle}>{props.children}</button>
+)

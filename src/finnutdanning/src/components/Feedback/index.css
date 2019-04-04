@@ -1,0 +1,16 @@
+.feilmelding{
+    z-index:99;
+    text-decoration: none;
+    top:90%;
+    left:95%;
+    position: fixed;
+}
+
+.feilmelding:hover{
+    opacity:0.7;
+}
+
+.feedbackContent{
+    margin-top:85px;
+    text-align: center;
+}

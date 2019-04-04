@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
 import { withFirebase } from '../Firebase';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const INITIAL_STATE = {
     passwordOne: '',
@@ -21,7 +22,8 @@ class PasswordChangeForm extends Component {
         this.props.firebase
             .doPasswordUpdate(passwordOne)
             .then(() => {
-                this.setState({ ...INITIAL_STATE });
+                this.setState({ ...INITIAL_STATE,
+                error:  {message:"Passord er endret"}});
             })
             .catch(error => {
                 this.setState({ error });
@@ -42,23 +44,26 @@ class PasswordChangeForm extends Component {
 
         return (
             <form onSubmit={this.onSubmit}>
-                <input
+                <TextField
+                    variant="outlined"
                     name="passwordOne"
                     value={passwordOne}
                     onChange={this.onChange}
                     type="password"
-                    placeholder="Nytt passord"
-                />
-                <input
+                    label="Nytt passord"
+                /><br/>
+                <TextField
+                    variant="outlined"
                     name="passwordTwo"
                     value={passwordTwo}
+                    style={{marginTop:10}}
                     onChange={this.onChange}
                     type="password"
-                    placeholder="Bekreft nytt passord"
-                />
-                <button disabled={isInvalid} type="submit">
+                    label="Bekreft nytt passord"
+                /> <br/>
+                <Button variant="contained" style={{padding:15,marginTop:10}} disabled={isInvalid} type="submit">
                     Sett nytt passord
-                </button>
+                </Button>
 
                 {error && <p>{error.message}</p>}
             </form>

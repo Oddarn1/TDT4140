@@ -1,0 +1,28 @@
+.results {
+    text-align: center;
+    width: 100%;
+}
+
+.center{
+    margin-top: 5%;
+    text-align: center;
+    width: 100%;
+}
+
+.studylist{
+    width: 30%;
+    display: inline-block;
+}
+
+.listElem{
+    width:100%;
+    display: inherit;
+}
+
+.study{
+    float:left;
+}
+
+.weight{
+    float:right;
+}

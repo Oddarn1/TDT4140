@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {withAuthorization} from '../Session';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
 
 class DeleteInterest extends Component{
     constructor(props){
@@ -14,6 +17,7 @@ class DeleteInterest extends Component{
         this.deleteConfirm=this.deleteConfirm.bind(this);
     }
 
+    //Leser inn alle interesser i databasen når komponenten mountes
     componentDidMount(){
         this.setState({loading:false});
         this.props.firebase.interests().on('value',snapshot=>{
@@ -28,19 +32,23 @@ class DeleteInterest extends Component{
         )
     }
 
+    //Avbryter sletting
     cancel(event){
         event.preventDefault();
         this.setState({selectedInterest:null});
     }
 
+    //Fjerner lytter på databasen ved unmount for å unngå memory-leaks
     componentWillUnmount(){
         this.props.firebase.interests().off();
     }
 
+    //Setter valgt interesse til state, får prompt om "Vil du virkelig slette.."
     deleteInterest(event){
-        this.setState({selectedInterest:this.state.interests[event.target.value]});
+        this.setState({selectedInterest:this.state.interests[event.currentTarget.value]});
     }
 
+    //Bekrefter sletting, fjerner denne fra databasen og nullstiller valget av interesse.
     deleteConfirm(event){
         event.preventDefault();
         this.props.firebase.interest(this.state.selectedInterest.interestName).remove()
@@ -48,11 +56,14 @@ class DeleteInterest extends Component{
             .catch(error=>console.log(error))
     }
 
+    //Mapper interesser til knapper som kan velges
     InterestList({interests}){
         return(
             <div className="interestChange">
                 {interests.map((interest,index)=>
-                    <button name="mapping" value={index} onClick={this.deleteInterest}>{interest.interestName}</button>
+                    <Button name="mapping" value={index} onClick={this.deleteInterest} variant="contained" style={{margin:10}} >
+                        {interest.interestName}
+                    </Button>
                 )}
             </div>)
     }
@@ -66,9 +77,16 @@ class DeleteInterest extends Component{
                 {interestList}
                 {selectedInterest&&
                 <div>
-                   <h3 style={{color:"red"}}>Er du sikker på at du ønsker å slette {selectedInterest.interestName}</h3>
-                    <button onClick={this.deleteConfirm}>Bekreft</button>
-                    &nbsp;<button onClick={this.cancel}>Avbryt</button>
+                    <Typography component="h3" variant = "h6" gutterBottom style = {{padding: 24, color:"red"}}>
+                        Er du sikker på at du ønsker å slette {selectedInterest.interestName}?
+                    </Typography>
+                    <Button variant="contained" onClick={this.deleteConfirm} style={{padding:5, margin:24}}>
+                        Bekreft
+                    </Button>
+                    &nbsp;
+                    <Button variant="contained" onClick={this.cancel} style={{padding:5}}>
+                        Avbryt
+                    </Button>
                 </div>}
             </div>
         )

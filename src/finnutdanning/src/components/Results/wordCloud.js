@@ -1,6 +1,7 @@
 import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import {withFirebase} from '../Firebase';
+import Typography from '@material-ui/core/Typography';
 
 class InterestCloud extends React.Component {
 
@@ -31,7 +32,7 @@ class InterestCloud extends React.Component {
 
   render() {
 
-    const {interests, loading}=this.state;
+    const {interests}=this.state;
 
 
     var interestList = [];
@@ -44,22 +45,20 @@ class InterestCloud extends React.Component {
           value: interests[key]["hits"]
         });
       });
-    };
+    }
 
     // Beregning av størrelse ut i fra verdiene.
-    //const fontSizeMapper = word => Math.log2(word.value) * 5;
-    const fontSizeMapper = word => word.value;
+    const fontSizeMapper = word => Math.pow((Math.log2(word.value)), 2);
+    //const fontSizeMapper = word => word.value;
 
-    // Vet ikke enda hva denne er for
-    document.getElementById('root')
+    // Skriver til det ene elementet vi har i HTML-filen vår :)
+    document.getElementById('root');
 
     return(
       <div>
-      {loading && <div>Loading ...</div>}
-      {!loading && <h1>Resultat: </h1>}
-      </div>,
-      <div>
-          <h1>Mest valgte interesser</h1>
+          <Typography component="h2" variant = "h4" gutterBottom style = {{padding: 15}}>
+                Mest valgte interesser
+          </Typography>
         <WordCloud
           data={interestList}
           fontSizeMapper={fontSizeMapper}
@@ -68,6 +67,6 @@ class InterestCloud extends React.Component {
       </div>
     );
   };
-};
+}
 
 export default withFirebase(InterestCloud);

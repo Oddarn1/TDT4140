@@ -1,11 +1,66 @@
-.header {
+.header{
+    width:100%;
+    display: inline-block;
+    height: 65px;
+    background-color:#3F51B5;
+    top: 0;
     position: fixed;
-    height: 100px;
-    opacity: 50%;
-    width: max-content;
+    z-index:99;
 }
 
-link {
+.header Link{
+    clear:right;
+}
+
+.header button {
+    height:65px;
+    font-size: 15px;
+    padding-right: 20px;
+    padding-left:20px;
+    background-color: #3F51B5;
+    color: white;
+    float:left;
+    border: none;
+    outline: none;
+}
+
+.header .signout{
+    padding: 24px;
+    font-size: 15px;
+    background-color: #3F51B5;
+    color: white;
+    float:right;
+    border: none;
+    outline: none;
+}
+
+.header .signin{
+    padding: 24px 32px;
+    font-size: 15px;
+    background-color: #3F51B5;
+    color: white;
     float: right;
-    padding: 20px 16px;
+    border: none;
+    outline: none;
+}
+
+.header button:hover{
+    background-color: #1c80e5;
+}
+
+.logo{
+    height: 65px;
+    float: left;
+}
+
+.loggetinn{
+    margin-top:1.5%;
+    margin-right: 10px;
+    font-size: 10px;
+    float:right;
+    color: white;
+}
+
+.account{
+    float:right;
 }

@@ -3,10 +3,17 @@ import { Link } from 'react-router-dom';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import './index.css';
+
+/*For SignIn, SignOut, SignUp, PasswordForget, Session, Firebase, Account har vi fulgt tutorial på:
+* https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/ */
 
 const PasswordForgetPage = () => (
-    <div>
-        <h1>Glemt passord</h1>
+    <div className="passwordForgetForm">
+        <Typography variant="h4" gutterBottom style={{padding:15}}>Glemt passord</Typography>
         <PasswordForgetForm />
     </div>
 );
@@ -49,16 +56,20 @@ class PasswordForgetFormBase extends Component {
 
         return (
             <form onSubmit={this.onSubmit}>
-                <input
+                <TextField
+                    label={"Epost-adresse"}
+                    style={{color:"#3F51B5",margin:10,width: "30%"}}
+                    variant={"outlined"} className="userField"
                     name="email"
                     value={this.state.email}
                     onChange={this.onChange}
                     type="text"
-                    placeholder="Epost-adresse"
                 />
-                <button disabled={isInvalid} type="submit">
+                <br/>
+                <Button  className="resetPass" variant="contained" style={{padding:15,marginTop:25}}
+                         type="submit" disabled={isInvalid}>
                     Nullstill passordet mitt
-                </button>
+                </Button>
 
                 {error && <p>{error.message}</p>}
             </form>
@@ -67,9 +78,9 @@ class PasswordForgetFormBase extends Component {
 }
 
 const PasswordForgetLink = () => (
-    <p>
+    <Typography variant="body1" style={{padding:15}} gutterBottom>
         <Link to={ROUTES.PASSWORDFORGET}>Glemt passord?</Link>
-    </p>
+    </Typography>
 );
 
 export default PasswordForgetPage;
