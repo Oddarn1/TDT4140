@@ -30,6 +30,7 @@ class PasswordForgetFormBase extends Component {
         this.state = { ...INITIAL_STATE };
     }
 
+    //Firebase har innebygd funksjon for å sende ut epost for glemt passord. Leser inn epost på bruker med glemt passord i funksjon
     onSubmit = event => {
         const { email } = this.state;
 

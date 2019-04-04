@@ -5,6 +5,8 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import Firebase,{FirebaseContext} from './components/Firebase';
 
+
+//Laster inn alt i App-komponenten, og kobler dette mot root-elementet i index.html
 ReactDOM.render(
     <FirebaseContext.Provider value={new Firebase()}>
         <App />

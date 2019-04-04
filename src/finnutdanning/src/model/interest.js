@@ -1,3 +1,5 @@
+//Modell for struktur av interesse-objekt i databasen.
+
 module.export = class Interest {
 
   name;

@@ -78,6 +78,7 @@ class Messages extends Component {
             ).catch(error=>console.log(error))*/
     }
 
+    //Henter ut siste melding i alle samtaler, legges i state.messages for å displaye
     getMessageFromID(){
         const convs=this.state.conversations.reverse();
         const messagepromises=convs.map(conv=>{
@@ -99,6 +100,7 @@ class Messages extends Component {
         this.props.firebase.users().off();
     }
 
+    //Denne funksjonen bruker for øyeblikket ikke, ment å implementere en sortering etter lest/ulest
     sortConversations(){
         const conversations=[];
         this.state.conversations.map(conv=>{
@@ -160,6 +162,7 @@ class Messages extends Component {
                 .catch(error => console.log(error))
     }}
 
+    //Setter strengen som skal vises i innboksen, forkortes dersom den er for lang og får ... for å indikere at den er lengre
     messageDisplay(message){
         let content=message.content.length>=32?message.content.substr(0,29)+"...":message.content;
         if (message.senderid===this.props.authUser.uid){
@@ -222,6 +225,8 @@ class Messages extends Component {
                 </div>
                 {!this.state.messageToggle &&
                 <div className="messageWindow">
+                    {/*Dersom det er blitt valgt en samtale blir samtalen rendered med listen over meldinger i samtalen
+                    sendt som prop.*/}
                     {this.state.activeMessages ?
                         <Inbox updateParent={this.update} key={this.state.renderCount}
                                conversation={this.state.activeMessages}/>

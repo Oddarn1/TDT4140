@@ -7,7 +7,7 @@ import * as ROLES from '../../constants/roles';
 import SignOut from "../SignOut";
 import img from "./finnutdanning.png";
 
-
+//Innlogget bruker får se denne navbaren
 const NavigationAuth = ({authUser}) => (
             <div className="header">
                 <Link to={ROUTES.LANDING}>
@@ -19,6 +19,7 @@ const NavigationAuth = ({authUser}) => (
                 <Link to={ROUTES.MESSAGES}>
                     <button> Meldinger</button>
                 </Link>
+                {/*Dersom bruker er Admin får de lenke til admin i navbar*/}
                 {authUser.role === ROLES.ADMIN &&
                 <Link to={ROUTES.ADMIN}>
                     <button> Admin </button>
@@ -56,6 +57,7 @@ const NavigationAuth = ({authUser}) => (
         );
 
 
+//Dersom bruker ikke er logget inn får de denne navbaren med begrenset funksjonalitet
 const NavigationNonAuth = () => (
     <div className="header">
         <Link to={ROUTES.LANDING}>

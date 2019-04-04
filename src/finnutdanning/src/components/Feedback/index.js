@@ -42,6 +42,7 @@ class Feedback extends Component{
          if (from === ''){
            sender = 'Anonym';
          } else {
+             //Foreløpig er kontrollsjekken kun på om det er tastet inn en @ i eposten, benyttes i sortering av meldinger
              if (!from.includes("@")&&!this.props.firebase.auth.currentUser){
                  this.setState({
                      error:"Feltet må inneholde en epost-adresse eller være tomt."
@@ -54,6 +55,7 @@ class Feedback extends Component{
          const read = 0;
          const first = true;
          const recpid = to;
+         //Legger til ny melding i firebase
          this.props.firebase.messages().push({senderid, recpid, content, read, first})
          .then(() => {
            this.setState({...INITIAL_STATE});
@@ -110,6 +112,7 @@ class Feedback extends Component{
   }
 }
 
+//Komponenten som ligger i høyre hjørne av alle sider
 const FeedbackButton=()=>(
     <Link className="feilmelding" to={ROUTES.FEEDBACK}>
         <Fab style={{backgroundColor:"#3F51B5",color:"white"}}>

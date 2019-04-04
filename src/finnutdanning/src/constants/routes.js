@@ -1,4 +1,4 @@
-/*Constants for defining rendering of routes in the application*/
+//Konstanter for å kontrollere routes i programmet
 
 export const LANDING='/';
 export const ADMIN='/admin';

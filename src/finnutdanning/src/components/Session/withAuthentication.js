@@ -13,6 +13,7 @@ const withAuthentication = Component => {
             };
         }
 
+        //Leser inn om bruker er logget inn eller ikke
         componentDidMount() {
             this.listener = this.props.firebase.onAuthUserListener(
                 authUser => {
@@ -24,10 +25,12 @@ const withAuthentication = Component => {
             );
         }
 
+        //Fjerner listener
         componentWillUnmount() {
             this.listener();
         }
 
+        //Returnerer komponenten, men med Provider rundt. Dette gjør det mulig å hente ut authUser fra props
         render() {
             return (
                 <AuthUserContext.Provider value={this.state.authUser}>

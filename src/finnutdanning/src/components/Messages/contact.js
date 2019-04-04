@@ -11,7 +11,8 @@ class ContactCouncellor extends Component {
 
     }
 
-    contact(event) {
+    //Sender bruker til ny-melding dersom logget inn, hvis ikke ->logg inn.
+    contact() {
         this.props.authUser.role === roles.USER ?
         this.props.history.push(routes.NEWMESSAGE) :
         this.props.history.push(routes.SIGNIN);

@@ -47,13 +47,17 @@ class InterestCloud extends React.Component {
       });
     }
 
-    // Beregning av størrelse ut i fra verdiene.
+    // Beregning av størrelse ut i fra verdiene. Denne metoden gjør at noen ord ikke blir å stor at de ikke vises i ordskyen.
     const fontSizeMapper = word => Math.pow((Math.log2(word.value)), 2);
+
+    //MAINTAINER: Dersom du kommenterer ut linjen over, og fjerner "//" slik at linjen under blir en kode, så vil verdiene til ordene blir nøyaktig det de er. Altså hvor mange hits de har på databasen.
     //const fontSizeMapper = word => word.value;
 
     // Skriver til det ene elementet vi har i HTML-filen vår :)
     document.getElementById('root');
-
+    /**MAINTAINER: Under "height" kan du endre den fastsatte høyden på ordskyen.
+    Husk dersom du setter "width" også kan det hende at ordskyen ser skviset/dratt ut. Anbefales kun å bruke en av disse parameterne.
+    */
     return(
       <div>
           <Typography component="h2" variant = "h4" gutterBottom style = {{padding: 15}}>
