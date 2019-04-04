@@ -3,6 +3,8 @@ import {withFirebase} from '../Firebase';
 import * as ROLES from '../../constants/roles';
 import firebase from 'firebase';
 
+/*I denne komponenten er det lurt inn en del "hacky" løsninger på problemer, proceed with caution*/
+
 /*Oppretter en secondary konfigurasjon av firebase-appen. Dette gjøres for at admin ikke skal bli logget ut ved registrering
 * av ny bruker i verktøyet.*/
 const config = {
@@ -62,7 +64,7 @@ class Register extends Component {
     submit=event=> {
         const {email, fullName, role} = this.state;
         const pass=this.generatePass();
-        //Oppretter bruker med det genererte passordet
+        //Oppretter bruker i firebase-auth med det genererte passordet
         secondaryApp.auth().createUserWithEmailAndPassword(email,pass)
             .then(authUser => {
                 //Skriver bruker til firebase for å synkronisere dette mot autentiseringen

@@ -68,9 +68,11 @@ class Admin extends Component {
     nameSearch(event){
         this.props.firebase.db.ref("users").orderByChild("fullName").startAt(event.target.value)
             .endAt(event.target.value+"\uf8ff").on('value', snapshot => {
-            const usersObject = snapshot.val();
-            let usersList;
-            if (usersObject===null){
+                //Tar inn en snapshot fra databasen, snapshot.val() returnerer et objekt av objekter, og må mappes til en liste
+                //for vårt formål
+                const usersObject = snapshot.val();
+                let usersList;
+                if (usersObject===null){
                 usersList=[];
                 this.setState({users:usersList,
                     loading: false,});
@@ -78,6 +80,9 @@ class Admin extends Component {
             }
 
             usersList = Object.keys(usersObject).map(key => ({
+                //Henter ut på nøkler i objektet, dette vil være bruker-id som er lagret i firebase.
+                //Alle verdier under bruker-iden lagres fremdeles som et objekt, men blir nå mappet til en liste av
+                //objekter.
                 ...usersObject[key],
                 uid: key,
             }));
@@ -131,23 +136,25 @@ class Admin extends Component {
             for (var n=0;n<4;n++){
                 if (this.userStates[n][i].checked){
                     role=this.stateList[n];
+                    //Henter ut riktig rolle ut fra index på hvilken checkbox som er markert.
+                    //Dersom flere er markert vil den siste av de valgte i arrayet bli stående som rolle, bevarer da hierarkiet
                 }
             }
             if (role===null){
                 this.setState({error:"User "+users[i].uid+" must have a role!"});
-                return;
+                return; //Ikke skriv til firebase før alle har en rolle.
             }
-            //Skriver til firebase
+            //Skriver til firebase på iden til brukere
             this.props.firebase.users().ref.child(users[i].uid).update({
                 role
             })
-                .then(this.setState({error: null}))
+                .then(this.setState({error: null})) //Bruker callbacket til å sette errormeldingen tom
                 .catch(error=>
-                {this.setState(error)})
+                {this.setState(error)}) //Dersom error, logg til konsollen for å kunne debugge
         }
     }
 
-    //Lister alle innleste brukere.
+    //Lister alle innleste brukere, følger søkefunksjonen.
     UserList ({users}) {
         return (
             <ul>
@@ -172,8 +179,8 @@ class Admin extends Component {
                         <input type="checkbox"
                                name="role"
                                value={ROLES.USER}
-                               defaultChecked={this.state.users[index].role === ROLES.USER}
-                               ref={(ref) => this.userStates[0][index] = ref}
+                               defaultChecked={this.state.users[index].role === ROLES.USER} //Leser inn rolle som bruker er registrert med
+                               ref={(ref) => this.userStates[0][index] = ref} //Oppretter en ref i userstates-arrayet for å kunne hente ut om en checkbox er merket
                         />
 
                         <label> Veileder&nbsp;</label>

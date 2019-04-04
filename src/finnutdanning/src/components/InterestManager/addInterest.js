@@ -69,7 +69,7 @@ class AddInterest extends Component{
                                variant={"outlined"} name="interest" type="text" onChange={this.interestChange} value={this.state.interest} placeholder="Interesse"/><br/>
                     <Typography variant="display1" gutterBottom style={{paddingTop:10}}>Studieretninger: </Typography>
                     {inputMap}
-                    <Button variant="contained" style={{padding:15,marginTop:10}} disabled={!isValid}>Legg til</Button>
+                    <Button type="submit" variant="contained" style={{padding:15,marginTop:10}} disabled={!isValid}>Legg til</Button>
                 </form>
             </div>
         )
