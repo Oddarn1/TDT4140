@@ -1,13 +1,10 @@
 ﻿## Kjøre koden første gang lokalt
 
-For å kjøre koden må node.js lastes ned: 
-https://nodejs.org/en/
-
 For å kjøre koden må node.js lastes ned:
 https://nodejs.org/en/
-Dette laster også ned npm package manager som brukes for å lage production builds og kjøre kode lokalt.
+*Dette laster også ned npm package manager som brukes for å lage production builds og kjøre kode lokalt.*
 Etter installering:
-- åpne terminal/kommandolinje og skriv "npm". Om du ikke får feilmeldinger kan du gå videre.
+- Åpne terminal/kommandolinje og skriv `npm`. Om du ikke får feilmeldinger kan du gå videre.
 Ved feil må du endre miljøvariabler og legge til bin-mappen i installasjonsmappen til npm i path. For hjelp til dette se: [finn inn link]
 
 Ferdig node-installasjon:/"sååå"
@@ -15,13 +12,13 @@ I terminal/kommandolinje: naviger til mappen /src/finnutdanning/ ved hjelp av ko
 	`cd src/finnutdanning`
 Du vil nå være i root-folderen for prosjektet, finnutdanning.
  
-**Grunnen til at det må navigeres inn i root-folder oppstod ved opprettelse av prosjektet,
-og vi har enda til gode å finne en god løsning på å trekke root-folderen ut av git-mappen uten å miste funksjonalitet for git-synkronisering.**
+*Grunnen til at det må navigeres inn i root-folder oppstod ved opprettelse av prosjektet,
+og vi har enda til gode å finne en god løsning på å trekke root-folderen ut av git-mappen uten å miste funksjonalitet for git-synkronisering.*
 
 ### Etter hver nye pull fra git:
 For å installere alle dependencies i prosjektet som trengs for å kjøre programmet må du kjøre kommandoen: 
 	`npm install`
-**Dette legger til alle dependencies som er listet i package.json, og kan ta litt tid.**
+*Dette legger til alle dependencies som er listet i package.json, og kan ta litt tid.*
 
 Nå kan du kjøre programmet slik:
 Bruk kommandoen `npm run-script start`
