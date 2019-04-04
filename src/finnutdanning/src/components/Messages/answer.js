@@ -16,16 +16,20 @@ class Answer extends Component{
     }
 
 
+    //Svaring på melding i meldingsboks
     submit(event){
         event.preventDefault();
         const conv=this.props.conversation;
+        //Setter innholdet i meldingen etter hvordan de lagres i firebase
         const message={
             content:this.state.answerText,
             first:false,
+            //Sørger for at andre deltager i samtale står som mottaker
             recpid:this.props.authUser.uid===conv['participant1']?conv['participant2']:conv['participant1'],
             senderid: this.props.authUser.uid,
             read:0
         };
+        //Oppdaterer firebase, legger melding til i samtale-objektet i firebase
         const key=this.props.firebase.messages().push(message).key;
         conv['msgids'].push(key);
         this.props.firebase.conversation(conv['convid']).update({
@@ -33,10 +37,13 @@ class Answer extends Component{
             })
             .catch(error=>console.log(error));
         this.setState({answerText:""});
+        //Kaller en funksjon fra foreldre-komponenten for å tvinge reload av komponent, slik at melding
+        // dukker opp umiddelbart i meldingsfelt
         this.props.update();
     }
 
 
+    //Oppdaterer state fortløpende
     onChange(event){
         event.preventDefault();
         this.setState({[event.target.name]:event.target.value})

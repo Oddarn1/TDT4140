@@ -1,3 +1,5 @@
+//Starten på mulighet til å velge fargetema, følges opp videre.
+
 // theme.js - Our core theme
 const theme = {
   button: {

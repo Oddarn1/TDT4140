@@ -37,10 +37,12 @@ class SignInFormBase extends Component {
         this.state = { ...INITIAL_STATE };
     }
 
+    //Kalles ved innlogging
     onSubmit = event => {
         const { email, password } = this.state;
 
         this.props.firebase
+            //Innebygde funksjoner i firebase tar seg av autentisering
             .doSignInWithEmailAndPassword(email, password)
             .then(() => {
                 this.setState({ ...INITIAL_STATE });

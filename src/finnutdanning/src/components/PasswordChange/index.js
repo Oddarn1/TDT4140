@@ -16,6 +16,7 @@ class PasswordChangeForm extends Component {
         this.state = { ...INITIAL_STATE };
     }
 
+    //Dersom passord stemmer overens kan de submittes, skriver til firebase Auth at passord skal oppdateres på innlogget bruker
     onSubmit = event => {
         const { passwordOne } = this.state;
 

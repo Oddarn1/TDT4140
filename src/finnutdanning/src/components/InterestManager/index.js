@@ -7,6 +7,7 @@ import RemoveStudies from "./removeStudies";
 import MappingManager from "./manageMapping";
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import * as ROLES from '../../constants/roles';
 import './index.css';
 
 class InterestManager extends Component{
@@ -91,6 +92,6 @@ class InterestManager extends Component{
     }
 }
 
-const condition=authUser=>! !authUser; {/*authUser.role!==ROLES.USER*/}
+const condition=authUser=>authUser&&authUser.role!==ROLES.USER;
 
 export default withAuthorization(condition)(InterestManager);

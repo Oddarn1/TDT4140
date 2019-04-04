@@ -10,6 +10,7 @@ class AdminMessage extends Component{
         }
     }
 
+    //Leser inn alle meldinger som står til "Alle", dette settes på meldinger fra Admin
     componentDidMount(){
         let messages=[];
         this.props.firebase.messages().orderByChild("recpid").equalTo("Alle").once('value',s=> {
@@ -25,15 +26,18 @@ class AdminMessage extends Component{
         }).catch(error=>console.log(error))
     }
 
+    //Fjerner listener til firebase
     componentWillUnmount(){
         this.props.firebase.messages().off();
     }
 
+    //Viser meldingsinnhold i tekstboksen
     showMessage=event=>{
         this.setState({content:this.state.messages[event.target.value].content});
     };
 
 
+    //Mapper meldingene til knapper som kaller showMessage
     MessageList({messages}){
         return(
             <div>

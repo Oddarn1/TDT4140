@@ -76,5 +76,5 @@ class AddInterest extends Component{
     }
 }
 
-const condition=authUser=>! !authUser; {/*authUser.role===ROLES.COUNSELOR||authUser.role===ROLES.EMPLOYEE;*/}
+const condition=authUser=>! !authUser; {/*authUser&&(authUser.role===ROLES.COUNSELOR||authUser.role===ROLES.ADMIN);*/}
 export default withAuthorization(condition)(AddInterest);
