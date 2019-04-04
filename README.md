@@ -18,7 +18,7 @@ og vi har enda til gode å finne en god løsning på å trekke root-folderen ut 
 ### Etter hver nye pull fra git:
 For å installere alle dependencies i prosjektet som trengs for å kjøre programmet må du kjøre kommandoen: 
 	`npm install`
-*Dette legger til alle dependencies som er listet i package.json, og kan ta litt tid.*
+Dette legger til alle dependencies som er listet i package.json, og kan ta litt tid.
 
 Nå kan du kjøre programmet slik:
 Bruk kommandoen `npm run-script start`
