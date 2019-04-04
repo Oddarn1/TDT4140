@@ -24,7 +24,7 @@ Nå kan du kjøre programmet slik:
 Bruk kommandoen `npm run-script start`
 Du kan bli bedt om å gi nettverkstilganger, for å gjøre dette må du ha administratorrettigheter på maskinen din. Programmet trenger nettilgang for å kommunisere med databasen.
 
-Du finner nå siden på (http://localhost:3000/). Porten til localhost kan variere, men `run-script` vil på de fleste maskiner åpne nettsiden automatisk. Siden vil få live-updates fra endringer i koden, men [fyll inn det der med versjonsnummer].
+Du finner nå siden på http://localhost:3000/. Porten til localhost kan variere, men `run-script` vil på de fleste maskiner åpne nettsiden automatisk. Siden vil få live-updates fra endringer i koden, men [fyll inn det der med versjonsnummer].
 
 ## Kjøre tester
 
@@ -77,7 +77,7 @@ på "Hosting" i konsollen, og bla til du finner "finnutdanning release history".
 Vi har hentet et datasett fra https://data.norge.no/ som inneholder en beskrivelse av over 350 ulike utdanninger. Utdanningene er skrevet av redaksjonen hos utdanning.no.
 Datasettet er en .xml-fil og lister alle studieretningene i Atom-format.
 
-En direkte link til ressursen: (https://utdanning.no/data/atom/utdanningsbeskrivelse)
+En direkte link til ressursen: https://utdanning.no/data/atom/utdanningsbeskrivelse
 
 **Metode for å hente ut studieretningene:**
 1. Finn en xml-viwer (F.eks. https://countwordsfree.com/xmlviewer) (Dokumentet er stort, så en side som er effektiv vil være nyttig).
