@@ -50,6 +50,7 @@ const App =()=>(
                 {/*Dersom ingen av routes over er gjenkjent blir man omdirigert til 404 Not Found*/}
                 <Route component={NotFound}/>
             </Switch>
+                {/*"Meld feil"-knappen ligger alltid nede i høyre hjørne på siden.*/}
             <FeedbackButton/>
             </div>
         </div>

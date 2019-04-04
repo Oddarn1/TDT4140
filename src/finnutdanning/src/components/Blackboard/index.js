@@ -116,7 +116,7 @@ class Blackboard extends Component {
           read: 0
       });
     }}catch(error){
-    console.log("Hva prøver du på egentlig?")}
+    console.log(error)}
   }
 
   render() {

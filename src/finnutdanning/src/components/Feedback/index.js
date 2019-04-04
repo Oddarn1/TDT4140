@@ -15,8 +15,8 @@ import './index.css';
 const INITIAL_STATE = {
   to: "",
   from: "",
-  content: ""
-
+  content: "",
+    error:""
 };
 
 class Feedback extends Component{
@@ -32,6 +32,7 @@ class Feedback extends Component{
 
 
 
+       //Når meldingen sendes leses state inn og skrives til firebase
        onSubmit = event => {
          event.preventDefault();
          let {content, to, from} = this.state;
@@ -41,6 +42,12 @@ class Feedback extends Component{
          if (from === ''){
            sender = 'Anonym';
          } else {
+             if (!from.includes("@")&&!this.props.firebase.auth.currentUser){
+                 this.setState({
+                     error:"Feltet må inneholde en epost-adresse eller være tomt."
+                 });
+                 return;
+             }
            sender = from;
          }
          const senderid = sender;
@@ -77,7 +84,8 @@ class Feedback extends Component{
               name="from"
                      style={{color:"#3F51B5",margin:10,width: "30%"}}
                      variant="outlined"
-              />
+              /><br/>
+          {this.state.error!==""&&<Typography variant="body1" gutterBottom style={{color:"red"}}>{this.state.error}</Typography>}
               {this.props.firebase.auth.currentUser ? null:
                   <Typography variant="body1" gutterBottom> Fyll inn eposten din dersom du ønsker å bli kontaktet angående feilen du melder, <br/>
                   hvis ikke lar du epost-feltet stå tomt.</Typography>}

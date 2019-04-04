@@ -38,6 +38,6 @@ class ThemeChanger extends Component {
 }
 
 
-/*withFirebase er en Higher Order Component som "wrapper" klassen med funksonalitet for aksess til firebase på f.eks. formen
+/*withFirebase er en Higher Order Component som "wrapper" klassen med funksonalitet for aksess til firebase gjennom
 * this.props.firebase...*/
 export default withFirebase(ThemeChanger);

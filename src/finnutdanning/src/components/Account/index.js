@@ -35,5 +35,5 @@ const condition = authUser => ! !authUser;
 /*withAuthorization er en Higher Order Component som "wrapper" den eksporterte klassen med en condition som definert over.
 * Condition bestemmer hvilke sider en bruker har tilgang på, authUser=>! !authUser vil si at bruker må være logget inn for å se
 * siden.
-* withAuthorization gjør det også mulig å skrive til/fra firebase med enklere funksjoner.*/
+* withAuthorization gjør det også mulig å skrive til/fra firebase med this.props.firebase...*/
 export default withAuthorization(condition)(Account);
