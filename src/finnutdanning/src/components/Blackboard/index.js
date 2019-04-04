@@ -24,6 +24,9 @@ class Blackboard extends Component {
     };
   };
 
+  /**Under hentes følgende data: Brukerens rolle,
+  alle meldingene, og rollen til alle de som sendte meldingen.
+  */
   componentDidMount(){
     this.setState({ loading: true });
 
@@ -125,6 +128,7 @@ class Blackboard extends Component {
     console.log(sroles);
 
     var messageList = [];
+    // Dersom det er meldinger og antall tilhørende roller er det samme.
     if (Object.keys(messages).length !== 0 && Object.keys(sroles).length === Object.keys(messages).length) {
 
       Object.keys(messages).forEach(function (message) {
@@ -152,7 +156,9 @@ class Blackboard extends Component {
           }
       });
 
-      // Sortering av knappene meldingen:
+      /** Sortering av meldingene slik at veiledermeldingene kommer øverst
+      i vedlikeholdstavla.
+      */
       if (role === "Admin") {
         messageList.sort(function (a, b) {
           if ((a.srole !== "Veileder" && b.srole !== "Veileder") || a.srole === b.srole) {
