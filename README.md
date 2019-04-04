@@ -15,7 +15,7 @@ Du vil nå være i root-folderen for prosjektet, finnutdanning.
 *Grunnen til at det må navigeres inn i root-folder oppstod ved opprettelse av prosjektet,
 og vi har enda til gode å finne en god løsning på å trekke root-folderen ut av git-mappen uten å miste funksjonalitet for git-synkronisering.*
 
-### Etter hver nye pull fra git:
+** Etter hver nye pull fra git: **
 For å installere alle dependencies i prosjektet som trengs for å kjøre programmet må du kjøre kommandoen: 
 	`npm install`
 Dette legger til alle dependencies som er listet i package.json, og kan ta litt tid.
