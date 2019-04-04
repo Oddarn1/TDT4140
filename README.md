@@ -1,27 +1,33 @@
-## Kjøre koden første gang lokalt
+﻿## Kjøre koden første gang lokalt
 
 For å kjøre koden må node.js lastes ned: 
 https://nodejs.org/en/
 
-Ved installasjon følger også npm package manager. Npm benyttes for å lage production builds og kjøre kode lokalt.
+For å kjøre koden må node.js lastes ned:
+https://nodejs.org/en/
+Dette laster også ned npm package manager som brukes for å lage production builds og kjøre kode lokalt.
+Etter installering:
+- åpne terminal/kommandolinje og skriv "npm". Om du ikke får feilmeldinger kan du gå videre.
+Ved feil må du endre miljøvariabler og legge til bin-mappen i installasjonsmappen til npm i path. For hjelp til dette se: [finn inn link]
 
-Etter installering vil det kanskje være nødvendig å endre på miljøvariabler og legge til bin-mappen i installasjonsmappen til npm i path.
+Ferdig node-installasjon:/"sååå"
+I terminal/kommandolinje: naviger til mappen /src/finnutdanning/ ved hjelp av kommandoen 
+	`cd src/finnutdanning`
+Du vil nå være i root-folderen for prosjektet, finnutdanning.
+ 
+**Grunnen til at det må navigeres inn i root-folder oppstod ved opprettelse av prosjektet,
+og vi har enda til gode å finne en god løsning på å trekke root-folderen ut av git-mappen uten å miste funksjonalitet for git-synkronisering.**
 
-Etter installasjon vil det være nødvendig å navigere inn i mappen /src/finnutdanning/ ved hjelp av kommandoen `cd src/finnutdanning`.
+### Etter hver nye pull fra git:
+For å installere alle dependencies i prosjektet som trengs for å kjøre programmet må du kjøre kommandoen: 
+	`npm install`
+**Dette legger til alle dependencies som er listet i package.json, og kan ta litt tid.**
 
+Nå kan du kjøre programmet slik:
+Bruk kommandoen `npm run-script start`
+Du kan bli bedt om å gi nettverkstilganger, for å gjøre dette må du ha administratorrettigheter på maskinen din. Programmet trenger nettilgang for å kommunisere med databasen.
 
-Du vil nå være i root-folderen for prosjektet, finnutdanning. Grunnen til at det må navigeres inn i root-folder oppstod ved opprettelse av prosjektet,
-og vi har enda til gode å finne en god løsning på å trekke root-folderen ut av git-mappen uten å miste funksjonalitet for git-synkronisering.
-
-For å installere alle dependencies i prosjektet som er nødvendig for å kjøre programmet må du kjøre kommandoen: `npm install`
-
-Dette legger til alle dependencies som er listet i package.json.
-
-Etter at alle dependencies er installert er veien til å kjøre programmet lokalt kort.
-
-For å ha en localhost med nettsiden kjørende: Bruk kommandoen `npm run-script start`
-
-Etter dette vil du da ha en localhost på port 3000 (kan variere) (http://localhost:3000/) kjørende med live-updates fra endringer i koden. 
+Du finner nå siden på (http://localhost:3000/). Porten til localhost kan variere, men `run-script` vil på de fleste maskiner åpne nettsiden automatisk. Siden vil få live-updates fra endringer i koden, men [fyll inn det der med versjonsnummer].
 
 ## Kjøre tester
 
@@ -37,9 +43,9 @@ Med andre ord er det enkelt å kjøre testene: Det er for øyeblikket ingen å k
 
 ## Kjøre koden ved senere anledning
 
-Såfremt alle dependencies er installert i prosjektmappen er det kort vei til å kjøre koden på localhost.
-
-Naviger som tidligere inn i /src/finnutdanning/ og kjør så kommandoen `npm run-script start`
+Om alle dependencies er installert i prosjektmappen:
+Naviger som før til /src/finnutdanning/
+kjør så kommandoen `npm run-script start`
 
 Du vil nå kjøre koden igjen lokalt på http://localhost:3000/ .
 
@@ -60,10 +66,10 @@ Dette lager en statisk build av programvaren som er klar til å lastes opp på e
 
 I `package.json` er det definert at filmappen for deployment er /build. Dersom `"public"`-feltet i `package.json` ikke er `"build"`, så må dette settes til det før neste trinn.
 
-For å logge inn i prosjektet fra terminal må du kjøre kommandoen `firebase login`, for så å oppgi kredentialene du benytter til å logge inn i konsollen.
-Dette behøver ikke å gjentas for hver gang man ønsker å deploye.
+For å logge inn i prosjektet fra terminal må du kjøre kommandoen `firebase login`, for så å oppgi legitimasjon (credentials) du benytter til å logge inn i konsollen.
+Dette behøver ikke å gjentas for hver gang man vil deploye.
 
-Etter dette kan du nå kjøre kommandoen `firebase deploy` og den statiske builden som ble generert vil lastes til 
+Nå kan du kjøre kommandoen `firebase deploy` og den statiske builden som ble generert vil lastes til 
 https://finnutdanning.firebaseapp.com/ og oppdateres etter ca. 1 minutt. 
 
 I firebase-konsollen er det mulig å rulle tilbake til en av de siste 3 (kan endres) releasene om nødvendig. Dette gjøres ved å gå inn
@@ -74,7 +80,7 @@ på "Hosting" i konsollen, og bla til du finner "finnutdanning release history".
 Vi har hentet et datasett fra https://data.norge.no/ som inneholder en beskrivelse av over 350 ulike utdanninger. Utdanningene er skrevet av redaksjonen hos utdanning.no.
 Datasettet er en .xml-fil og lister alle studieretningene i Atom-format.
 
-En direkte link til ressursen: https://utdanning.no/data/atom/utdanningsbeskrivelse
+En direkte link til ressursen: (https://utdanning.no/data/atom/utdanningsbeskrivelse)
 
 **Metode for å hente ut studieretningene:**
 1. Finn en xml-viwer (F.eks. https://countwordsfree.com/xmlviewer) (Dokumentet er stort, så en side som er effektiv vil være nyttig).
@@ -95,7 +101,7 @@ kan sette en kobling til en interesse som vil dukke opp for brukere som vil søk
 
 **Instruksjon for å laste opp utdanningsretningene til databasen:**
 
-Det **anbefales** å ta en "export JSON" på hele databasen før dette gjøres, som et sikkerhetstiltak for å ha en backup.  
+Det **anbefales** å ta en "export JSON" på hele databasen før dette gjøres, som et sikkerhetstiltak for å ha en backup. 
 Dette valget finner du helt til høyre i menylinjen ved database-urlen.
 
 Link til databasen: [Her](https://console.firebase.google.com/project/finnutdanning/database/finnutdanning/data)
