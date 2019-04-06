@@ -5,9 +5,9 @@ https://nodejs.org/en/
 *Dette laster også ned npm package manager som brukes for å lage production builds og kjøre kode lokalt.*
 Etter installering:
 - Åpne terminal/kommandolinje og skriv `npm`. Om du ikke får feilmeldinger kan du gå videre.
-Ved feil må du endre miljøvariabler og legge til bin-mappen i installasjonsmappen til npm i path. For hjelp til dette se: [finn inn link]
+Ved feil må du endre miljøvariabler og legge til bin-mappen i installasjonsmappen til npm i path. For hjelp til dette se: https://docs.telerik.com/teststudio/features/test-runners/add-path-environment-variables (På punkt 5, bytt filbanen som er oppgitt til filbanen til npm på din maskin)
 
-Ferdig node-installasjon:/"sååå"
+Ferdig node-installasjon:
 I terminal/kommandolinje: naviger til mappen /src/finnutdanning/ ved hjelp av kommandoen 
 	`cd src/finnutdanning`
 Du vil nå være i root-folderen for prosjektet, finnutdanning.
@@ -15,7 +15,7 @@ Du vil nå være i root-folderen for prosjektet, finnutdanning.
 *Grunnen til at det må navigeres inn i root-folder oppstod ved opprettelse av prosjektet,
 og vi har enda til gode å finne en god løsning på å trekke root-folderen ut av git-mappen uten å miste funksjonalitet for git-synkronisering.*
 
-** Etter hver nye pull fra git: **
+** Etter hver nye pull fra git som gjør endringer i package.json: **
 For å installere alle dependencies i prosjektet som trengs for å kjøre programmet må du kjøre kommandoen: 
 	`npm install`
 Dette legger til alle dependencies som er listet i package.json, og kan ta litt tid.
@@ -24,7 +24,7 @@ Nå kan du kjøre programmet slik:
 Bruk kommandoen `npm run-script start`
 Du kan bli bedt om å gi nettverkstilganger, for å gjøre dette må du ha administratorrettigheter på maskinen din. Programmet trenger nettilgang for å kommunisere med databasen.
 
-Du finner nå siden på http://localhost:3000/. Porten til localhost kan variere, men `run-script` vil på de fleste maskiner åpne nettsiden automatisk. Siden vil få live-updates fra endringer i koden, men [fyll inn det der med versjonsnummer].
+Du finner nå siden på http://localhost:3000/. Porten til localhost kan variere, men `run-script` vil på de fleste maskiner åpne nettsiden automatisk.
 
 ## Kjøre tester
 
