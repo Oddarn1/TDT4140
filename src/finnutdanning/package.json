@@ -1,6 +1,6 @@
 {
   "name": "finnutdanning",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage": "https://finnutdanning.firebaseapp.com",
   "private": false,
   "main": "index.js",
