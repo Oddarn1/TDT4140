@@ -1,4 +1,6 @@
-﻿## Kjøre koden første gang lokalt
+**Siste release av prosjektet ligger tilgjengelig på https://finnutdanning.firebaseapp.com/**
+
+## Kjøre koden første gang lokalt
 
 For å kjøre koden må node.js lastes ned:
 https://nodejs.org/en/
